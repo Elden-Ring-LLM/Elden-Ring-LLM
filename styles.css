@@ -1,0 +1,115 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: #ffffff;
+    margin: 0;
+    display: flex;
+}
+
+.container {
+    text-align: center;
+    margin: auto;
+}
+
+.sidebar {
+    width: 200px;
+    background-color: #1e1e1e;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar button {
+    background-color: #1e1e1e;
+    color: #ffffff;
+    border: none;
+    padding: 15px 20px;
+    text-align: left;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.sidebar button.active {
+    background-color: #333333;
+}
+
+.sidebar button:hover {
+    background-color: #333333;
+}
+
+.main-content {
+    flex: 1;
+    padding: 20px;
+}
+
+h2 {
+    color: #f0a500;
+}
+
+button {
+    background-color: #f0a500;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px 0;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #e09000;
+}
+
+.profile-selection, .attributes-section, .build-list, .boss-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.profile, .build, .boss {
+    background-color: #333333;
+    margin: 10px;
+    padding: 20px;
+    cursor: pointer;
+    border: 1px solid #555555;
+    width: 150px;
+    text-align: center;
+}
+
+.profile:hover, .build:hover, .boss:hover {
+    background-color: #555555;
+}
+
+.attributes-section {
+    display: flex;
+    justify-content: space-between;
+}
+
+.loaded-attributes {
+    background-color: #333333;
+    padding: 20px;
+    border: 1px solid #555555;
+}
+
+.loaded-attributes p {
+    margin: 10px 0;
+}
+
+.actions {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.attributes {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.attributes label {
+    margin: 10px 0;
+}
+
+.attributes input {
+    margin-left: 10px;
+}
