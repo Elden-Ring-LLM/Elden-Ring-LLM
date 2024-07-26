@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "browserify": "^17.0.0",
+    "buffer": "^6.0.3"
+  },
+  "name": "elden-ring-llm",
+  "version": "1.0.0",
+  "description": "<p align=\"center\" style=\"font-size: 2em; font-weight: bold;\">    <img align=\"center\" src=\"./assets/img/logo.webp\" /> </p> <div align=\"center\">",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,78 @@
+{
+  "armament": {
+    "Dagger": [],
+    "Straight Sword": [],
+    "Greatsword": [],
+    "Colossal Sword": [],
+    "Thrusting Sword": [],
+    "Heavy Thrusting Sword": [],
+    "Curved Sword": [],
+    "Curved Greatsword": [],
+    "Katana": [],
+    "Twinblade": [],
+    "Axe": [],
+    "Greataxe": [],
+    "Hammer": [],
+    "Flail": [],
+    "Great Hammer": [],
+    "Colossal Weapon": [],
+    "Spear": [],
+    "Great Spear": [],
+    "Halberd": [],
+    "Reaper": [],
+    "Whip": [],
+    "Fist": [],
+    "Claw": [],
+    "Light Bow": [],
+    "Bow": [],
+    "Greatbow": [],
+    "Crossbow": [],
+    "Ballista": [],
+    "Glintstone Staff": [],
+    "Sacred Seal": [],
+    "Torch": [],
+    "Small Shield": [],
+    "Medium Shield": [],
+    "Greatshield": [],
+    "Great Katana": [],
+    "Thrusting Shield": [],
+    "Backhand Blade": [],
+    "Throwing Blade": [],
+    "Hand-To-Hand": [],
+    "Perfume Bottle": [],
+    "Beast Claw": [],
+    "Light Greatsword": []
+
+
+
+
+
+  },
+  "armor": {
+    "Head": [],
+    "Body": [],
+    "Arms": [],
+    "Legs": []
+  },
+  "ashesOfWar": {
+    "Heavy": [],
+    "Keen": [],
+    "Quality": [],
+    "Magic": [],
+    "Fire": [],
+    "Flame Art": [],
+    "Lightning": [],
+    "Sacred": [],
+    "Poison": [],
+    "Blood": [],
+    "Cold": [],
+    "Occult": [],
+    "Standard": []
+  },
+  "magic": {
+    "Sorcery": [],
+    "Incantation": []
+  },
+  "spiritAshes": [],
+  "talisman": []
+}
