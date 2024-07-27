@@ -89,11 +89,12 @@ function generateJSON() {
   let jsonObject = {
     character: getNames(file_read)[0],
     steamID: getSteamId(file_read),
-    souls: getSouls(file_read),
-    soulsMemory: getSoulsMemory(file_read),
+    stats: get_stats(file_read, 0),
+    // souls: getSouls(file_read),
+    // soulsMemory: getSoulsMemory(file_read),
     level: getLevels(file_read)[0],
     playTime_Hrs: getPlayTimesInHrs(file_read)[0],
-    Attributes: getAttrs(file_read),
+    // Attributes: getAttrs(file_read),
     owned: result.owned,
     "not-owned": result["not-owned"],
     counter: result.counter
@@ -218,18 +219,110 @@ function getAttrs(file_read) {
   return stat;
 }
 
-function get_slot_ls(dat) {
-  let slot1 = dat.subarray(0x00000310, 0x0028030f + 1);
-  let slot2 = dat.subarray(0x00280320, 0x050031f + 1);
-  let slot3 = dat.subarray(0x500330, 0x78032f + 1);
-  let slot4 = dat.subarray(0x780340, 0xa0033f + 1);
-  let slot5 = dat.subarray(0xa00350, 0xc8034f + 1);
-  let slot6 = dat.subarray(0xc80360, 0xf0035f + 1);
-  let slot7 = dat.subarray(0xf00370, 0x118036f + 1);
-  let slot8 = dat.subarray(0x1180380, 0x140037f + 1);
-  let slot9 = dat.subarray(0x1400390, 0x168038f + 1);
-  let slot10 = dat.subarray(0x16803a0, 0x190039f + 1);
-  return [slot1, slot2, slot3, slot4, slot5, slot6, slot7, slot8, slot9, slot10];
+function get_slot_ls(data) {
+  const slots = [];
+  slots.push(data.slice(0x00000310, 0x0028030F + 1));
+  slots.push(data.slice(0x00280320, 0x050031F + 1));
+  slots.push(data.slice(0x0500330, 0x078032F + 1));
+  slots.push(data.slice(0x0780340, 0x0A0033F + 1));
+  slots.push(data.slice(0x0A00350, 0x0C8034F + 1));
+  slots.push(data.slice(0x0C80360, 0x0F0035F + 1));
+  slots.push(data.slice(0x0F00370, 0x118036F + 1));
+  slots.push(data.slice(0x1180380, 0x140037F + 1));
+  slots.push(data.slice(0x1400390, 0x168038F + 1));
+  slots.push(data.slice(0x16803A0, 0x190039F + 1));
+  return slots;
+  // let slot1 = dat.subarray(0x00000310, 0x0028030f + 1);
+  // let slot2 = dat.subarray(0x00280320, 0x050031f + 1);
+  // let slot3 = dat.subarray(0x500330, 0x78032f + 1);
+  // let slot4 = dat.subarray(0x780340, 0xa0033f + 1);
+  // let slot5 = dat.subarray(0xa00350, 0xc8034f + 1);
+  // let slot6 = dat.subarray(0xc80360, 0xf0035f + 1);
+  // let slot7 = dat.subarray(0xf00370, 0x118036f + 1);
+  // let slot8 = dat.subarray(0x1180380, 0x140037f + 1);
+  // let slot9 = dat.subarray(0x1400390, 0x168038f + 1);
+  // let slot10 = dat.subarray(0x16803a0, 0x190039f + 1);
+  // return [slot1, slot2, slot3, slot4, slot5, slot6, slot7, slot8, slot9, slot10];
+}
+
+function get_levels(file_read) {
+  const data = file_read;
+  const levels = [];
+  let index = 0x1901D0E + 34;
+  for (let i = 0; i < 10; i++) {
+      const level = data.slice(index, index + 2);
+      levels.push(l_endian(level));
+      index += 588;
+  }
+  return levels;
+}
+
+function get_stats(file_read, char_slot) {
+  try {
+      const lvls = get_levels(file_read);  // Get the levels of all characters
+      const lv = lvls[char_slot];  // Get the level of the specified character slot
+      const slots = get_slot_ls(file_read);  // Get the character slots
+      const slot1 = slots[char_slot];  // Get the slot data for the specified character slot
+      let start_ind = 0;
+      const indexes = [];  // List to store the indexes of the stats
+      let level_ind = 0;
+
+      for (let ind = 0; ind < slot1.byteLength; ind++) {
+        console.log("here");
+          if (ind > 120000) {
+              return null;
+          }
+
+          try {
+              // Extract the individual stats using little-endian encoding
+            const stats = [];
+            for (let i = 0; i < 29; i += 4) {
+                stats.push(l_endian(slot1.slice(ind + i, ind + i + 1)));
+            }
+
+            // Check if the sum of stats equals the level plus 79,
+            // and the level index matches the level
+            if (stats.reduce((a, b) => a + b, 0) === lv + 79 && l_endian(slot1.slice(ind + 44, ind + 46)) === lv) {
+                start_ind = ind;
+                level_ind = ind + 44;
+                break;
+            }
+
+          } catch (error) {
+              continue;
+          }
+      }
+
+      indexes.push(start_ind, start_ind + 4, start_ind + 8, start_ind + 12, start_ind + 16, start_ind + 20, start_ind + 24, start_ind + 28);
+      indexes.push(level_ind);
+      function get_stats_from_slot(start_index, offset, count) {
+          const stats = [];
+          for (let i = 0; i < count; i++) {
+              stats.push(l_endian(slot1.slice(start_index - offset + i * 4, start_index - offset + i * 4 + 2)));
+          }
+          return stats;
+      }
+
+      const hp = get_stats_from_slot(start_ind, 44, 3);
+      const stamina = get_stats_from_slot(start_ind, 16, 3);
+      const fp = get_stats_from_slot(start_ind, 32, 3);
+      const attrs = get_stats_from_slot(start_ind, 0, 12);
+      const souls = l_endian(slot1.slice(start_ind + 48, start_ind + 48 + 4))
+      const souls_memory = l_endian(slot1.slice(start_ind + 48 + 4, start_ind + 48 + 8))
+      const stats_names = ["HP", "max HP", "base max HP", "Stamina", "max Stamina", "base max Stamina", "FP", "max FP", "base max FP", 
+                          "Vigor", "Mind", "Endurance", "Strength", "Dexterity", "Intelligence", "Faith", "Arcane", "Placeholder Addr1", "Placeholder Addr2", 
+                          "Placeholder Addr3", "level", "souls", "souls memory"];
+      let stats = {};
+      const concat_lst = [...hp, ...stamina, ...fp, ...attrs, souls, souls_memory];
+      // console.log(hp);
+      for (let i = 0; i < stats_names.length; i++) {
+        let stats_name = stats_names[i];
+        stats[stats_name] = concat_lst[i];
+      }
+      return stats;
+  } catch (error) {
+      return null;
+  }
 }
 
 function subfinder(mylist, pattern) {
