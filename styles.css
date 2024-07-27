@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: white;
+    background-color: #E1F7F5;
     color: black;
     margin: 0;
     display: flex;
@@ -13,7 +13,7 @@ body {
 
 .sidebar {
     width: 15%;
-    background-color: #FDE2F3;
+    background-color: #9AC8CD;
     padding-top: 20px;
     display: flex;
     flex-direction: column;
@@ -21,8 +21,8 @@ body {
 }
 
 .sidebar button {
-    background-color: #E5BEEC;
-    color: #2A2F4F;
+    background-color: #1E0342;
+    color: #E1F7F5;
     border: none;
     width: 70%;
     border-radius: 8px;
@@ -34,13 +34,13 @@ body {
 }
 
 .sidebar button.active {
-    background-color: #2A2F4F;
+    background-color: #0E46A3;
     color: white;
     transform: scale(1.25);
 }
 
 .sidebar button:hover {
-    background-color: #2A2F4F;
+    background-color: #0E46A3;
     color: white;
     transform: scale(1.25);
     
@@ -52,11 +52,11 @@ body {
 }
 
 h2 {
-    color: #2A2F4F;
+    color: #0E46A3;
 }
 
 button {
-    background-color: #2A2F4F;
+    background-color: #0E46A3;
     color: white;
     border-radius: 8px;
     border: none;
