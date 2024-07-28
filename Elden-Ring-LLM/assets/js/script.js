@@ -12,6 +12,9 @@ let save_json = null;
 var all_items = null;
 var item_counter = null;
 var item_dict_template = null;
+let talismans_dictionary = null;
+let dlc_items_dictionary = null;
+let armors_dictionary = null;
 
 fileSelector.addEventListener("change", (event) => {
   // no file selected to read
@@ -90,11 +93,10 @@ function generateJSON() {
     character: getNames(file_read)[0],
     steamID: getSteamId(file_read),
     stats: get_stats(file_read, 0),
-    // souls: getSouls(file_read),
-    // soulsMemory: getSoulsMemory(file_read),
     level: getLevels(file_read)[0],
     playTime_Hrs: getPlayTimesInHrs(file_read)[0],
-    // Attributes: getAttrs(file_read),
+    equippedArmor: getEquippedArmor(file_read),
+    equippedTalismans: getEquippedTalismans(file_read),
     owned: result.owned,
     "not-owned": result["not-owned"],
     counter: result.counter
@@ -153,6 +155,18 @@ function getJsonFiles() {
 
   fetchJson("assets/json/item_counter.json", function (data) {
     item_counter = { ...data };
+  });
+
+  fetchJson("erdb/json/talismans.json", function (data) {
+    talismans_dictionary = { ...data };
+  });
+
+  fetchJson("erdb/json/dlc_items.json", function (data) {
+    dlc_items_dictionary = { ...data };
+  });
+
+  fetchJson("erdb/json/armor.json", function (data) {
+    armors_dictionary = { ...data };
   });
 }
 
@@ -219,6 +233,77 @@ function getAttrs(file_read) {
   return stat;
 }
 
+
+function getEquippedTalismans(file_read) {
+  const dat1 = file_read;
+  const talismanIds = [];
+  let idx = 0x01901ED0;
+  while (l_endian(dat1.slice(idx, idx + 2)) !== 0) {
+      const nm = dat1.slice(idx, idx + 2);
+      talismanIds.push(l_endian(nm));
+      idx += 4;
+  }
+  return talismanIds.map(id => getTalismanName(id));
+}
+
+function getTalismanName(id) {
+  const taliDb = talismans_dictionary;
+  for (const key in taliDb) {
+      if (taliDb[key]["id"] === id) {
+          return key;
+      }
+  }
+  const dlcDb = dlc_items_dictionary;
+  for (const key in dlcDb["talisman"]) {
+      if (key.endsWith(id.toString(16).toUpperCase())) {
+          return dlcDb["talisman"][key]["name"];
+      }
+  }
+  return null;
+}
+
+function getEquippedArmor(file_read) {
+    /**
+     * Takes an elden ring save file(.sl2) path.
+     *
+     * Args:
+     *     file: path to the file.
+     *
+     * Returns:
+     *     dict: dictionary of equipped armor, including head, chest, arms, legs
+     *
+     * Raises:
+     *     None.
+     */
+    const data = file_read;
+    let idx = 0x01901F14;
+    const armorNames = ['head', 'chest', 'arms', 'legs'];
+    const armors = {};
+
+    armorNames.forEach((armorName) => {
+        armors[armorName] = getArmorName(l_endian(data.slice(idx, idx + 4)).toString(16).toUpperCase());
+        idx += 4;
+    });
+
+    return armors;
+}
+
+function getArmorName(idInHex) {
+    const armorDb = armors_dictionary;
+    for (const key in armorDb) {
+        if (armorDb[key]["full_hex_id"].endsWith(idInHex)) {
+            return key;
+        }
+    }
+    const dlcDb = dlc_items_dictionary;
+    for (const key in dlcDb["armor"]) {
+        if (key.endsWith(idInHex)) {
+            return dlcDb["armor"][key]["name"];
+        }
+    }
+    return null;
+}
+
 function get_slot_ls(data) {
   const slots = [];
   slots.push(data.slice(0x00000310, 0x0028030F + 1));
@@ -232,17 +317,6 @@ function get_slot_ls(data) {
   slots.push(data.slice(0x1400390, 0x168038F + 1));
   slots.push(data.slice(0x16803A0, 0x190039F + 1));
   return slots;
-  // let slot1 = dat.subarray(0x00000310, 0x0028030f + 1);
-  // let slot2 = dat.subarray(0x00280320, 0x050031f + 1);
-  // let slot3 = dat.subarray(0x500330, 0x78032f + 1);
-  // let slot4 = dat.subarray(0x780340, 0xa0033f + 1);
-  // let slot5 = dat.subarray(0xa00350, 0xc8034f + 1);
-  // let slot6 = dat.subarray(0xc80360, 0xf0035f + 1);
-  // let slot7 = dat.subarray(0xf00370, 0x118036f + 1);
-  // let slot8 = dat.subarray(0x1180380, 0x140037f + 1);
-  // let slot9 = dat.subarray(0x1400390, 0x168038f + 1);
-  // let slot10 = dat.subarray(0x16803a0, 0x190039f + 1);
-  // return [slot1, slot2, slot3, slot4, slot5, slot6, slot7, slot8, slot9, slot10];
 }
 
 function get_levels(file_read) {
@@ -268,7 +342,6 @@ function get_stats(file_read, char_slot) {
       let level_ind = 0;
 
       for (let ind = 0; ind < slot1.byteLength; ind++) {
-        console.log("here");
           if (ind > 120000) {
               return null;
           }
