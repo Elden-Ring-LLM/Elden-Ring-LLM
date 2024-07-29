@@ -183,20 +183,18 @@ button:hover {
 }
 
 .user-message {
-    background-color: #0E46A3;
-    color: white;
+    color: black;
     padding: 10px;
     border-radius: 8px;
     margin: 5px 0;
     align-self: flex-end;
-    max-width: 60%;
     word-wrap: break-word;
     display: block;
-    align-self: flex-end;
+    text-align: right;
+    
 }
 
 .bot-message {
-    background-color: #E1F7F5;
     color: black;
     padding: 10px;
     border-radius: 8px;
@@ -205,7 +203,7 @@ button:hover {
     max-width: 60%;
     word-wrap: break-word;
     display: block;
-    align-self: flex-start;
+    text-align: left;
 }
 .message-label {
     font-weight: bold;
