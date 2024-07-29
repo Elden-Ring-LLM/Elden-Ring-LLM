@@ -1,19 +1,280 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elden Ring LLM</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div class="container center-content">
-        <h1>Elden Ring LLM</h1>
-        <button onclick="connectToServer()">Connect To Server Folder</button>
-        <button onclick="allowNotifications()">Allow Notifications</button>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+    <title>Elden Ring Checklist</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta name="description" content="An Elden Ring automatic checklist" />
+    <meta name="author" content="CyberGiant" />
+
+    <link rel="icon" href="assets/img/favicon.ico" />
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />
+    <link href="assets/css/new_style.css" type="text/css" rel="stylesheet" />
+  </head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VP65ZL3DNK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+
+    gtag("config", "G-VP65ZL3DNK");
+  </script>
+  <style>
+    body {
+    font-family: Arial, sans-serif;
+    background-color: #E1F7F5;
+    color: black;
+    margin: 0;
+    display: flex;
+    }
+
+    .container {
+        text-align: center;
+        margin: auto;
+    }
+
+    .sidebar {
+        width: 15%;
+        background-color: #9AC8CD;
+        padding-top: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .sidebar img.sidebar-image {
+        width: 100%;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.5s, color 0.5s, transform 0.5s;
+    }
+    .sidebar img.sidebar-image:hover {
+        transform: scale(1.25);
+    }
+
+    .sidebar button.search-button img.search-icon {
+        height: 30px;
+    }
+
+    .sidebar button {
+        background-color: #1E0342;
+        color: #E1F7F5;
+        border: none;
+        width: 70%;
+        border-radius: 8px;
+        padding: 20px 10px;
+        text-align: center;
+        cursor: pointer;
+        font-size: 16px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .sidebar button.active {
+        background-color: #0E46A3;
+        color: white;
+        transform: scale(1.25);
+    }
+
+    .sidebar button:hover {
+        background-color: #0E46A3;
+        color: white;
+        transform: scale(1.25);
+        
+    }
+
+    .main-content {
+        flex: 1;
+        padding: 20px;
+    }
+
+    h2 {
+        color: #0E46A3;
+    }
+
+    button {
+        background-color: #0E46A3;
+        color: white;
+        border-radius: 8px;
+        border: none;
+        padding: 10px 20px;
+        width: 50%;
+        margin: 10px 0;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.5s, color 0.5s, transform 0.5s;
+    }
+
+    button:hover {
+        transform: scale(1.25);
+    }
+
+    .profile-selection, .attributes-section, .build-list, .boss-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+
+    .profile, .build, .boss {
+        background-color: #333333;
+        margin: 10px;
+        padding: 20px;
+        cursor: pointer;
+        border: 1px solid #555555;
+        width: 150px;
+        text-align: center;
+    }
+
+    .profile:hover, .build:hover, .boss:hover {
+        background-color: #555555;
+    }
+
+    .attributes-section {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .loaded-attributes {
+        background-color: #333333;
+        padding: 20px;
+        border: 1px solid #555555;
+    }
+
+    .loaded-attributes p {
+        margin: 10px 0;
+    }
+
+    .actions {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .attributes {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .attributes label {
+        margin: 10px 0;
+    }
+
+    .attributes input {
+        margin-left: 10px;
+    }
+    </style>
+  <body>
+    <div class="container" style="display: flex">
+      <div class="container container-block me-lg-4 me-sm-0" id="main">
+        <img src="assets/img/logo.jpg" alt="logo" style="width: inherit" />
+        <hr />
+        <div class="container">
+          <div style="display: flex; justify-content: space-between">
+            <!-- <div>
+              <button id="sidebar-button" class="btn button-style1" type="button" data-bs-toggle="collapse" data-bs-target="#sidebar">
+                <i class="fa-solid fa-angle-right"></i>
+              </button>
+            </div> -->
+          </div>
+          <div>
+            <ul>
+    
+                <div class="container center-content">
+                  <!-- <i class="icofont-rounded-right"></i> -->
+                    <div>
+                    <button onclick="connectToServer()"><strong>Quick Start Here</strong>: 🤖 Will Handle the Rest</button>
+                    </div>
+                    <div>
+                    <button onclick="allowNotifications()"><strong>Optional Real-Time Notifications</strong>: Play With a 🤖</button>
+                    </div>
+                    <div>
+                    <label class="form-label"><strong>One-Time Status Check</strong>: Upload Save File (C:\Users\{USERNAME}\AppData\Roaming\EldenRing\{YOUR_STEAM_ID}\ER0000.sl2)</label>
+                    <input class="form-control" type="file" id="savefile" accept=".sl2, .co2" />
+                    </div>
+                </div>
+              
+              <li style="display: none" id="slot_select"></li>
+              <li style="display: none; text-align: center" id="setting_buttons">
+                <div class="btn-group" role="group" data-bs-toggle="buttons">
+                  <label class="btn btn-dark" style="margin: 3px">
+                    <input type="checkbox" class="me-2" name="altered_armor" id="altered-armor" autocomplete="off" /> Show altered armor
+                  </label>
+                  <label class="btn btn-dark" style="margin: 3px">
+                    <input type="checkbox" class="me-2" name="unobtainable-items" id="unobtainable-items" autocomplete="off" /> Show unobtainable
+                    items
+                  </label>
+                  <label class="btn btn-dark" style="margin: 3px">
+                    <input type="checkbox" class="me-2" name="dlc-items" id="dlc-items" autocomplete="off" /> Show DLC
+                    items
+                  </label>
+                </div>
+              </li>
+              <li style="display: none" id="calculate">
+                <div class="d-grid gap-2" style="margin: 10px">
+                  <button type="button" name="calculate" class="btn btn-dark" onclick="calculate()">Get Save File JSON</button>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="row" id="collapse_button1" style="display: none">
+            <button class="btn btn-dark button-collapse" type="button" data-bs-toggle="collapse" data-bs-target="#owned">
+              <h2>Owned Items</h2>
+            </button>
+          </div>
+          <div class="collapse" id="owned"></div>
+          <div class="row" id="collapse_button2" style="display: none">
+            <button class="btn btn-dark button-collapse" type="button" data-bs-toggle="collapse" data-bs-target="#not-owned">
+              <h2>Not Owned Items</h2>
+            </button>
+          </div>
+          <div class="collapse" id="not-owned"></div>
+        </div>
+        <hr style="margin-top: 100px" />
+      </div>
     </div>
+    <button type="button" class="btn btn-dark btn-floating btn-lg btn-outline-light" id="btn-back-to-top" style="width: 100px">
+      <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Vendor JS Files -->
+    <script src="assets/js/script.js"></script>
+    <script src="assets/js/button_to_top.js"></script>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/652c1efac6.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.9/jquery.lazy.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.9/jquery.lazy.plugins.min.js"></script>
+
     <script>
-        function connectToServer() {
+      function getFromRedditApi(id, url, field) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", url);
+
+        xhr.setRequestHeader("Accept", "application/json");
+
+        let sub0;
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4) {
+            sub0 = JSON.parse(xhr.response)["data"][field];
+            $(id).text(nFormatter(sub0, 1));
+          }
+        };
+
+        xhr.send();
+      }
+    </script>
+    <script>
+      let r = Math.floor(Math.random() * 6);
+      document.getElementsByTagName("body")[0].style.backgroundImage = `url(assets/img/bg${r}.webp`;
+      getFromRedditApi("#cypherring-sub", "https://www.reddit.com/r/CypherRing/about.json", "subscribers");
+      getFromRedditApi("#cypherring-online", "https://www.reddit.com/r/CypherRing/about.json", "active_user_count");
+      getFromRedditApi("#erdiscussion-sub", "https://www.reddit.com/r/eldenringdiscussion/about.json", "subscribers");
+      getFromRedditApi("#erdiscussion-online", "https://www.reddit.com/r/eldenringdiscussion/about.json", "active_user_count");
+      function connectToServer() {
             window.location.href = 'profile.html';
         }
 
@@ -38,5 +299,5 @@
             });
         }
     </script>
-</body>
+  </body>
 </html>
