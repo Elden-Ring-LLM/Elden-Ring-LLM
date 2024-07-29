@@ -55,10 +55,20 @@
         <div class="emoji">🫤</div>
         <h1>404</h1>
         <h2>Elden Ring LLM Not Found</h2>
-        <p> This Page is Still Under Construction. </p>
+        <p> You haven't opened up a webscoket for your save file. </p>
+        <p> Don't know what the heck that is? No problems! </p>
+        <p> websocket.js should have been downloaded. Now, copy the following script into your PowerShell and hit enter. </p>
+        <code> 
+            cd (Join-Path "C:\Users\$env:USERNAME\AppData\Roaming\EldenRing" (Get-ChildItem "C:\Users\$env:USERNAME\AppData\Roaming\EldenRing" -Directory | Select-Object -First 1).Name) ; 
+            $sourcePath = "$HOME\Downloads\websocket.js"; $destinationPath = "$PWD\websocket.js"; Copy-Item -Path $sourcePath -Destination $destinationPath; npm init -y; npm install ws; node "$PWD\websocket.js"
+        </code>
+        <p> Hopefully, that went well. Go back to the front page and try again. </p>
     </div>
     <div class="container">
         <a href="./index.html">Go Back to The Front Page</a>
+    </div>
+    <div class="container">
+        <a href="./404SocketMore.html">TroubleShooting and Script Explanations</a>
     </div>
 
 

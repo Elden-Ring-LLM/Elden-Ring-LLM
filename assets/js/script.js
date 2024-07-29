@@ -80,7 +80,7 @@ function getSaveFileFromListening() {
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-      window.location.href = '404.html';
+      window.location.href = '404Socket.html';
   };
 }
 
