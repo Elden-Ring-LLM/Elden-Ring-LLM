@@ -190,6 +190,9 @@ button:hover {
     margin: 5px 0;
     align-self: flex-end;
     max-width: 60%;
+    word-wrap: break-word;
+    display: block;
+    align-self: flex-end;
 }
 
 .bot-message {
@@ -200,6 +203,9 @@ button:hover {
     margin: 5px 0;
     align-self: flex-start;
     max-width: 60%;
+    word-wrap: break-word;
+    display: block;
+    align-self: flex-start;
 }
 .message-label {
     font-weight: bold;
