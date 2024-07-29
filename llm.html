@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boss Page</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="sidebar">
+        <img onclick="location.href='index.html'" src="./images/eldenringicon.png" alt="Sidebar Image" class="sidebar-image">
+        <button class="search-button active">
+            <img src="./images/whitesearch.png" alt="Search Icon" class="search-icon">
+        </button>
+        <button onclick="location.href='boss.html'">Bosses</button>
+        <button onclick="location.href='achievements.html'">Achievements</button>
+        <button onclick="location.href='weapons.html'">Weapons</button>
+        <button onclick="location.href='armors.html'">Armors</button>
+        <button onclick="location.href='items.html'">Items</button>
+        <button onclick="location.href='profile.html'">Profile</button>
+        <button onclick="location.href='metabuilds.html'">Meta Builds</button>
+    </div>
+    <div class="main-content">
+        <h2>Elden Ring LLM Chatbot</h2>
+        <div class="chat-container">
+            <div class="chat-window" id="chat-window"></div>
+            <div class="chat-input">
+                <input type="text" id="user-input" placeholder="Type your question here...">
+                <button onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        function sendMessage() {
+            const userInput = document.getElementById('user-input').value;
+            const chatWindow = document.getElementById('chat-window');
+            
+            if (userInput.trim() === "") return;
+
+            const userMessage = document.createElement('div');
+            userMessage.className = 'user-message';
+            userMessage.innerHTML = `<span class="message-label">You:</span> ${userInput}`;
+            chatWindow.appendChild(userMessage);
+
+            // Simulate a response from the chatbot
+            const botMessage = document.createElement('div');
+            botMessage.className = 'bot-message';
+            botMessage.innerHTML = `<span class="message-label">AI:</span> This is a simulated response.`;
+            chatWindow.appendChild(botMessage);
+
+            document.getElementById('user-input').value = "";
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+        }
+    </script>
+</body>
+</html>
