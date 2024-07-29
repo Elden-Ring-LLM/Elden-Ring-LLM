@@ -183,6 +183,8 @@ button[aria-expanded="true"] h3::before {
   .container-sm,
   .container-xl,
   .container-xxl {
+    text-align: center;
+    margin: auto;
     --bs-gutter-x: 0;
     --bs-gutter-y: 0;
     width: 100%;
