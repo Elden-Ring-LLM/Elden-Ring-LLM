@@ -143,8 +143,9 @@ button:hover {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    height: 100%;
     width: 100%;
+    margin-top: 0%;
 }
 
 .chat-window {
@@ -167,7 +168,7 @@ button:hover {
     width: 90%;
     padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 8px 0 0 8px;
+    border-radius: 8px;
 }
 
 .chat-input button {
@@ -176,8 +177,9 @@ button:hover {
     background-color: #0E46A3;
     color: white;
     border: none;
-    border-radius: 0 8px 8px 0;
+    border-radius: 8px;
     cursor: pointer;
+    margin-left: 10px;
 }
 
 .user-message {
