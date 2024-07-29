@@ -58,7 +58,6 @@ function getSaveFileFromListening() {
           counter: result.counter
         };
         save_json = JSON.stringify(jsonObject, null, 2);
-        console.log(save_json);
         window.location.href = 'profile.html';
       }
     };

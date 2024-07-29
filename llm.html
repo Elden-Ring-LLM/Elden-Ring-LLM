@@ -45,12 +45,13 @@
             // Simulate a response from the chatbot
             const botMessage = document.createElement('div');
             botMessage.className = 'bot-message';
-            botMessage.innerHTML = `<span class="message-label">AI:</span> This is a simulated response.`;
+            botMessage.innerHTML = `<span class="message-label">AI:</span> <img src="assets/img/armor/Alberich's Bracers.webp">.`;
             chatWindow.appendChild(botMessage);
 
             document.getElementById('user-input').value = "";
             chatWindow.scrollTop = chatWindow.scrollHeight;
         }
     </script>
+    <script src="assets/js/script.js"></script>
 </body>
 </html>
