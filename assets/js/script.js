@@ -15,6 +15,74 @@ var item_dict_template = null;
 let talismans_dictionary = null;
 let dlc_items_dictionary = null;
 let armors_dictionary = null;
+let listened_save_file = null;
+
+function getSaveFileFromListening() {
+  const ws = new WebSocket('ws://localhost:8080');
+  ws.binaryType = 'arraybuffer';
+  ws.onmessage = function(event) {
+    listened_save_file = event.data;
+    if (listened_save_file === null) {
+      alert("No Save Files Detected!");
+      return;
+    }
+    let reader = new FileReader();
+    reader.onload = function (e) {
+      file_read = e.target.result;
+      if (!buffer_equal(file_read["slice"](0, 4), new Int8Array([66, 78, 68, 52]))) {
+        e.target.result = null;
+        alert("Is your Save File corrupted?");
+        return;
+      }
+      getJsonFiles();
+      result = getOwnedAndNot(file_read, 0);
+      console.log(file_read);
+      if (result["worked"]) {
+        // $("#owned").load("page_parts.html #owned_section", () => {
+        //   $("#not-owned").load("page_parts.html #not-owned-section", () => {
+        //     document.getElementById("collapse_button1").style.display = "block";
+        //     document.getElementById("collapse_button2").style.display = "block";
+        //     addFraction();
+        //   });
+        // });
+        let jsonObject = {
+          character: getNames(file_read)[0],
+          steamID: getSteamId(file_read),
+          stats: get_stats(file_read, 0),
+          level: getLevels(file_read)[0],
+          playTime_Hrs: getPlayTimesInHrs(file_read)[0],
+          equippedArmor: getEquippedArmor(file_read),
+          equippedTalismans: getEquippedTalismans(file_read),
+          owned: result.owned,
+          "not-owned": result["not-owned"],
+          counter: result.counter
+        };
+        save_json = JSON.stringify(jsonObject, null, 2);
+        console.log(save_json);
+        window.location.href = 'profile.html';
+      }
+    };
+    reader.onerror = function (e) {
+      // error occurred
+      console.log("Error : " + e.type);
+    };
+    reader.readAsArrayBuffer(new Blob([listened_save_file]));
+  };
+  ws.onopen = function() {
+      console.log('WebSocket connection opened');
+  };
+  ws.onerror = function(error) {
+      console.error('WebSocket error:', error);
+      // dowload websocket.js
+      let link = document.createElement("a");
+      link.href = "assets/js/websocket.js";
+      link.download = "websocket.js";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.location.href = '404.html';
+  };
+}
 
 fileSelector.addEventListener("change", (event) => {
   // no file selected to read
@@ -47,24 +115,24 @@ fileSelector.addEventListener("change", (event) => {
   reader.readAsArrayBuffer(file);
 });
 
-function calculate(){
+function calculate() {
   let options = $("#slot_selector option:selected");
-      let selected_slot = options[0].value;
-      getJsonFiles();
-      result = getOwnedAndNot(file_read, selected_slot);
-      if (result["worked"]) {
-        // $("#owned").load("page_parts.html #owned_section", () => {
-        //   $("#not-owned").load("page_parts.html #not-owned-section", () => {
-        //     document.getElementById("collapse_button1").style.display = "block";
-        //     document.getElementById("collapse_button2").style.display = "block";
-        //     addFraction();
-        //   });
-        // });
-        save_json = generateJSON();
-        if (save_json) {
-          downloadJSON(save_json, "game_data.json");
-        }
-      }
+  let selected_slot = options[0].value;
+  getJsonFiles();
+  result = getOwnedAndNot(file_read, selected_slot);
+  if (result["worked"]) {
+    // $("#owned").load("page_parts.html #owned_section", () => {
+    //   $("#not-owned").load("page_parts.html #not-owned-section", () => {
+    //     document.getElementById("collapse_button1").style.display = "block";
+    //     document.getElementById("collapse_button2").style.display = "block";
+    //     addFraction();
+    //   });
+    // });
+    save_json = generateJSON();
+    if (save_json) {
+      downloadJSON(save_json, "game_data.json");
+    }
+  }
 }
 
 function fetchJson(url, callback) {
@@ -229,7 +297,7 @@ function getAttrs(file_read) {
       stat[attrName] = l_endian(data.slice(idx, idx + 4));
       idx += 4;
   });
-  delete stat["Placeholder Address"];
+  // delete stat["Placeholder Address"];
   return stat;
 }
 

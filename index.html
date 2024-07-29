@@ -191,7 +191,7 @@
                     <button onclick="allowNotifications()"><strong>Optional Real-Time Notifications</strong>: Play With a 🤖</button>
                     </div>
                     <div>
-                    <label class="form-label"><strong>One-Time Status Check</strong>: Upload Save File (C:\Users\{USERNAME}\AppData\Roaming\EldenRing\{YOUR_STEAM_ID}\ER0000.sl2) Manually</label>
+                    <label class="form-label"><strong>One-Time Status Check</strong>: Upload Save File (C:\Users\{USERNAME}\AppData\Roaming\EldenRing\{YOUR_STEAM_ID}\ER0000.sl2)</label>
                     <input class="form-control" type="file" id="savefile" accept=".sl2, .co2" />
                     </div>
                 </div>
@@ -213,7 +213,7 @@
                 </div>
               </li>
               <li style="display: none" id="calculate">
-                <div class="d-grid gap-2" style="margin: 10px">
+                <div class="mid-container gap-2" style="margin: 10px">
                   <button type="button" name="calculate" class="btn btn-dark" onclick="calculate()">Get Save File JSON</button>
                 </div>
               </li>
@@ -275,29 +275,29 @@
       getFromRedditApi("#erdiscussion-sub", "https://www.reddit.com/r/eldenringdiscussion/about.json", "subscribers");
       getFromRedditApi("#erdiscussion-online", "https://www.reddit.com/r/eldenringdiscussion/about.json", "active_user_count");
       function connectToServer() {
-            window.location.href = 'profile.html';
-        }
+          getSaveFileFromListening();
+      }
 
-        function allowNotifications() {
-            if (!("Notification" in window)) {
-                alert("This browser does not support desktop notification");
-            } else if (Notification.permission === "granted") {
-                showNotification();
-            } else if (Notification.permission !== "denied") {
-                Notification.requestPermission().then(function (permission) {
-                    if (permission === "granted") {
-                        showNotification();
-                    }
-                });
-            }
-        }
-
-        function showNotification() {
-            const notification = new Notification("Elden Ring LLM", {
-                body: "Notifications have been allowed!",
-                icon: "icon.png"
+      function allowNotifications() {
+        if (!("Notification" in window)) {
+            alert("This browser does not support desktop notification");
+        } else if (Notification.permission === "granted") {
+            showNotification();
+        } else if (Notification.permission !== "denied") {
+            Notification.requestPermission().then(function (permission) {
+                if (permission === "granted") {
+                    showNotification();
+                }
             });
         }
+      }
+
+      function showNotification() {
+          const notification = new Notification("Elden Ring LLM", {
+              body: "Notifications have been allowed!",
+              icon: "icon.png"
+          });
+      }
     </script>
   </body>
 </html>
