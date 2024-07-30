@@ -282,22 +282,16 @@
         if (!("Notification" in window)) {
             alert("This browser does not support desktop notification");
         } else if (Notification.permission === "granted") {
-            showNotification();
+            pushNotification("Welcome to Elden Ring LLM. Notifications have been allowed!");
         } else if (Notification.permission !== "denied") {
             Notification.requestPermission().then(function (permission) {
                 if (permission === "granted") {
-                    showNotification();
+                    pushNotification("Notifications have been allowed!");
                 }
             });
         }
       }
 
-      function showNotification() {
-          const notification = new Notification("Elden Ring LLM", {
-              body: "Notifications have been allowed!",
-              icon: "icon.png"
-          });
-      }
       const fileSelector = document.getElementById("savefile");
       fileSelector.addEventListener("change", (event) => {
         // no file selected to read
