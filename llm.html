@@ -58,56 +58,178 @@
             userMessage.className = 'user-message';
             userMessage.innerHTML = `<span class="message-label">${save_json.character}:</span> ${userInput}`;
             chatWindow.appendChild(userMessage);
-            const AI_response = await fetch(
-            'https://noggin.rea.gent/central-earwig-5504',
-            {
-                method: 'POST',
-                headers: {
-                'Content-Type': 'application/json',
-                Authorization: 'Bearer rg_v1_qb9zvgjo1rjionk08p5r1nigoas0m38t07mn_ngk',
-                },
-                body: JSON.stringify({
-                // fill variables here.
-                "question": userInput,
-                }),
+
+            const classifiedGenre = await userInputGenreClassiifer(userInput);
+            const classifierMessage = document.createElement('div');
+            classifierMessage.className = 'bot-message';
+            classifierMessage.innerHTML = `<span class="message-label">🤖:</span> Question Genre: ${classifiedGenre}.`;
+            chatWindow.appendChild(classifierMessage);
+
+            let AI_response = null;
+            let query_response = null;
+            if (classifiedGenre == "user json query") {
+                AI_response = await fetch(
+                'https://noggin.rea.gent/central-earwig-5504',
+                {
+                    method: 'POST',
+                    headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer rg_v1_qb9zvgjo1rjionk08p5r1nigoas0m38t07mn_ngk',
+                    },
+                    body: JSON.stringify({
+                    // fill variables here.
+                    "question": userInput,
+                    }),
+                }
+                ).then(response => response.text());
+                query_response = await fetch(
+                'https://noggin.rea.gent/rational-hoverfly-1365',
+                {
+                    method: 'POST',
+                    headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer rg_v1_r5wyb05f4eygkrufetdk8qppktn6mj4mcmhk_ngk',
+                    },
+                    body: JSON.stringify({
+                    // fill variables here.
+                    "question": userInput,
+                    }),
+                }
+                ).then(response => response.text());
+            } else if (classifiedGenre == "general") {
+                // import fetch from 'node-fetch'; // for node.js
+                AI_response = await fetch(
+                'https://noggin.rea.gent/bold-shark-9312',
+                {
+                    method: 'POST',
+                    headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer rg_v1_015clmtso5vle9wjfryoercion1lwrg0ue49_ngk',
+                    },
+                    body: JSON.stringify({
+                    // fill variables here.
+                    "question": userInput,
+                    }),
+                }
+                ).then(response => response.text());
+            } else if (classifiedGenre == "unrelated") {
+                AI_response = "I don't know how to answer it. Ask something related to Elden Ring";
+            } else if (classifiedGenre == "armor json query") {
+                AI_response = await fetch(
+                'https://noggin.rea.gent/overwhelming-cow-6482',
+                {
+                    method: 'POST',
+                    headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer rg_v1_931hvbth5ovtr7wev1qrk63hfq6tkulgyxh7_ngk',
+                    },
+                    body: JSON.stringify({
+                    // fill variables here.
+                    "question": userInput,
+                    }),
+                }
+                ).then(response => response.text());
+
+                query_response = await fetch(
+                'https://noggin.rea.gent/smoggy-hedgehog-7522',
+                {
+                    method: 'POST',
+                    headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer rg_v1_azfkr5y2l7h0ocq228wbqi6olf5xhhcg4v3a_ngk',
+                    },
+                    body: JSON.stringify({
+                    // fill variables here.
+                    "question": userInput,
+                    }),
+                }
+                ).then(response => response.text());
+            } else if (classifiedGenre == "armament json query") {
+                AI_response = await fetch(
+                'https://noggin.rea.gent/alleged-wallaby-4588',
+                {
+                    method: 'POST',
+                    headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer rg_v1_p7pmw95sa0vru4ah3513w6flz1w9umdsl6t9_ngk',
+                    },
+                    body: JSON.stringify({
+                    // fill variables here.
+                    "question": userInput,
+                    }),
+                }
+                ).then(response => response.text());
+                query_response = await fetch(
+                'https://noggin.rea.gent/yearling-quokka-9828',
+                {
+                    method: 'POST',
+                    headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer rg_v1_fdnonh2d10dy4e97j1u23teor3xwp1nr28tf_ngk',
+                    },
+                    body: JSON.stringify({
+                    // fill variables here.
+                    "question": userInput,
+                    }),
+                }
+                ).then(response => response.text());
+            } else {
+                AI_response = "Feature not enabled yet";
             }
-            ).then(response => response.text());
-            // Simulate a response from the chatbot
+
             const botMessage = document.createElement('div');
             botMessage.className = 'bot-message';
             botMessage.innerHTML = `<span class="message-label">🤖:</span> ${AI_response}.`;
             chatWindow.appendChild(botMessage);
 
-            const query_response = await fetch(
-            'https://noggin.rea.gent/rational-hoverfly-1365',
+            if (query_response != null) {
+                const queriedMessage = document.createElement('div');
+                queriedMessage.className = 'bot-message';
+                if (query_response == "none") {
+                    queriedMessage.innerHTML = `<span class="message-label">🤖:</span> Can't retrieve relevant info from DB.`;
+                } else {
+                    let ans = null; 
+                    console.log(query_response);
+                    if (classifiedGenre == "user json query") {
+                        ans = queryData(save_json, query_response);
+                    } else if (classifiedGenre == "armor json query") {
+                        let armor_json = JSON.parse(localStorage.getItem("armor_json"));
+                        ans = queryData(armor_json, query_response);
+                    } else if (classifiedGenre == "armament json query") {
+                        let armament_json = JSON.parse(localStorage.getItem("armament_json"));
+                        // console.log(armament_json);
+                        ans = queryData(armament_json, query_response);
+                    }
+                    queriedMessage.innerHTML = `<span class="message-label">🤖:</span> Queried Result: ${ans}.`;
+                }
+                chatWindow.appendChild(queriedMessage);
+            }
+            document.getElementById('user-input').value = "";
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+        }
+        async function userInputGenreClassiifer(user_input) {
+            const response = await fetch(
+            'https://noggin.rea.gent/top-smelt-9743',
             {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
-                Authorization: 'Bearer rg_v1_r5wyb05f4eygkrufetdk8qppktn6mj4mcmhk_ngk',
+                Authorization: 'Bearer rg_v1_inqxpx789wvph41hdoyryckymng4qjh9oawc_ngk',
                 },
                 body: JSON.stringify({
                 // fill variables here.
-                "question": userInput,
+                "question": user_input,
                 }),
             }
             ).then(response => response.text());
-
-            const queriedMessage = document.createElement('div');
-            queriedMessage.className = 'bot-message';
-            if (query_response == "none") {
-                queriedMessage.innerHTML = `<span class="message-label">🤖:</span> Can't retrieve relevant info from DB.`;
-            } else {
-                let ans = queryData(save_json, query_response);
-                queriedMessage.innerHTML = `<span class="message-label">🤖:</span> Queried Result: ${ans}.`;
-            }
-            chatWindow.appendChild(queriedMessage);
-
-            document.getElementById('user-input').value = "";
-            chatWindow.scrollTop = chatWindow.scrollHeight;
+            return response;
         }
         function queryData(json, entry_str) {
+            console.log(entry_str);
             if (!entry_str.includes(";")) {
+                if (isValidJSON(json[entry_str])) {
+                    return JSON.stringify(json[entry_str]);
+                }
                 return json[entry_str];
             }
             const entries = entry_str.split(';');
