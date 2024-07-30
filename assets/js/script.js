@@ -15,14 +15,40 @@ let dlc_items_dictionary = null;
 let armors_dictionary = null;
 let listened_save_file = null;
 
+function pushNotification(txt) {
+  const notification = new Notification("Elden Ring LLM", {
+    body: txt,
+  });
+}
+
 function getSaveFileFromListening() {
   const ws = new WebSocket('ws://localhost:8080');
   ws.binaryType = 'arraybuffer';
   ws.onmessage = function(event) {
+
+    function isValidJSON(data) {
+      try {
+          JSON.parse(data);
+          return true;
+      } catch (e) {
+          return false;
+      }
+    }
+    function handleFileChange(fileData) {
+      pushNotification("Save File Changed");
+    }
+
     listened_save_file = event.data;
     if (listened_save_file === null) {
       alert("No Save Files Detected!");
       return;
+    }
+    if (isValidJSON(listened_save_file)) {
+      const message = JSON.parse(event.data);
+      if (message.type === 'file-change') {
+          handleFileChange(message.data);
+      }
+      listened_save_file = message.data;
     }
     let reader = new FileReader();
     reader.onload = function (e) {
@@ -58,6 +84,7 @@ function getSaveFileFromListening() {
         localStorage.setItem("save_json", save_json);
         // console.log(save_json);
         window.location.href = 'profile.html';
+        pushNotification(`Welcome back ${jsonObject.character}! Your save file is successfully loaded! You can start playing your Elden Ring, and we are actively monitoring your save file.🫡`);
       }
     };
     reader.onerror = function (e) {

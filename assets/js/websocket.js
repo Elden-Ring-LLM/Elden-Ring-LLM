@@ -25,12 +25,27 @@ fs.watch(filePath, (eventType, filename) => {
             // Broadcast the file content to all connected clients as binary
             wss.clients.forEach(client => {
                 if (client.readyState === WebSocket.OPEN) {
-                    client.send(data);
+                    client.send(JSON.stringify({ type: 'file-change', data: data }));
                 }
             });
         });
     }
 });
+
+// // Watch the file for changes
+// fs.watch(filePath, (eventType, filename) => {
+//     if (filename && eventType === 'change') {
+//         fs.readFile(filePath, (err, data) => {
+//             if (err) throw err;
+//             // Broadcast the file content to all connected clients as binary
+//             wss.clients.forEach(client => {
+//                 if (client.readyState === WebSocket.OPEN) {
+//                     client.send(data);
+//                 }
+//             });
+//         });
+//     }
+// });
 
 // Handle new client connections
 wss.on('connection', (ws) => {
