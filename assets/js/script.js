@@ -13,6 +13,7 @@ var item_dict_template = null;
 let talismans_dictionary = null;
 let dlc_items_dictionary = null;
 let armors_dictionary = null;
+let armaments_dictionary = null;
 let listened_save_file = null;
 
 function pushNotification(txt) {
@@ -21,19 +22,19 @@ function pushNotification(txt) {
   });
 }
 
+function isValidJSON(data) {
+  try {
+      JSON.parse(data);
+      return true;
+  } catch (e) {
+      return false;
+  }
+}
+
 function getSaveFileFromListening() {
   const ws = new WebSocket('ws://localhost:8080');
   ws.binaryType = 'arraybuffer';
   ws.onmessage = function(event) {
-
-    function isValidJSON(data) {
-      try {
-          JSON.parse(data);
-          return true;
-      } catch (e) {
-          return false;
-      }
-    }
     function handleFileChange(fileData) {
       pushNotification("Save File Changed");
     }
@@ -82,7 +83,8 @@ function getSaveFileFromListening() {
         };
         save_json = JSON.stringify(jsonObject, null, 2);
         localStorage.setItem("save_json", save_json);
-        // console.log(save_json);
+        localStorage.setItem("armor_json", JSON.stringify(armors_dictionary, null, 2));
+        localStorage.setItem("armament_json", JSON.stringify(armaments_dictionary, null, 2));
         window.location.href = 'profile.html';
         pushNotification(`Welcome back ${jsonObject.character}! Your save file is successfully loaded! You can start playing your Elden Ring, and we are actively monitoring your save file.🫡`);
       }
@@ -229,6 +231,10 @@ function getJsonFiles() {
 
   fetchJson("erdb/json/armor.json", function (data) {
     armors_dictionary = { ...data };
+  });
+
+  fetchJson("erdb/json/armaments.json", function (data) {
+    armaments_dictionary = { ...data };
   });
 }
 
