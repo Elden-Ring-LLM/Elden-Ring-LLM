@@ -1,5 +1,3 @@
-const fileSelector = document.getElementById("savefile");
-
 const pattern = new Uint8Array([0xB0, 0xAD, 0x01, 0x00, 0x01, 0xFF, 0xFF, 0xFF]);
 const pattern_dlc = new Uint8Array([0xB0, 0xAD, 0x01, 0x00, 0x01]);
 let isDlcFile = false;
@@ -36,7 +34,6 @@ function getSaveFileFromListening() {
       }
       getJsonFiles();
       result = getOwnedAndNot(file_read, 0);
-      console.log(file_read);
       if (result["worked"]) {
         // $("#owned").load("page_parts.html #owned_section", () => {
         //   $("#not-owned").load("page_parts.html #not-owned-section", () => {
@@ -58,7 +55,8 @@ function getSaveFileFromListening() {
           counter: result.counter
         };
         save_json = JSON.stringify(jsonObject, null, 2);
-        console.log(save_json);
+        localStorage.setItem("save_json", save_json);
+        // console.log(save_json);
         window.location.href = 'profile.html';
       }
     };
@@ -83,37 +81,6 @@ function getSaveFileFromListening() {
       window.location.href = '404Socket.html';
   };
 }
-
-fileSelector.addEventListener("change", (event) => {
-  // no file selected to read
-  if (document.querySelector("#savefile").value == null) {
-    alert("No file selected");
-    return;
-  }
-
-  let file = document.querySelector("#savefile").files[0];
-
-  let reader = new FileReader();
-  reader.onload = function (e) {
-    file_read = e.target.result;
-    if (!buffer_equal(file_read["slice"](0, 4), new Int8Array([66, 78, 68, 52]))) {
-      e.target.result = null;
-      document.getElementById("slot_select").style.display = "none";
-      alert("Insert a valid file");
-      return;
-    }
-    updateSlotDropdown(getNames(file_read));
-    $("#slot_selector").on("change", function (e) {
-      $("#setting_buttons").css("display", "block")
-      $("#calculate").css("display", "block")
-    });
-  };
-  reader.onerror = function (e) {
-    // error occurred
-    console.log("Error : " + e.type);
-  };
-  reader.readAsArrayBuffer(file);
-});
 
 function calculate() {
   let options = $("#slot_selector option:selected");
