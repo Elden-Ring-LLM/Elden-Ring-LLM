@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Boss Page</title>
+    <title>LLM Chat</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -25,13 +25,30 @@
         <div class="chat-container">
             <div class="chat-window" id="chat-window"></div>
             <div class="chat-input">
-                <input type="text" id="user-input" placeholder="Type your question here...">
-                <button onclick="sendMessage()">Send</button>
+                <input type="text" id="user-input" placeholder="Tarnished, type your wish here...">
+                <button onclick="sendMessage()" id="sendbtn">Send</button>
             </div>
         </div>
     </div>
     <script>
-        function sendMessage() {
+        // Get the input field
+        var input = document.getElementById("user-input");
+
+        // Execute a function when the user presses a key on the keyboard
+        input.addEventListener("keypress", function(event) {
+        // If the user presses the "Enter" key on the keyboard
+        if (event.key === "Enter") {
+            // Cancel the default action, if needed
+            event.preventDefault();
+            // Trigger the button element with a click
+            document.getElementById("sendbtn").click();
+        }
+        });
+        async function sendMessage() {
+            if (localStorage.getItem("save_json") == null) {
+                window.location.href = "404Socket.html";
+            }
+            let save_json = JSON.parse(localStorage.getItem("save_json"));
             const userInput = document.getElementById('user-input').value;
             const chatWindow = document.getElementById('chat-window');
             
@@ -39,17 +56,62 @@
 
             const userMessage = document.createElement('div');
             userMessage.className = 'user-message';
-            userMessage.innerHTML = `<span class="message-label">You:</span> ${userInput}`;
+            userMessage.innerHTML = `<span class="message-label">${save_json.character}:</span> ${userInput}`;
             chatWindow.appendChild(userMessage);
-
+            const AI_response = await fetch(
+            'https://noggin.rea.gent/central-earwig-5504',
+            {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer rg_v1_qb9zvgjo1rjionk08p5r1nigoas0m38t07mn_ngk',
+                },
+                body: JSON.stringify({
+                // fill variables here.
+                "question": userInput,
+                }),
+            }
+            ).then(response => response.text());
             // Simulate a response from the chatbot
             const botMessage = document.createElement('div');
             botMessage.className = 'bot-message';
-            botMessage.innerHTML = `<span class="message-label">AI:</span> <img src="assets/img/armor/Alberich's Bracers.webp">.`;
+            botMessage.innerHTML = `<span class="message-label">🤖:</span> ${AI_response}.`;
             chatWindow.appendChild(botMessage);
+
+            const query_response = await fetch(
+            'https://noggin.rea.gent/rational-hoverfly-1365',
+            {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer rg_v1_r5wyb05f4eygkrufetdk8qppktn6mj4mcmhk_ngk',
+                },
+                body: JSON.stringify({
+                // fill variables here.
+                "question": userInput,
+                }),
+            }
+            ).then(response => response.text());
+
+            const queriedMessage = document.createElement('div');
+            queriedMessage.className = 'bot-message';
+            if (query_response == "none") {
+                queriedMessage.innerHTML = `<span class="message-label">🤖:</span> Can't retrieve relevant info from DB.`;
+            } else {
+                let ans = queryData(save_json, query_response);
+                queriedMessage.innerHTML = `<span class="message-label">🤖:</span> Queried Result: ${ans}.`;
+            }
+            chatWindow.appendChild(queriedMessage);
 
             document.getElementById('user-input').value = "";
             chatWindow.scrollTop = chatWindow.scrollHeight;
+        }
+        function queryData(json, entry_str) {
+            if (!entry_str.includes(";")) {
+                return json[entry_str];
+            }
+            const entries = entry_str.split(';');
+            return queryData(json[entries.shift()], entries.join(';'));
         }
     </script>
     <script src="assets/js/script.js"></script>
