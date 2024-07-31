@@ -53,23 +53,19 @@
 <body>
     <div class="container">
         <div class="emoji">🫤</div>
-        <h1>404</h1>
-        <h2>Elden Ring LLM Not Found</h2>
-        <p> Sorry, this is not a Quick-Start for you. You haven't opened up a webscoket for your save file. </p>
-        <p> Don't know what the heck that is? No problems! </p>
-        <p> websocket.js should have been downloaded. Now, copy the following script into your PowerShell and hit enter. </p>
-        <code> 
-            cd (Join-Path "C:\Users\$env:USERNAME\AppData\Roaming\EldenRing" (Get-ChildItem "C:\Users\$env:USERNAME\AppData\Roaming\EldenRing" -Directory | Select-Object -First 1).Name) ; 
-            $sourcePath = "$HOME\Downloads\websocket.js"; $destinationPath = "$PWD\websocket.js"; Copy-Item -Path $sourcePath -Destination $destinationPath; npm init -y; npm install ws; node "$PWD\websocket.js"
-        </code>
-        <p> Hopefully, that went well. Go back to the front page and try again. </p>
+        <h1>Beyond 404 For Mac User</h1>
+        <h2>Are You a Target User?</h2>
+        <p> This project is designed for people who play Elden Ring on Windows Computer with Steam. If you use Mac, I assume you're a developer who knows some UNIX scritps. </p>
+        <h2>Follow the Steps</h2>
+        <p> <h3>1. Copy your save file ER0000.sl2 into your Mac Downloads folder </h3> </p>
+        <p> <h3>2. Make Sure websocket.js is also in your Downloads folder and reserve port 8080 for save file rendering</h3> </p>
+        <p> <h3>3. Use Bash or Fish and execute the following command, the script is pretty understandable </h3> </p>
+        <p> <code> cd ~/Downloads; mkdir -p temp_server; cp websocket.js ./temp_server; cp ER0000.sl2 ./temp_server; cd temp_server; npm init -y; npm install ws; node websocket.js</code> </p>
     </div>
     <div class="container">
-        <a href="./index.html">Go Back to The Front Page</a>
-    </div>
-    <div class="container">
-        <a href="./404SocketMore.html">TroubleShooting and Script Explanations</a>
+        <a href="./index.html">Go Back to the Front Page</a>
     </div>
 
 
-</body></html>
+</body>
+</html>
