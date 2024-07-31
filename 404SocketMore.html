@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 Not Found</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #ffc073, #f55454);
+            color: #fff;
+            text-align: center;
+            padding: 50px 20px;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        h1 {
+            font-size: 4em;
+            margin: 0;
+        }
+        p {
+            font-size: 1.5em;
+        }
+        a {
+            display: inline-block;
+            background-color: #fff;
+            color: #ff3f3f;
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        a:hover {
+            background-color: #f1f1f1;
+            transform: translateY(-3px);
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+        }
+        .emoji {
+            font-size: 5rem;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="emoji">🫤</div>
+        <h1>Beyond 404</h1>
+        <h2>Script Explanations</h2>
+        <p> <h3>Question</h3> Why do I have to do this? </p>
+        <p> <h3>Answer</h3> Your browser can't directly access a local file, so we have to serve it on localhost: 8080 to let this web-app work, and we want our LLM bot to be able to monitor your save file to give your real-time suggestions. </p>
+        <h2>TroubleShooting</h2>
+        <p> <h3>Question</h3> 
+            <input type="text" placeholder="Type One Problem" id="question"> 
+            <button id="submit">Submit</button>
+        </p>
+        <p> <h3>Answer</h3> 
+            <div id="ai_answer"> </div>
+        </p>
+    </div>
+    <div class="container">
+        <a href="./404.html">Go Back to The 404 Page</a>
+    </div>
+    <div class="container">
+        <a href="./404Mac.html">Click Here: I don't have a PowerShell, cuz I use Mac</a>
+    </div>
+
+
+</body>
+<script>
+    const clicker = document.getElementById("submit");
+    clicker.addEventListener("click", () => get_answer());
+    async function get_answer() {
+        const response = await fetch(
+            'https://noggin.rea.gent/direct-damselfly-8129',
+            {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer rg_v1_c39do02ou1wsens172pjk8gx97rpjchlpp6s_ngk',
+                },
+                body: JSON.stringify({
+                // fill variables here.
+                "question": document.getElementById("question").value,
+                }),
+            }
+        ).then(response => response.text());
+        document.getElementById("ai_answer").textContent = response;
+    }
+
+</script>
+</html>

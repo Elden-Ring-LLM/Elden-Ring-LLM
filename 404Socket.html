@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 Not Found</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #ffc073, #f55454);
+            color: #fff;
+            text-align: center;
+            padding: 50px 20px;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        h1 {
+            font-size: 4em;
+            margin: 0;
+        }
+        p {
+            font-size: 1.5em;
+        }
+        a {
+            display: inline-block;
+            background-color: #fff;
+            color: #ff3f3f;
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        a:hover {
+            background-color: #f1f1f1;
+            transform: translateY(-3px);
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+        }
+        .emoji {
+            font-size: 5rem;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="emoji">🫤</div>
+        <h1>404</h1>
+        <h2>Elden Ring LLM Not Found</h2>
+        <p> Sorry, this is not a Quick-Start for you. You haven't opened up a webscoket for your save file. </p>
+        <p> Don't know what the heck that is? No problems! </p>
+        <p> websocket.js should have been downloaded. Now, copy the following script into your PowerShell and hit enter. </p>
+        <code> 
+            cd (Join-Path "C:\Users\$env:USERNAME\AppData\Roaming\EldenRing" (Get-ChildItem "C:\Users\$env:USERNAME\AppData\Roaming\EldenRing" -Directory | Select-Object -First 1).Name) ; 
+            $sourcePath = "$HOME\Downloads\websocket.js"; $destinationPath = "$PWD\websocket.js"; Copy-Item -Path $sourcePath -Destination $destinationPath; npm init -y; npm install ws; node "$PWD\websocket.js"
+        </code>
+        <p> Hopefully, that went well. Go back to the front page and try again. </p>
+    </div>
+    <div class="container">
+        <a href="./index.html">Go Back to The Front Page</a>
+    </div>
+    <div class="container">
+        <a href="./404SocketMore.html">TroubleShooting and Script Explanations</a>
+    </div>
+
+
+</body></html>

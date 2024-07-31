@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
-    <title>Elden Ring Checklist</title>
+    <title>Elden Ring LLM</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta name="description" content="An Elden Ring automatic checklist" />
     <meta name="author" content="CyberGiant" />
@@ -191,7 +191,7 @@
                     <button onclick="allowNotifications()"><strong>Optional Real-Time Notifications</strong>: Play With a 🤖</button>
                     </div>
                     <div>
-                    <label class="form-label"><strong>One-Time Status Check</strong>: Upload Save File (C:\Users\{USERNAME}\AppData\Roaming\EldenRing\{YOUR_STEAM_ID}\ER0000.sl2) Manually</label>
+                    <label class="form-label"><strong>One-Time Status Check</strong>: Upload Save File (C:\Users\{USERNAME}\AppData\Roaming\EldenRing\{YOUR_STEAM_ID}\ER0000.sl2)</label>
                     <input class="form-control" type="file" id="savefile" accept=".sl2, .co2" />
                     </div>
                 </div>
@@ -213,7 +213,7 @@
                 </div>
               </li>
               <li style="display: none" id="calculate">
-                <div class="d-grid gap-2" style="margin: 10px">
+                <div class="mid-container gap-2" style="margin: 10px">
                   <button type="button" name="calculate" class="btn btn-dark" onclick="calculate()">Get Save File JSON</button>
                 </div>
               </li>
@@ -275,29 +275,55 @@
       getFromRedditApi("#erdiscussion-sub", "https://www.reddit.com/r/eldenringdiscussion/about.json", "subscribers");
       getFromRedditApi("#erdiscussion-online", "https://www.reddit.com/r/eldenringdiscussion/about.json", "active_user_count");
       function connectToServer() {
-            window.location.href = 'profile.html';
-        }
+          getSaveFileFromListening();
+      }
 
-        function allowNotifications() {
-            if (!("Notification" in window)) {
-                alert("This browser does not support desktop notification");
-            } else if (Notification.permission === "granted") {
-                showNotification();
-            } else if (Notification.permission !== "denied") {
-                Notification.requestPermission().then(function (permission) {
-                    if (permission === "granted") {
-                        showNotification();
-                    }
-                });
-            }
-        }
-
-        function showNotification() {
-            const notification = new Notification("Elden Ring LLM", {
-                body: "Notifications have been allowed!",
-                icon: "icon.png"
+      function allowNotifications() {
+        if (!("Notification" in window)) {
+            alert("This browser does not support desktop notification");
+        } else if (Notification.permission === "granted") {
+            pushNotification("Welcome to Elden Ring LLM. Notifications have been allowed!");
+        } else if (Notification.permission !== "denied") {
+            Notification.requestPermission().then(function (permission) {
+                if (permission === "granted") {
+                    pushNotification("Notifications have been allowed!");
+                }
             });
         }
+      }
+
+      const fileSelector = document.getElementById("savefile");
+      fileSelector.addEventListener("change", (event) => {
+        // no file selected to read
+        if (document.querySelector("#savefile").value == null) {
+          alert("No file selected");
+          return;
+        }
+
+        let file = document.querySelector("#savefile").files[0];
+
+        let reader = new FileReader();
+        reader.onload = function (e) {
+          file_read = e.target.result;
+          if (!buffer_equal(file_read["slice"](0, 4), new Int8Array([66, 78, 68, 52]))) {
+            e.target.result = null;
+            document.getElementById("slot_select").style.display = "none";
+            alert("Insert a valid file");
+            return;
+          }
+          updateSlotDropdown(getNames(file_read));
+          $("#slot_selector").on("change", function (e) {
+            $("#setting_buttons").css("display", "block")
+            $("#calculate").css("display", "block")
+          });
+        };
+        reader.onerror = function (e) {
+          // error occurred
+          console.log("Error : " + e.type);
+        };
+        reader.readAsArrayBuffer(file);
+      });
+
     </script>
   </body>
 </html>

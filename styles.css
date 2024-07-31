@@ -374,3 +374,76 @@ button:hover {
     transform: translateY(0);
     transition: 0.75s all;
 }
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    margin-top: 0%;
+}
+
+.chat-window {
+    /* background: url('assets/img/armament/Academy\ Glintstone\ Staff.webp'); */
+    /* background-repeat: repeat; */
+    width: 80%;
+    height: 75vh;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow-y: auto;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.chat-input {
+    display: flex;
+    width: 80%;
+}
+
+.chat-input input {
+    width: 90%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.chat-input button {
+    width: 10%;
+    padding: 10px;
+    background-color: #0E46A3;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.user-message {
+    color: black;
+    padding: 10px;
+    border-radius: 8px;
+    margin: 5px 0;
+    align-self: flex-end;
+    word-wrap: break-word;
+    display: block;
+    text-align: right;
+    
+}
+
+.bot-message {
+    color: black;
+    padding: 10px;
+    border-radius: 8px;
+    margin: 5px 0;
+    align-self: flex-start;
+    max-width: 60%;
+    word-wrap: break-word;
+    display: block;
+    text-align: left;
+}
+.message-label {
+    font-weight: bold;
+    margin-right: 10px;
+}

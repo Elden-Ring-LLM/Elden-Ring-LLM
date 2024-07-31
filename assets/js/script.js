@@ -1,5 +1,3 @@
-const fileSelector = document.getElementById("savefile");
-
 const pattern = new Uint8Array([0xB0, 0xAD, 0x01, 0x00, 0x01, 0xFF, 0xFF, 0xFF]);
 const pattern_dlc = new Uint8Array([0xB0, 0xAD, 0x01, 0x00, 0x01]);
 let isDlcFile = false;
@@ -15,43 +13,54 @@ var item_dict_template = null;
 let talismans_dictionary = null;
 let dlc_items_dictionary = null;
 let armors_dictionary = null;
+let armaments_dictionary = null;
+let listened_save_file = null;
 
-fileSelector.addEventListener("change", (event) => {
-  // no file selected to read
-  if (document.querySelector("#savefile").value == null) {
-    alert("No file selected");
-    return;
+function pushNotification(txt) {
+  const notification = new Notification("Elden Ring LLM", {
+    body: txt,
+  });
+}
+
+function isValidJSON(data) {
+  try {
+      JSON.parse(data);
+      return true;
+  } catch (e) {
+      return false;
   }
+}
 
-  let file = document.querySelector("#savefile").files[0];
+function getSaveFileFromListening() {
+  const ws = new WebSocket('ws://localhost:8080');
+  ws.binaryType = 'arraybuffer';
+  ws.onmessage = function(event) {
+    function handleFileChange(fileData) {
+      pushNotification("Save File Changed");
+    }
 
-  let reader = new FileReader();
-  reader.onload = function (e) {
-    file_read = e.target.result;
-    if (!buffer_equal(file_read["slice"](0, 4), new Int8Array([66, 78, 68, 52]))) {
-      e.target.result = null;
-      document.getElementById("slot_select").style.display = "none";
-      alert("Insert a valid file");
+    listened_save_file = event.data;
+    if (listened_save_file === null) {
+      alert("No Save Files Detected!");
       return;
     }
-    updateSlotDropdown(getNames(file_read));
-    $("#slot_selector").on("change", function (e) {
-      $("#setting_buttons").css("display", "block")
-      $("#calculate").css("display", "block")
-    });
-  };
-  reader.onerror = function (e) {
-    // error occurred
-    console.log("Error : " + e.type);
-  };
-  reader.readAsArrayBuffer(file);
-});
-
-function calculate(){
-  let options = $("#slot_selector option:selected");
-      let selected_slot = options[0].value;
+    if (isValidJSON(listened_save_file)) {
+      const message = JSON.parse(event.data);
+      if (message.type === 'file-change') {
+          handleFileChange(message.data);
+      }
+      listened_save_file = message.data;
+    }
+    let reader = new FileReader();
+    reader.onload = function (e) {
+      file_read = e.target.result;
+      if (!buffer_equal(file_read["slice"](0, 4), new Int8Array([66, 78, 68, 52]))) {
+        e.target.result = null;
+        alert("Is your Save File corrupted?");
+        return;
+      }
       getJsonFiles();
-      result = getOwnedAndNot(file_read, selected_slot);
+      result = getOwnedAndNot(file_read, 0);
       if (result["worked"]) {
         // $("#owned").load("page_parts.html #owned_section", () => {
         //   $("#not-owned").load("page_parts.html #not-owned-section", () => {
@@ -60,11 +69,66 @@ function calculate(){
         //     addFraction();
         //   });
         // });
-        save_json = generateJSON();
-        if (save_json) {
-          downloadJSON(save_json, "game_data.json");
-        }
+        let jsonObject = {
+          character: getNames(file_read)[0],
+          steamID: getSteamId(file_read),
+          stats: get_stats(file_read, 0),
+          level: getLevels(file_read)[0],
+          playTime_Hrs: getPlayTimesInHrs(file_read)[0],
+          equippedArmor: getEquippedArmor(file_read),
+          equippedTalismans: getEquippedTalismans(file_read),
+          owned: result.owned,
+          "not-owned": result["not-owned"],
+          counter: result.counter
+        };
+        save_json = JSON.stringify(jsonObject, null, 2);
+        localStorage.setItem("save_json", save_json);
+        localStorage.setItem("armor_json", JSON.stringify(armors_dictionary, null, 2));
+        localStorage.setItem("armament_json", JSON.stringify(armaments_dictionary, null, 2));
+        window.location.href = 'profile.html';
+        pushNotification(`Welcome back ${jsonObject.character}! Your save file is successfully loaded! You can start playing your Elden Ring, and we are actively monitoring your save file.🫡`);
       }
+    };
+    reader.onerror = function (e) {
+      // error occurred
+      console.log("Error : " + e.type);
+    };
+    reader.readAsArrayBuffer(new Blob([listened_save_file]));
+  };
+  ws.onopen = function() {
+      console.log('WebSocket connection opened');
+  };
+  ws.onerror = function(error) {
+      console.error('WebSocket error:', error);
+      // dowload websocket.js
+      let link = document.createElement("a");
+      link.href = "assets/js/websocket.js";
+      link.download = "websocket.js";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.location.href = '404Socket.html';
+  };
+}
+
+function calculate() {
+  let options = $("#slot_selector option:selected");
+  let selected_slot = options[0].value;
+  getJsonFiles();
+  result = getOwnedAndNot(file_read, selected_slot);
+  if (result["worked"]) {
+    // $("#owned").load("page_parts.html #owned_section", () => {
+    //   $("#not-owned").load("page_parts.html #not-owned-section", () => {
+    //     document.getElementById("collapse_button1").style.display = "block";
+    //     document.getElementById("collapse_button2").style.display = "block";
+    //     addFraction();
+    //   });
+    // });
+    save_json = generateJSON();
+    if (save_json) {
+      downloadJSON(save_json, "game_data.json");
+    }
+  }
 }
 
 function fetchJson(url, callback) {
@@ -168,6 +232,10 @@ function getJsonFiles() {
   fetchJson("erdb/json/armor.json", function (data) {
     armors_dictionary = { ...data };
   });
+
+  fetchJson("erdb/json/armaments.json", function (data) {
+    armaments_dictionary = { ...data };
+  });
 }
 
 // function l_endian(val) {
@@ -229,7 +297,7 @@ function getAttrs(file_read) {
       stat[attrName] = l_endian(data.slice(idx, idx + 4));
       idx += 4;
   });
-  delete stat["Placeholder Address"];
+  // delete stat["Placeholder Address"];
   return stat;
 }
 
