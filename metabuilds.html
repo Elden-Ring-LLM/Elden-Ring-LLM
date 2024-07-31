@@ -21,17 +21,152 @@
         <button class="active">Meta Builds</button>
     </div>
     <div class="main-content">
-        <h2>Meta Builds</h2>
-        <div class="build-list">
-            <div class="build">
-                <img src="build1.png" alt="Build 1">
-                <p>Build 1</p>
+        <header>
+            <h2>Meta Builds</h2>
+        </header>
+        <div class="slider on">
+            <div class="build-list">
+                <div class="build" id="build-1" >
+                    <img src="https://static0.gamerantimages.com/wordpress/wp-content/uploads/2022/05/Mohgwyns-Sacred-Spear.jpg?q=70&fit=contain&w=750&h=415&dpr=1" alt="Build 1">
+                    <div class="build-name">
+                        <h3>
+                            Lord of Blood
+                        </h3>
+                    </div>
+                </div>
+                <div class="build" id="build-2">
+                    <img src="https://static0.gamerantimages.com/wordpress/wp-content/uploads/2022/03/Elden-Ring-Winged-Scythe-screenshot.jpg?q=49&fit=contain&w=750&h=415&dpr=2" alt="Build 2">
+                    <div class="build-name">
+                        <h3>
+                            Black Flame
+                            <br>
+                            Reaper Paladin
+                        </h3>
+                    </div>
+                </div>
+                <div class="build" id="build-3">
+                    <img src="https://static0.gamerantimages.com/wordpress/wp-content/uploads/2023/12/elden-ring-rivers-of-blood.jpg?q=70&fit=contain&w=750&h=415&dpr=1" alt="Build 3">
+                    <div class="build-name">
+                        <h3>
+                            Dual-Wield
+                            <br>
+                            Rivers of Blood
+                        </h3>
+                    </div>
+                </div>
+                <div class="build" id="build-4">
+                    <img src="https://static0.gamerantimages.com/wordpress/wp-content/uploads/2022/03/elden-ring-blasphemous-blade-1.jpg?q=49&fit=contain&w=750&h=415&dpr=2" alt="Build 4">
+                    <div class="build-name">
+                        <h3>
+                            Blasphemous
+                            <br>
+                            Paladin
+                        </h3>
+                    </div>
+                </div>
+                <div class="build" id="build-5">
+                    <img src="https://static0.gamerantimages.com/wordpress/wp-content/uploads/2022/03/How-to-Get-Comet-Azur-Spell-in-Elden-Ring-scaled-1.jpg?q=49&fit=contain&w=750&h=415&dpr=2" alt="Build 5">
+                    <div class="build-name">
+                        <h3>
+                            Comet Azur
+                            <br>
+                            Wizard
+                        </h3>
+                    </div>
+                </div>
             </div>
-            <div class="build">
-                <img src="build2.png" alt="Build 2">
-                <p>Build 2</p>
+            <div class="list-buttons">
+            <span class="prev"></span>
+            <span class="next"></span>
             </div>
         </div>
+        <br>
+        <button class = "test build-button">Test</button>
+        <button class = "back build-button">Back</button>
+        <!--Build Blurbs hidden-->
+        <div class="hidden build-blurb", id="build-1-blurb">
+            <h1>
+                Lord Of Blood
+            </h1>
+            <p>
+                Weapons: 
+            </p>
+        </div>
+
     </div>
 </body>
+<script>
+    let prev = document.querySelector('.prev');
+    let next = document.querySelector('.next');
+    let slider = document.querySelector('.slider');
+    let test = document.querySelector('.test');
+    let back = document.querySelector('.back');
+
+    next.addEventListener('click', () => {
+        let builds = document.querySelectorAll('.build');
+        document.querySelector('.build-list').appendChild(builds[0]);
+        let image = builds[3].querySelector('img');
+        let imgsrc = image.src;
+        slider.style.backgroundImage = `url('${imgsrc}')`;
+    });
+    prev.addEventListener('click', () => {
+        let builds = document.querySelectorAll('.build');
+        document.querySelector('.build-list').prepend(builds[builds.length - 1]);
+        let image = builds[1].querySelector('img');
+        let imgsrc = image.src;
+        slider.style.backgroundImage = `url('${imgsrc}')`;
+    });
+
+    const returnSlider = () => {
+        let children = slider.querySelectorAll('*');
+        let next_prev = slider.querySelector(".list-buttons");
+        let buildList = slider.querySelector(".build-list");
+        next_prev.style.display = 'flex';
+        buildList.style.display = 'flex';
+        setTimeout(() => {
+            slider.classList.remove('off');
+            slider.classList.add('on');
+        }, 1);
+        //TEST
+        let test_blurb = document.querySelector('#build-1-blurb');
+        setTimeout(() => {
+            test_blurb.classList.remove('selected');
+            test_blurb.classList.add('hidden');
+            }, 750);
+        test_blurb.style.display = 'none';
+        //END OF TEST
+    }
+
+    test.addEventListener('click', () => {
+        slider.classList.remove('on')
+        slider.classList.add('off');
+        //TEST
+        let test_blurb = document.querySelector('#build-1-blurb')
+        test_blurb.style.display = 'block'
+        setTimeout(() => {
+            test_blurb.classList.remove('hidden')
+            test_blurb.classList.add('selected')
+            }, 1)
+        //END OF TEST
+        setTimeout(() => {
+            let next_prev = slider.querySelector(".list-buttons")
+            let buildList = slider.querySelector(".build-list")
+            next_prev.style.display = 'none'
+            buildList.style.display = 'none'
+        }, 500);
+        window.scrollTo({top: 10})
+
+    });
+
+    back.addEventListener('click', () => {
+        returnSlider();
+    });
+    
+    //TESTING SCROLL TO BACK
+    window.addEventListener('scroll', () => {
+        if (window.scrollY == 0) {
+            returnSlider();
+        }
+    })
+</script>
 </html>
