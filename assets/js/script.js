@@ -112,6 +112,43 @@ function getSaveFileFromListening() {
   };
 }
 
+function getSaveFileFromUploading() {
+  let file = document.querySelector("#savefile").files[0];
+  let reader = new FileReader();
+  reader.onload = function (e) {
+    file_read = e.target.result;
+    if (!buffer_equal(file_read["slice"](0, 4), new Int8Array([66, 78, 68, 52]))) {
+      e.target.result = null;
+      alert("Is your Save File corrupted?");
+      return;
+    }
+    getJsonFiles();
+    result = getOwnedAndNot(file_read, 0);
+    if (result["worked"]) {
+      let jsonObject = {
+        character: getNames(file_read)[0],
+        steamID: getSteamId(file_read),
+        stats: get_stats(file_read, 0),
+        level: getLevels(file_read)[0],
+        playTime_Hrs: getPlayTimesInHrs(file_read)[0],
+        equippedArmor: getEquippedArmor(file_read),
+        equippedTalismans: getEquippedTalismans(file_read),
+        owned: result.owned,
+        "not-owned": result["not-owned"],
+        counter: result.counter
+      };
+      save_json = JSON.stringify(jsonObject, null, 2);
+      localStorage.setItem("save_json", save_json);
+      localStorage.setItem("armor_json", JSON.stringify(armors_dictionary, null, 2));
+      localStorage.setItem("armament_json", JSON.stringify(armaments_dictionary, null, 2));
+      localStorage.setItem("talisman_json", JSON.stringify(talismans_dictionary, null, 2));
+      window.location.href = 'profile.html';
+      pushNotification(`Welcome back ${jsonObject.character}! Your save file is successfully loaded! You can start playing your Elden Ring, and we are actively monitoring your save file.🫡`);
+    }
+  };
+  reader.readAsArrayBuffer(new Blob([file]));
+}
+
 function calculate() {
   let options = $("#slot_selector option:selected");
   let selected_slot = options[0].value;
