@@ -173,6 +173,22 @@
                     }),
                 }
                 ).then(response => response.text());
+            } else if (classifiedGenre == "image query") {
+                query_response = await fetch(
+                'https://noggin.rea.gent/acute-impala-4844',
+                {
+                    method: 'POST',
+                    headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer rg_v1_ghhoa8vlw8g5lc8opq611d0e749fg4ifb8cq_ngk',
+                    },
+                    body: JSON.stringify({
+                    // fill variables here.
+                    "question": userInput,
+                    }),
+                }
+                ).then(response => response.text());
+                AI_response = "I'm loading image of " + query_response;
             } else {
                 AI_response = "Feature not enabled yet";
             }
@@ -186,7 +202,7 @@
                 const queriedMessage = document.createElement('div');
                 queriedMessage.className = 'bot-message';
                 if (query_response == "none") {
-                    queriedMessage.innerHTML = `<span class="message-label">🤖:</span> Can't retrieve relevant info from DB.`;
+                    queriedMessage.innerHTML = `<span class="message-label">🤖:</span> 😥 I Can't retrieve relevant info.`;
                 } else {
                     let ans = null; 
                     console.log(query_response);
@@ -199,6 +215,15 @@
                         let armament_json = JSON.parse(localStorage.getItem("armament_json"));
                         // console.log(armament_json);
                         ans = queryData(armament_json, query_response);
+                    } else if (classifiedGenre == "image query") {
+                        const img_link = 'assets/img/' + query_response + '.webp';
+                        const imgMessage = document.createElement('div');
+                        imgMessage.className = 'bot-message';
+                        imgMessage.innerHTML = `<span class="message-label">🤖:</span> <img src="${img_link}" width="100" height="100">`;
+                        // console.log(img_link);
+                        document.getElementById('chat-window').appendChild(imgMessage);
+                        // document.getElementById("chat-window").style.background = img_link;
+                        ans = "Image Loaded";
                     }
                     queriedMessage.innerHTML = `<span class="message-label">🤖:</span> Queried Result: ${ans}.`;
                 }
@@ -236,6 +261,30 @@
             const entries = entry_str.split(';');
             return queryData(json[entries.shift()], entries.join(';'));
         }
+    </script>
+    <script>         
+        function sysMessage(str) {
+            const sysMessage0 = document.createElement('div');
+            sysMessage0.className = 'bot-message';
+            sysMessage0.innerHTML = `<span class="message-label">🤖:</span> ${str}`;
+            document.getElementById('chat-window').appendChild(sysMessage0);
+        }
+
+        setTimeout(() => {
+            sysMessage("I'm still evolving, please ask something simple. Most of time, I even forget what you said just one second ago, just be more specifc.");
+        }, 500);
+
+        setTimeout(() => {
+            sysMessage("If you don't get the answer, try to ask again.😅");
+        }, 1000);
+
+        setTimeout(() => {
+            sysMessage("If you think weapon data is a little bit off, ask Miyazaki 👨‍🦳 why he updates armament data so frequently.");
+        }, 1500);
+
+        setTimeout(() => {
+            sysMessage("If you are not getting desirable answer, try to add a question genre prefix. For example: Question genre: general. Is vigor 59 high?");
+        }, 2000);
     </script>
     <script src="assets/js/script.js"></script>
 </body>
