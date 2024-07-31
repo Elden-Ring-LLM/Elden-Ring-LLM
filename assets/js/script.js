@@ -85,6 +85,7 @@ function getSaveFileFromListening() {
         localStorage.setItem("save_json", save_json);
         localStorage.setItem("armor_json", JSON.stringify(armors_dictionary, null, 2));
         localStorage.setItem("armament_json", JSON.stringify(armaments_dictionary, null, 2));
+        localStorage.setItem("talisman_json", JSON.stringify(talismans_dictionary, null, 2));
         window.location.href = 'profile.html';
         pushNotification(`Welcome back ${jsonObject.character}! Your save file is successfully loaded! You can start playing your Elden Ring, and we are actively monitoring your save file.🫡`);
       }
