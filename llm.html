@@ -227,9 +227,10 @@
         function queryData(json, entry_str) {
             console.log(entry_str);
             if (!entry_str.includes(";")) {
-                if (isValidJSON(json[entry_str])) {
+                if (isValidJSON(json[entry_str]) || !(json[entry_str] instanceof String)) {
                     return JSON.stringify(json[entry_str]);
                 }
+                // console.log();
                 return json[entry_str];
             }
             const entries = entry_str.split(';');
