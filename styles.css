@@ -198,8 +198,10 @@ button:hover {
 }
 
 .chat-window {
+    /* background: url('assets/img/armament/Academy\ Glintstone\ Staff.webp'); */
+    /* background-repeat: repeat; */
     width: 80%;
-    height: 60vh;
+    height: 75vh;
     background-color: white;
     border: 1px solid #ccc;
     border-radius: 8px;

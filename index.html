@@ -191,7 +191,7 @@
                     <button onclick="allowNotifications()"><strong>Optional Real-Time Notifications</strong>: Play With a 🤖</button>
                     </div>
                     <div>
-                    <label class="form-label"><strong>One-Time Status Check</strong>: Upload Save File (C:\Users\{USERNAME}\AppData\Roaming\EldenRing\{YOUR_STEAM_ID}\ER0000.sl2)</label>
+                    <label class="form-label"><strong>Slow Start Here</strong>: Upload Save File (C:\Users\{USERNAME}\AppData\Roaming\EldenRing\{YOUR_STEAM_ID}\ER0000.sl2)</label>
                     <input class="form-control" type="file" id="savefile" accept=".sl2, .co2" />
                     </div>
                 </div>
@@ -214,7 +214,10 @@
               </li>
               <li style="display: none" id="calculate">
                 <div class="mid-container gap-2" style="margin: 10px">
-                  <button type="button" name="calculate" class="btn btn-dark" onclick="calculate()">Get Save File JSON</button>
+                  <div class="mid-container gap-2" style="margin: 10px">
+                    <button type="button" name="calculate" class="btn btn-dark" onclick="getSaveFileFromUploading()">Start LLM Here</button>
+                  </div>
+                  <button type="button" name="calculate" class="btn btn-dark" onclick="calculate()">Download Save File JSON</button>
                 </div>
               </li>
             </ul>
