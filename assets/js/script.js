@@ -32,6 +32,12 @@ function isValidJSON(data) {
 }
 
 function getSaveFileFromListening() {
+  if (localStorage.getItem("save_json") != null) {
+    save_json = JSON.parse(localStorage.getItem("save_json"));
+    window.location.href = 'profile.html';
+    pushNotification(`Welcome back ${save_json.character}! Your save file is successfully loaded! You can start playing your Elden Ring, and we are actively monitoring your save file.🫡`);
+    return;
+  }
   const ws = new WebSocket('ws://localhost:8080');
   ws.binaryType = 'arraybuffer';
   ws.onmessage = function(event) {
