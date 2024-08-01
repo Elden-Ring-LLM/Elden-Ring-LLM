@@ -22,40 +22,39 @@
     </div>
     <div class="main-content">
         <h2>Profile</h2>
-        <p>Please Select One Save File</p>
-        <div class="profile-selection">
-            <div class="profile" onclick="selectProfile(1)">
-                <img src="profile1.png" alt="Player 1">
-                <p>Player 1</p>
-                <p>This is a description of this profile, locations, progress, etc.</p>
-            </div>
-            <div class="profile" onclick="selectProfile(2)">
-                <img src="profile2.png" alt="Player 2">
-                <p>Player 2</p>
-                <p>This is a description of this profile, locations, progress, etc.</p>
-            </div>
-            <div class="profile" onclick="selectProfile(3)">
-                <img src="profile3.png" alt="Player 3">
-                <p>Player 3</p>
-                <p>This is a description of this profile, locations, progress, etc.</p>
-            </div>
-            <div class="profile" onclick="selectProfile(4)">
-                <img src="profile4.png" alt="Player 4">
-                <p>Player 4</p>
-                <p>This is a description of this profile, locations, progress, etc.</p>
-            </div>
-            <div class="profile" onclick="selectProfile(5)">
-                <img src="profile5.png" alt="Player 5">
-                <p>Player 5</p>
-                <p>This is a description of this profile, locations, progress, etc.</p>
-            </div>
-            <div class="profile" onclick="selectProfile(6)">
-                <img src="profile6.png" alt="Player 6">
-                <p>Player 6</p>
-                <p>This is a description of this profile, locations, progress, etc.</p>
+        <h2>Please Select One Save File</h2>
+        <div class="profile-container">
+            <div class="profile-selection">
+                <div class="profile occupied" onclick="selectProfile(1)">
+                    <img src="images/class0.png" alt="Player 1">
+                    <p>Profile 1</p>
+                    <p>This is a description of this profile, locations, progress, etc.</p>
+                </div>
+                <div class="profile occupied" onclick="selectProfile(2)">
+                    <img src="images/class1.png" alt="Player 2">
+                    <p>Profile 2</p>
+                    <p>This is a description of this profile, locations, progress, etc.</p>
+                </div>
+                <div class="profile occupied" onclick="selectProfile(3)">
+                    <img src="images/class2.png" alt="Player 3">
+                    <p>Profile 3</p>
+                    <p>This is a description of this profile, locations, progress, etc.</p>
+                </div>
+                <div class="profile" onclick="selectProfile(4)">
+                    <p>Profile 4</p>
+                    <p>This is a description of this profile, locations, progress, etc.</p>
+                </div>
+                <!-- <div class="profile" onclick="selectProfile(5)">
+                    <p>Profile 5</p>
+                    <p>This is a description of this profile, locations, progress, etc.</p>
+                </div>
+                <div class="profile" onclick="selectProfile(6)">
+                    <p>Profile 6</p>
+                    <p>This is a description of this profile, locations, progress, etc.</p>
+                </div> -->
             </div>
         </div>
-        <button onclick="nextPage()">Next!</button>
+        <button id="profile1next" onclick="nextPage()">Next!</button>
     </div>
     <script>
         function selectProfile(profileId) {

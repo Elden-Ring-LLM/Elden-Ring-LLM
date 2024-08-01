@@ -62,6 +62,9 @@ body {
 .main-content {
     flex: 1;
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 h2 {
@@ -80,14 +83,43 @@ button {
     transition: background-color 0.5s, color 0.5s, transform 0.5s;
 }
 
+#profile1next {
+    margin-top: auto;
+    padding: 10px 20px;
+    background-color: #0E46A3;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.5s, transform 0.5s;
+}
+
 button:hover {
     transform: scale(1.25);
+}
+
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    justify-content: space-between;
 }
 
 .profile-selection, .attributes-section, .build-list, .boss-list {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+}
+
+.profile-selection {
+    display: flex;
+    justify-content: space-around;
+    scroll-behavior: smooth;
+    width: 100%;
+    padding-bottom: 20px;
 }
 
 .profile, .build, .boss {
@@ -98,10 +130,27 @@ button:hover {
     border: 1px solid #555555;
     width: 150px;
     text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.profile.occupied {
+    background-color: #ededed;
+    background-image: url('path_to_your_background_image.jpg');
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: scale(1.1);
+    border: 2px solid #f0a500;
 }
 
 .profile:hover, .build:hover, .boss:hover {
     background-color: #555555;
+    transform: scale(1.05);
+}
+
+.profile.occupied:hover {
+    background-color: #ffffff;
+    transform: scale(1.15);
 }
 
 .attributes-section {
