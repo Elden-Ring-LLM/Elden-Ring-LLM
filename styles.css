@@ -22,8 +22,18 @@ body {
     z-index: -1;
 }
 
-.background-blur {
+#profile-bg-image {
     background-image: url('assets/img/bg1.webp');
+    background-size: cover;
+    background-position: center;
+    width: 110%;
+    height: 110%;
+    position: absolute;
+    filter: blur(2px);
+}
+
+#weapons-bg-image {
+    background-image: url('assets/img/bg2.webp');
     background-size: cover;
     background-position: center;
     width: 110%;
@@ -149,6 +159,12 @@ button:hover {
     gap: 10rem;
 }
 
+@media (max-width: 800px) {
+  .container {
+    flex-direction: column;
+  }
+}
+
 .profile-selection, .build-list, .boss-list {
     display: flex;
     flex-wrap: wrap;
@@ -187,6 +203,11 @@ button:hover {
     gap: 50px;
     /* background-color: #f8f9fa; */
     padding: 20px;
+    transition: transform 0.3s;
+}
+
+.attributes-section:hover {
+    transform: scale(1.20);
 }
 
 .attributes, .loaded-attributes {
@@ -273,7 +294,7 @@ button:hover {
     text-align: center;
     color: #ebd35b;
     backface-visibility: hidden; /* Hides the back side of the elements when rotated */
-    transform: translateZ(70px);
+    transform: translateZ(20px);
     font-size: 40px;
 }
 

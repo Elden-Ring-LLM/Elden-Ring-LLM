@@ -308,6 +308,7 @@
         let reader = new FileReader();
         reader.onload = function (e) {
           file_read = e.target.result;
+          console.log(file_read);
           if (!buffer_equal(file_read["slice"](0, 4), new Int8Array([66, 78, 68, 52]))) {
             e.target.result = null;
             document.getElementById("slot_select").style.display = "none";
