@@ -3,10 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile Selection</title>
+    <title>Player Profile</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
 </head>
+<!-- <body style="background-image: url(assets/img/bg1.webp); background-size: 110%; filter: drop-shadow(100px);"> -->
 <body>
+    <div class="background-container">
+        <div class="background-blur"></div>
+    </div>
     <div class="sidebar">
         <img onclick="location.href='index.html'" src="./images/eldenringicon.png" alt="Sidebar Image" class="sidebar-image">
         <button onclick="location.href='llm.html'" class="search-button">
@@ -21,69 +26,129 @@
         <button onclick="location.href='metabuilds.html'">Meta Builds</button>
     </div>
     <div class="main-content">
-        <h2>Profile</h2>
-        <h2>Please Select One Save File</h2>
-        <div class="profile-container">
-            <div class="profile-selection">
-                <div class="profile occupied" onclick="selectProfile(1)">
-                    <img src="images/class0.png" alt="Player 1">
-                    <p>Profile 1</p>
-                    <p>This is a description of this profile, locations, progress, etc.</p>
+        <div class="title-container">
+            <h2>Player Profile</h2>
+            <h2 id="profile-details"></h2>
+        </div>
+        <div class="container">
+            <div class="profile-occupied" >
+                <img src="images/Hero.png" alt="Player 1" id="player-image">
+                <p id="profile-name">Profile 1</p>
+                <p id="profile-description">This is a description of this profile, locations, progress, etc.</p>
+            </div>
+            <div class="attributes-container">
+                <p class="attributes-title">Loaded Attributes</p>
+                <div class="attributes-section">
+                    <div class="attributes">
+                        <p>Level:</p>
+                        <p>Runes Held:</p>
+                        <p>Vigor:</p>
+                        <p>Mind:</p>
+                        <p>Endurance:</p>
+                        <p>Strength:</p>
+                        <p>Dexterity:</p>
+                        <p>Intelligence:</p>
+                        <p>Faith:</p>
+                        <p>Arcane:</p>
+                    </div>
+                    <div class="loaded-attributes">
+                        <p><span id="level"></span></p>
+                        <p><span id="souls"></span></p>
+                        <p><span id="Vigor"></span></p>
+                        <p><span id="Mind"></span></p>
+                        <p><span id="Endurance"></span></p>
+                        <p><span id="Strength"></span></p>
+                        <p><span id="Dexterity"></span></p>
+                        <p><span id="Intelligence"></span></p>
+                        <p><span id="Faith"></span></p>
+                        <p><span id="Arcane"></span></p>
+                    </div>
                 </div>
-                <div class="profile occupied" onclick="selectProfile(2)">
-                    <img src="images/class1.png" alt="Player 2">
-                    <p>Profile 2</p>
-                    <p>This is a description of this profile, locations, progress, etc.</p>
-                </div>
-                <div class="profile occupied" onclick="selectProfile(3)">
-                    <img src="images/class2.png" alt="Player 3">
-                    <p>Profile 3</p>
-                    <p>This is a description of this profile, locations, progress, etc.</p>
-                </div>
-                <div class="profile" onclick="selectProfile(4)">
-                    <p>Profile 4</p>
-                    <p>This is a description of this profile, locations, progress, etc.</p>
-                </div>
-                <!-- <div class="profile" onclick="selectProfile(5)">
-                    <p>Profile 5</p>
-                    <p>This is a description of this profile, locations, progress, etc.</p>
-                </div>
-                <div class="profile" onclick="selectProfile(6)">
-                    <p>Profile 6</p>
-                    <p>This is a description of this profile, locations, progress, etc.</p>
-                </div> -->
+            </div>
+            <div class="actions" data-tilt data-tilt-startX="100" data-tilt-reset-to-start="true" data-tilt-axis="x">
+                <button onclick="adviseAttributes()" id="suggest-weapons">Suggest Weapons</button>
+                <button onclick="showMetaBuilds()" id="go-metabuilds">Show Meta-Builds</button>
             </div>
         </div>
-        <button id="profile1next" onclick="nextPage()">Next!</button>
     </div>
+
+    <script src="assets/js/script.js"></script>
+    <script type="text/javascript" src="vanilla-tilt.js"></script>
+    <script type="text/javascript">
+        VanillaTilt.init(document.querySelector(".profile-occupied"), {
+            startX: -15,
+            // startY: -20,
+            scale: "1.15",
+            reset_to_start: true,
+            max: 25,
+            speed: 400
+        });
+        
+        //It also supports NodeList
+        VanillaTilt.init(document.querySelectorAll(".your-element"));
+    </script>
     <script>
-        function selectProfile(profileId) {
-            localStorage.setItem('selectedProfile', profileId);
-            highlightSelectedProfile(profileId);
+        const player_class = localStorage.getItem("player_class");
+        console.log("Player Class:", player_class);
+        document.getElementById('player-image').src = `images/${player_class}.png`;
 
-            const notification = new Notification("Elden Ring LLM", {
-                body: "You have selected" + " Player " + profileId,
-                icon: "icon.png"
-            });
-        }
-
-        function highlightSelectedProfile(profileId) {
-            const profiles = document.querySelectorAll('.profile');
-            profiles.forEach((profile, index) => {
-                if (index + 1 === profileId) {
-                    profile.style.border = '2px solid #f0a500';
-                } else {
-                    profile.style.border = 'none';
-                }
-            });
-        }
-
-        function nextPage() {
-            const selectedProfile = localStorage.getItem('selectedProfile');
-            if (selectedProfile) {
-                window.location.href = 'profile2.html';
+        document.addEventListener('DOMContentLoaded', async () => {
+            const profile_name = localStorage.getItem('profile_name');
+            if (profile_name) {
+                document.getElementById('profile-details').innerText = `Selected Profile: ${profile_name}`;
+                document.getElementById('profile-name').innerText = profile_name;
+                document.getElementById('profile-description').innerText = localStorage.getItem('player_save_description');
             } else {
-                alert('Please select a profile.');
+                document.getElementById('profile-details').innerText = 'No profile selected.';
+            }
+    
+            let load_json = JSON.parse(localStorage.getItem("save_json"));
+            let json_response = queryData(load_json, "stats");
+            try {
+                const jsonObject = JSON.parse(json_response);
+                console.log("Parsed JSON Object:", jsonObject);
+    
+                document.getElementById("level").innerText = jsonObject.level;
+                document.getElementById("souls").innerText = jsonObject.souls;
+                document.getElementById("Vigor").innerText = jsonObject.Vigor;
+                document.getElementById("Mind").innerText = jsonObject.Mind;
+                document.getElementById("Endurance").innerText = jsonObject.Endurance;
+                document.getElementById("Strength").innerText = jsonObject.Strength;
+                document.getElementById("Dexterity").innerText = jsonObject.Dexterity;
+                document.getElementById("Intelligence").innerText = jsonObject.Intelligence;
+                document.getElementById("Faith").innerText = jsonObject.Faith;
+                document.getElementById("Arcane").innerText = jsonObject.Arcane;
+            } catch (error) {
+                console.error("Error parsing JSON:", error);
+            }
+        });
+    
+        function adviseAttributes() {
+            window.location.href = 'attributes.html';
+        }
+    
+        function showMetaBuilds() {
+            window.location.href = 'metabuilds.html';
+        }
+    
+        function queryData(json, entry_str) {
+            console.log(entry_str);
+            if (!entry_str.includes(";")) {
+                if (isValidJSON(json[entry_str]) || !(json[entry_str] instanceof String)) {
+                    return JSON.stringify(json[entry_str]);
+                }
+                return json[entry_str];
+            }
+            const entries = entry_str.split(';');
+            return queryData(json[entries.shift()], entries.join(';'));
+        }
+    
+        function isValidJSON(str) {
+            try {
+                JSON.parse(str);
+                return true;
+            } catch (e) {
+                return false;
             }
         }
     </script>

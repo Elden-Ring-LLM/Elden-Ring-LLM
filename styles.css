@@ -4,11 +4,32 @@ body {
     color: black;
     margin: 0;
     display: flex;
+    font-family: 'Cinzel', serif; 
 }
 
 .container {
     text-align: center;
     margin: auto;
+    margin-top: -150px;
+}
+
+.background-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.background-blur {
+    background-image: url('assets/img/bg1.webp');
+    background-size: cover;
+    background-position: center;
+    width: 110%;
+    height: 110%;
+    position: absolute;
+    filter: blur(2px);
 }
 
 .sidebar {
@@ -18,6 +39,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    min-height: 100vh;
 }
 .sidebar img.sidebar-image {
     width: 100%;
@@ -67,8 +89,18 @@ body {
     align-items: center;
 }
 
+.title-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #1e1e1e72;
+    padding: 20px;
+    width: 100%;
+    border-radius: 20px;
+}
+
 h2 {
-    color: #0E46A3;
+    color: #DAA520;
 }
 
 button {
@@ -117,19 +149,78 @@ button:hover {
     gap: 10rem;
 }
 
-.profile-selection, .attributes-section, .build-list, .boss-list {
+.profile-selection, .build-list, .boss-list {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
 }
 
-.profile-selection {
+.attributes-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #1e1e1ecb;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    transition: 0.3s;
+}
+
+.attributes-container p {
+    color: #DAA520;
+}
+
+.attributes-container:hover {
+    background-color: #233470a2;
+    transform: scale(1.20);
+}
+
+.attributes-title {
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.attributes-section {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    /* background-color: #f8f9fa; */
+    padding: 20px;
+}
+
+.attributes, .loaded-attributes {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    /* background-color: #fff; */
+    padding: 10px;
+    /* border: 1px solid #ccc; */
+}
+
+.attributes p, .loaded-attributes p {
+    margin: 5px 0;
+}
+
+.attributes p {
+    text-align: left;
+}
+
+.attributes {
+    flex: 0 0 100px;
+}
+
+.loaded-attributes {
+    flex: 1; /* Take the remaining space */
+}
+
+/* .profile-selection {
     display: flex;
     justify-content: space-around;
     scroll-behavior: smooth;
     width: 100%;
     padding-bottom: 20px;
-}
+} */
 
 .profile, .build, .boss {
     background-color: #333333;
@@ -142,14 +233,16 @@ button:hover {
     transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.profile.occupied {
-    background-color: #ededed;
-    background-image: url('path_to_your_background_image.jpg');
-    background-size: cover;
-    background-position: center;
+.profile-occupied {
+    background-color: #1e1e1ecb;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transform: scale(1.1);
+    width: 300px;
     border: 2px solid #f0a500;
+    border-radius: 20px;
+    transition: transform 1s, box-shadow s;
+    display: inline-block;
+    transform-style: preserve-3d;
+    transform: perspective(1000px);
 }
 
 .profile:hover, .build:hover, .boss:hover {
@@ -157,45 +250,66 @@ button:hover {
     transform: scale(1.05);
 }
 
-.profile.occupied:hover {
-    background-color: #ffffff;
-    transform: scale(1.15);
+.profile-occupied:hover {
+    transform: rotateY(20deg); /* Rotate around the vertical axis on hover */
+    background-color: #233470a2 ;
 }
 
-.attributes-section {
-    display: flex;
-    justify-content: space-between;
+.profile-occupied img {
+    backface-visibility: hidden; /* Hides the back side of the elements when rotated */
+    transform: translateZ(70px)
 }
 
-.loaded-attributes {
-    background-color: #333333;
-    padding: 20px;
-    border: 1px solid #555555;
-}
-
-.loaded-attributes p {
+.profile-occupied p {
     margin: 10px 0;
+    text-align: center;
+    color: #DAA520;
+    backface-visibility: hidden; /* Hides the back side of the elements when rotated */
+    transform: translateZ(30px)
+}
+
+#profile-name {
+    margin: 10px 0;
+    text-align: center;
+    color: #ebd35b;
+    backface-visibility: hidden; /* Hides the back side of the elements when rotated */
+    transform: translateZ(70px);
+    font-size: 40px;
+}
+
+.profile-occupied img {
+    width: 100%; /* Ensure the image fits within the profile block */
+    border-radius: 8px; /* Optional: Adds rounded corners to the image */
 }
 
 .actions {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    gap: 100px;
 }
 
-.attributes {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+#suggest-weapons, #go-metabuilds {
+    font-family: 'Cinzel', serif; 
+    background-color: #0000008e;
+    color: #DAA520;
+    width: 260px;
+    height: 150px;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+    transition: background-color 0.5s, color 0.5s, transform 0.5s;
 }
 
-.attributes label {
-    margin: 10px 0;
+#suggest-weapons:hover, #go-metabuilds:hover {
+    background-color: #DAA520;
+    color: #000000;
+    transform: scale(1.25);
 }
 
-.attributes input {
-    margin-left: 10px;
-}
 .chat-container {
     display: flex;
     flex-direction: column;
