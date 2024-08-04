@@ -22,21 +22,27 @@
     </div>
     <div class="main-content">
         <h2>Player Profile</h2>
-        <div id="profile-details"></div>
-        <div class="attributes-section">
-            <div class="loaded-attributes">
-                <p>Loaded Attributes</p>
-                <p>Level: <span>50</span></p>
-                <p>Runes Held: <span>5000</span></p>
-                <p>Runes Needed: <span>7000</span></p>
-                <p>Vigor: <span>30</span></p>
-                <p>Mind: <span>20</span></p>
-                <p>Endurance: <span>25</span></p>
-                <p>Strength: <span>15</span></p>
-                <p>Dexterity: <span>18</span></p>
-                <p>Intelligence: <span>12</span></p>
-                <p>Faith: <span>10</span></p>
-                <p>Arcane: <span>8</span></p>
+        <h2 id="profile-details"></h2>
+        <div class="container">
+            <div class="profile occupied" onclick="selectProfile(1)">
+                <img src="images/Hero.png" alt="Player 1" id="player-image">
+                <p>Profile 1</p>
+                <p>This is a description of this profile, locations, progress, etc.</p>
+            </div>
+            <div class="attributes-section">
+                <div class="loaded-attributes">
+                    <p>Loaded Attributes</p>
+                    <p>Level: <span id="level"></span></p>
+                    <p>Runes Held: <span id="souls"></span></p>
+                    <p>Vigor: <span id="Vigor"></span></p>
+                    <p>Mind: <span id="Mind"></span></p>
+                    <p>Endurance: <span id="Endurance"></span></p>
+                    <p>Strength: <span id="Strength"></span></p>
+                    <p>Dexterity: <span id="Dexterity"></span></p>
+                    <p>Intelligence: <span id="Intelligence"></span></p>
+                    <p>Faith: <span id="Faith"></span></p>
+                    <p>Arcane: <span id="Arcane"></span></p>
+                </div>
             </div>
             <div class="actions">
                 <button onclick="adviseAttributes()">Provide Advice on Attributes Allocation</button>
@@ -44,22 +50,90 @@
             </div>
         </div>
     </div>
+
+    <script src="assets/js/script.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+        const player_class = localStorage.getItem("player_class");
+        console.log("Player Class:", player_class);
+        document.getElementById('player-image').src = `images/${player_class}.png`;
+
+        document.addEventListener('DOMContentLoaded', async () => {
             const profileId = localStorage.getItem('selectedProfile');
             if (profileId) {
                 document.getElementById('profile-details').innerText = `Selected Profile: Player ${profileId}`;
             } else {
                 document.getElementById('profile-details').innerText = 'No profile selected.';
             }
+    
+            let load_json = JSON.parse(localStorage.getItem("save_json"));
+            let json_response = queryData(load_json, "stats");
+            // try {
+            //     const response = await fetch('https://noggin.rea.gent/daily-mandrill-3370', {
+            //         method: 'POST',
+            //         headers: {
+            //             'Content-Type': 'application/json',
+            //             Authorization: 'Bearer rg_v1_tikkosex4a85z1x5iy0yqx3hythmhjbxcdq0_ngk',
+            //         },
+            //         body: JSON.stringify({
+            //             // fill variables here.
+            //             "attributes": json_response,
+            //         }),
+            //     });
+            //     const responseData = await response.text();
+            //     console.log("Response from fetch:", responseData);
+            //     console.log("Player Image:", `images/${responseData}.png`);
+            //     document.getElementById('player-image').src = `images/${responseData}.png`;
+            // } catch (error) {
+            //     console.error("Error fetching data:", error);
+            // }
+            try {
+                const jsonObject = JSON.parse(json_response);
+                console.log("Parsed JSON Object:", jsonObject);
+    
+                document.getElementById("level").innerText = jsonObject.level;
+                document.getElementById("souls").innerText = jsonObject.souls;
+                document.getElementById("Vigor").innerText = jsonObject.Vigor;
+                document.getElementById("Mind").innerText = jsonObject.Mind;
+                document.getElementById("Endurance").innerText = jsonObject.Endurance;
+                document.getElementById("Strength").innerText = jsonObject.Strength;
+                document.getElementById("Dexterity").innerText = jsonObject.Dexterity;
+                document.getElementById("Intelligence").innerText = jsonObject.Intelligence;
+                document.getElementById("Faith").innerText = jsonObject.Faith;
+                document.getElementById("Arcane").innerText = jsonObject.Arcane;
+            } catch (error) {
+                console.error("Error parsing JSON:", error);
+            }
+    
+            // Make the fetch call
         });
-
+    
         function adviseAttributes() {
             window.location.href = 'attributes.html';
         }
-
+    
         function showMetaBuilds() {
             window.location.href = 'metabuilds.html';
+        }
+    
+        function queryData(json, entry_str) {
+            console.log(entry_str);
+            if (!entry_str.includes(";")) {
+                if (isValidJSON(json[entry_str]) || !(json[entry_str] instanceof String)) {
+                    return JSON.stringify(json[entry_str]);
+                }
+                return json[entry_str];
+            }
+            const entries = entry_str.split(';');
+            return queryData(json[entries.shift()], entries.join(';'));
+        }
+    
+        function isValidJSON(str) {
+            try {
+                JSON.parse(str);
+                return true;
+            } catch (e) {
+                return false;
+            }
         }
     </script>
 </body>

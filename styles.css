@@ -108,6 +108,15 @@ button:hover {
     justify-content: space-between;
 }
 
+.container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    gap: 10rem;
+}
+
 .profile-selection, .attributes-section, .build-list, .boss-list {
     display: flex;
     flex-wrap: wrap;

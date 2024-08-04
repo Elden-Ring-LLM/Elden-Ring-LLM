@@ -296,7 +296,7 @@
       }
 
       const fileSelector = document.getElementById("savefile");
-      fileSelector.addEventListener("change", (event) => {
+      fileSelector.addEventListener("change", async (event) => {
         // no file selected to read
         if (document.querySelector("#savefile").value == null) {
           alert("No file selected");
@@ -325,7 +325,49 @@
           console.log("Error : " + e.type);
         };
         reader.readAsArrayBuffer(file);
+
+        let load_json = JSON.parse(localStorage.getItem("save_json"));
+        let json_response = queryData(load_json, "stats");
+        try {
+            const response = await fetch('https://noggin.rea.gent/daily-mandrill-3370', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer rg_v1_tikkosex4a85z1x5iy0yqx3hythmhjbxcdq0_ngk',
+                },
+                body: JSON.stringify({
+                    // fill variables here.
+                    "attributes": json_response,
+                }),
+            });
+            const responseData = await response.text();
+            localStorage.setItem("player_class", responseData);
+            console.log("Response from fetch:", responseData);
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
       });
+
+      function queryData(json, entry_str) {
+            console.log(entry_str);
+            if (!entry_str.includes(";")) {
+                if (isValidJSON(json[entry_str]) || !(json[entry_str] instanceof String)) {
+                    return JSON.stringify(json[entry_str]);
+                }
+                return json[entry_str];
+            }
+            const entries = entry_str.split(';');
+            return queryData(json[entries.shift()], entries.join(';'));
+        }
+    
+        function isValidJSON(str) {
+            try {
+                JSON.parse(str);
+                return true;
+            } catch (e) {
+                return false;
+            }
+        }
 
     </script>
   </body>
