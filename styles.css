@@ -28,8 +28,9 @@ body {
     background-position: center;
     width: 110%;
     height: 110%;
-    position: absolute;
     filter: blur(2px);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 #weapons-bg-image {
@@ -155,8 +156,9 @@ button:hover {
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    flex-wrap: wrap;
     height: 100%;
-    gap: 10rem;
+    gap: 8rem;
 }
 
 /* @media (max-width: 800px) {
