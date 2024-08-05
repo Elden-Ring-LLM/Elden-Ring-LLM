@@ -239,9 +239,9 @@
         <hr style="margin-top: 100px" />
       </div>
     </div>
-    <button type="button" class="btn btn-dark btn-floating btn-lg btn-outline-light" id="btn-back-to-top" style="width: 100px">
+    <!-- <button type="button" class="btn btn-dark btn-floating btn-lg btn-outline-light" id="btn-back-to-top" style="width: 100px">
       <i class="fas fa-arrow-up"></i>
-    </button>
+    </button> -->
 
     <!-- Vendor JS Files -->
     <script src="assets/js/script.js"></script>
@@ -271,7 +271,7 @@
       }
     </script>
     <script>
-      let r = Math.floor(Math.random() * 6);
+      let r = Math.floor(Math.random() * 12);
       document.getElementsByTagName("body")[0].style.backgroundImage = `url(assets/img/bg${r}.webp`;
       getFromRedditApi("#cypherring-sub", "https://www.reddit.com/r/CypherRing/about.json", "subscribers");
       getFromRedditApi("#cypherring-online", "https://www.reddit.com/r/CypherRing/about.json", "active_user_count");
@@ -390,7 +390,6 @@
                 return false;
             }
         }
-
     </script>
   </body>
 </html>
