@@ -32,7 +32,7 @@
             <div class="profile-occupied" >
                 <img src="images/Hero.png" alt="Player 1" id="player-image">
                 <p id="profile-name">Profile 1</p>
-                <p id="profile-description">This is a description of this profile, locations, progress, etc.</p>
+                <p id="profile-description"></p>
             </div>
             <div class="attributes-container">
                 <p class="attributes-title">Loaded Attributes</p>
@@ -91,16 +91,40 @@
         document.getElementById('player-image').src = `images/${player_class}.png`;
 
         document.addEventListener('DOMContentLoaded', async () => {
-            const profile_name = localStorage.getItem('profile_name');
+            let profile_name = localStorage.getItem('profile_name');
+            let load_json = JSON.parse(localStorage.getItem("save_json"));
             if (profile_name) {
-                document.getElementById('profile-details').innerText = `Selected Profile: ${profile_name}`;
-                document.getElementById('profile-name').innerText = profile_name;
-                document.getElementById('profile-description').innerText = localStorage.getItem('player_save_description');
+                document.getElementById('profile-details').innerText = `Selected Profile: ${load_json.character}`;
+                document.getElementById('profile-name').innerText = load_json.character;// import fetch from 'node-fetch'; // for node.js
+                const des_response = await fetch(
+                'https://noggin.rea.gent/frantic-felidae-1191',
+                {
+                    method: 'POST',
+                    headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer rg_v1_u6vl9116ws35x09fmqxx960ihavger2s8hzj_ngk',
+                    },
+                    body: JSON.stringify({
+                    // fill variables here.
+                    "attributes": queryData(load_json, "stats"),
+                    }),
+                }
+                ).then(response => response.text());
+                const typewriterElement = document.getElementById('profile-description');
+                let index = 0;
+                function typeWriter() {
+                    if (index < des_response.length) {
+                        typewriterElement.textContent += des_response.charAt(index);
+                        index++;
+                        setTimeout(typeWriter, 100); // Adjust the speed by changing the delay (in milliseconds)
+                    }
+                }
+                typeWriter();
             } else {
                 document.getElementById('profile-details').innerText = 'No profile selected.';
             }
     
-            let load_json = JSON.parse(localStorage.getItem("save_json"));
+            // let load_json = JSON.parse(localStorage.getItem("save_json"));
             let json_response = queryData(load_json, "stats");
             try {
                 const jsonObject = JSON.parse(json_response);
