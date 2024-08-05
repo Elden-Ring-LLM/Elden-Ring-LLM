@@ -159,11 +159,11 @@ button:hover {
     gap: 10rem;
 }
 
-@media (max-width: 800px) {
+/* @media (max-width: 800px) {
   .container {
     flex-direction: column;
   }
-}
+} */
 
 .profile-selection, .build-list, .boss-list {
     display: flex;
