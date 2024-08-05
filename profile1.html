@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Selection</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="sidebar">
+        <img onclick="location.href='index.html'" src="./images/eldenringicon.png" alt="Sidebar Image" class="sidebar-image">
+        <button onclick="location.href='llm.html'" class="search-button">
+            <img src="./images/whitesearch.png" alt="Search Icon" class="search-icon">
+        </button>
+        <button onclick="location.href='boss.html'">Bosses</button>
+        <button onclick="location.href='achievements.html'">Achievements</button>
+        <button onclick="location.href='weapons.html'">Weapons</button>
+        <button onclick="location.href='armors.html'">Armors</button>
+        <button onclick="location.href='items.html'">Items</button>
+        <button class="active">Profile</button>
+        <button onclick="location.href='metabuilds.html'">Meta Builds</button>
+    </div>
+    <div class="main-content">
+        <h2>Profile</h2>
+        <h2>Please Select One Save File</h2>
+        <div class="profile-container">
+            <div class="profile-selection">
+                <div class="profile occupied" onclick="selectProfile(1)">
+                    <img src="images/class0.png" alt="Player 1">
+                    <p>Profile 1</p>
+                    <p>This is a description of this profile, locations, progress, etc.</p>
+                </div>
+                <div class="profile occupied" onclick="selectProfile(2)">
+                    <img src="images/class1.png" alt="Player 2">
+                    <p>Profile 2</p>
+                    <p>This is a description of this profile, locations, progress, etc.</p>
+                </div>
+                <div class="profile occupied" onclick="selectProfile(3)">
+                    <img src="images/class2.png" alt="Player 3">
+                    <p>Profile 3</p>
+                    <p>This is a description of this profile, locations, progress, etc.</p>
+                </div>
+                <div class="profile" onclick="selectProfile(4)">
+                    <p>Profile 4</p>
+                    <p>This is a description of this profile, locations, progress, etc.</p>
+                </div>
+                <!-- <div class="profile" onclick="selectProfile(5)">
+                    <p>Profile 5</p>
+                    <p>This is a description of this profile, locations, progress, etc.</p>
+                </div>
+                <div class="profile" onclick="selectProfile(6)">
+                    <p>Profile 6</p>
+                    <p>This is a description of this profile, locations, progress, etc.</p>
+                </div> -->
+            </div>
+        </div>
+        <button id="profile1next" onclick="nextPage()">Next!</button>
+    </div>
+    <script>
+        function selectProfile(profileId) {
+            localStorage.setItem('selectedProfile', profileId);
+            highlightSelectedProfile(profileId);
+
+            const notification = new Notification("Elden Ring LLM", {
+                body: "You have selected" + " Player " + profileId,
+                icon: "icon.png"
+            });
+        }
+
+        function highlightSelectedProfile(profileId) {
+            const profiles = document.querySelectorAll('.profile');
+            profiles.forEach((profile, index) => {
+                if (index + 1 === profileId) {
+                    profile.style.border = '2px solid #f0a500';
+                } else {
+                    profile.style.border = 'none';
+                }
+            });
+        }
+
+        function nextPage() {
+            const selectedProfile = localStorage.getItem('selectedProfile');
+            if (selectedProfile) {
+                window.location.href = 'profile2.html';
+            } else {
+                alert('Please select a profile.');
+            }
+        }
+    </script>
+</body>
+</html>
