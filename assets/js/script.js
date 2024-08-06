@@ -92,6 +92,8 @@ function getSaveFileFromListening() {
         save_json = JSON.stringify(jsonObject, null, 2);
         localStorage.setItem("save_json", save_json);
         localStorage.setItem("armor_json", JSON.stringify(armors_dictionary, null, 2));
+        localStorage.setItem("stats", jsonObject.stats);
+        localStorage.setItem("stats", JSON.stringify(jsonObject.stats));
         // localStorage.setItem("armament_json", JSON.stringify(armaments_dictionary, null, 2));
         localStorage.setItem("talisman_json", JSON.stringify(talismans_dictionary, null, 2));
         localStorage.setItem("spell_json", JSON.stringify(spells_dictionary, null, 2));
@@ -156,6 +158,7 @@ function getSaveFileFromUploading() {
       localStorage.setItem("save_json", save_json);
       localStorage.setItem("character", jsonObject.character);
       // localStorage.setItem("equippedArmor", jsonObject.equippedArmor);
+      localStorage.setItem("stats", JSON.stringify(jsonObject.stats));
       localStorage.setItem("armor_json", JSON.stringify(armors_dictionary, null, 2));
       // localStorage.setItem("armament_json", JSON.stringify(armaments_dictionary, null, 2));
       localStorage.setItem("talisman_json", JSON.stringify(talismans_dictionary, null, 2));
