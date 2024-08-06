@@ -15,23 +15,344 @@
         <button onclick="location.href='boss.html'">Bosses</button>
         <button onclick="location.href='achievements.html'">Achievements</button>
         <button onclick="location.href='weapons.html'">Weapons</button>
-        <button onclick="location.href='armors.html'">Armors</button>
-        <button onclick="location.href='items.html'">Items</button>
         <button onclick="location.href='profile.html'">Profile</button>
         <button class="active">Meta Builds</button>
     </div>
     <div class="main-content">
-        <h2>Meta Builds</h2>
-        <div class="build-list">
-            <div class="build">
-                <img src="build1.png" alt="Build 1">
-                <p>Build 1</p>
+        <header class="meta-build-header">
+            <h2>Meta Builds</h2>
+            <div class="meta-build-search">
+                <input type="text", class="build-search" placeholder="What are you looking for">
+                <button class="build-search-button">Ask</button>
             </div>
-            <div class="build">
-                <img src="build2.png" alt="Build 2">
-                <p>Build 2</p>
+        </header>
+        <div class="slider on">
+            <div class="build-list">
+                <div class="build" id="build-1" >
+                    <img src="https://static0.gamerantimages.com/wordpress/wp-content/uploads/2022/04/elden-ring-mohgwyns-sacred-spear-bloodboon-ritual.jpg" alt="Build 1">
+                    <div class="build-name">
+                        <h2>
+                            Lord of Blood
+                        </h2>
+                    </div>
+                </div>
+                <div class="build" id="build-2">
+                    <img src="https://pbs.twimg.com/media/FNmixMcXwAsPkDp.jpg:large" alt="Build 2">
+                    <div class="build-name">
+                        <h2>
+                            Black Flame
+                            <br>
+                            Reaper Paladin
+                        </h2>
+                    </div>
+                </div>
+                <div class="build" id="build-3">
+                    <img src="https://static0.gamerantimages.com/wordpress/wp-content/uploads/2024/04/elden-ring-rivers-of-blood-katana-build-guide.jpg" alt="Build 3">
+                    <div class="build-name">
+                        <h2>
+                            Dual-Wield
+                            <br>
+                            Rivers of Blood
+                        </h2>
+                    </div>
+                </div>
+                <div class="build" id="build-4">
+                    <img src="https://oyster.ignimgs.com/mediawiki/apis.ign.com/elden-ring/c/c9/Elden_BlasphemousBlade1.jpg" alt="Build 4">
+                    <div class="build-name">
+                        <h2>
+                            Blasphemous
+                            <br>
+                            Paladin
+                        </h2>
+                    </div>
+                </div>
+                <div class="build" id="build-5">
+                    <img src="https://cdn.mos.cms.futurecdn.net/cNUmahzGme2iRLfckN6t8K.jpg" alt="Build 5">
+                    <div class="build-name">
+                        <h2>
+                            Comet Azur
+                            <br>
+                            Wizard
+                        </h2>
+                    </div>
+                </div>
+                <div class="build" id="build-6">
+                    <img src="https://i.redd.it/x79ewznsofl81.jpg" alt="Build 6">
+                    <div class="build-name">
+                        <h2>
+                            Moonveil Mage
+                        </h2>
+                    </div>
+                </div>
+                <div class="build" id="build-7">
+                    <img src="https://staticdelivery.nexusmods.com/mods/4333/images/2873/2873-1674277902-904506216.png" alt="Build 7">
+                    <div class="build-name">
+                        <h2>
+                            One-Strike Lightning
+                        </h2>
+                    </div>
+                </div>
             </div>
+            <div class="list-buttons">
+            <span class="prev"></span>
+            <span class="next"></span>
+            </div>
+        </div>
+        <!--Build Blurbs hidden-->
+        <div class="hidden build-blurb", id="build-1-blurb">
+            <header>
+                <h1>
+                    Lord Of Blood
+                </h1>
+                <button class = "back build-button">Back</button>
+            </header>   
+            <p>
+                Starting Class: 
+                Bandit
+                <br>
+                Weapon(s)
+                Mohgwyn's Sacred Spear
+                Eleonora's Poleblade/Rivers of Blood
+                <br>
+                Armor
+                White Mask
+                Anything that won't result in fat rolling
+                <br>
+                Talismans
+                Shard of Alexander
+                Lord of Blood's Exultation
+                Millicent's Prosthesis
+                Rotten/Winged Sword Insignia
+                <br>
+                Physick Flask
+                Thorny Cracked Tear
+                Cerulean Hidden Tear
+                <br>
+                Weapon Skill(s)
+                Bloodboon Ritual
+                Bloodblade Dance/Corpse Piler
+                <br>
+                Stat Priority
+                Arcane (60/80)
+                Vigor (prioritize 50/60)
+                Endurance (as needed for medium weight)
+                Mind (as needed)
+                Strength & Dexterity (depending on weapon used)
+            </p>
+        </div>
+        <div class="hidden build-blurb", id="build-2-blurb">
+            <header>
+                <h1>
+                    Black Flame Reaper Paladin
+                </h1>
+                <button class = "back build-button">Back</button>
+            </header>
+            <p>
+                Weapons: 
+            </p>
+        </div>
+        <div class="hidden build-blurb", id="build-3-blurb">
+            <header>
+                <h1>
+                    Dual-Wield Rivers of Blood
+                </h1>
+                <button class = "back build-button">Back</button>
+            </header>
+            <p>
+                Weapons: 
+            </p>
+        </div>
+        <div class="hidden build-blurb", id="build-4-blurb">
+            <header>
+                <h1>
+                    Blasphemous Paladin
+                </h1>
+                <button class = "back build-button">Back</button>
+            </header>
+            <p>
+                Weapons: 
+            </p>
+        </div>
+        <div class="hidden build-blurb", id="build-5-blurb">
+            <header>
+                <h1>
+                    Comet Azur Wizard
+                </h1>
+                <button class = "back build-button">Back</button>
+            </header>
+            <p>
+                Weapons: 
+            </p>
+        </div>
+        <div class="hidden build-blurb", id="build-6-blurb">
+            <header>
+                <h1>
+                    Moonveil Mage
+                </h1>
+                <button class = "back build-button">Back</button>
+            </header>   
+            <p>
+                Weapons: 
+            </p>
+        </div>
+        <div class="hidden build-blurb", id="build-7-blurb">
+            <header>
+                <h1>
+                    One-Strike Lightning
+                </h1>
+                <button class = "back build-button">Back</button>
+            </header>   
+            <p>
+                Weapons: 
+            </p>
         </div>
     </div>
 </body>
+<script>
+    let prev = document.querySelector('.prev');
+    let next = document.querySelector('.next');
+    let slider = document.querySelector('.slider');
+    let searchInput = document.querySelector('.build-search');
+    let search_button = document.querySelector('.build-search-button');
+
+    for (const back_buttons of document.querySelectorAll('.back')) {
+        back_buttons.addEventListener('click', () => {
+            returnSlider()
+        })
+    }
+    
+    for (const build_elem of document.querySelectorAll('.build')) {
+        build_elem.addEventListener('click', () => {
+            let blurb_id = `#${build_elem.id}-blurb`
+            slider.classList.remove('on')
+            slider.classList.add('off');
+            let blurb = document.querySelector(blurb_id)
+            blurb.style.display = 'block'
+            setTimeout(() => {
+                blurb.classList.remove('hidden')
+                blurb.classList.add('selected')
+            }, 1)
+            setTimeout(() => {
+                let next_prev = slider.querySelector(".list-buttons")
+                let buildList = slider.querySelector(".build-list")
+                next_prev.style.display = 'none'
+                buildList.style.display = 'none'
+            }, 500);
+        })
+    }
+    const nextSlider = () => {
+        let builds = document.querySelectorAll('.build');
+        document.querySelector('.build-list').appendChild(builds[0]);
+        let image = builds[4].querySelector('img');
+        let imgsrc = image.src;
+        slider.style.backgroundImage = `url('${imgsrc}')`;
+    }
+
+    const navigateTo = (buildID) => {
+        if (buildID == 'NONE') {
+            returnSlider();
+            console.log('LLM could not find build');
+            searchInput.placeholder = 'Could not find what you are looking for'
+            return
+        }
+        searchInput.placeholder = 'What are you looking for'
+        let currentBuildList = document.querySelectorAll('.build');
+        let wantedBuild = document.querySelector(`#${buildID}`);
+
+        while (currentBuildList[3] != wantedBuild) {
+            nextSlider();
+            currentBuildList = document.querySelectorAll('.build');
+        }
+        currentBuildList[3].click()
+    }
+
+    searchInput.addEventListener("keydown", async (event) => {
+        if (event.key === 'Enter' || event.keyCode === 13) {
+            for (const blurb of document.querySelectorAll('.build-blurb')) {
+            blurb.classList.remove('selected');
+            blurb.classList.add('hidden');
+            blurb.style.display = 'none';
+
+            }
+            const response = await fetch(
+                'https://noggin.rea.gent/casual-shrew-6857',
+                {
+                    method: 'POST',
+                    headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer rg_v1_2ao8bkndrv8hhfw7bce3d10vhss9ehg0line_ngk',
+                    },
+                    body: JSON.stringify({
+                    // fill variables here.
+                    "prompt": searchInput.value,
+                    }),
+                }
+            ).then(response => response.text());
+            navigateTo(response);
+            searchInput.value = '';
+        }
+    });
+
+    search_button.addEventListener("click", async () => {
+        for (const blurb of document.querySelectorAll('.build-blurb')) {
+            blurb.classList.remove('selected');
+            blurb.classList.add('hidden');
+            blurb.style.display = 'none';
+
+        }
+        const response = await fetch(
+            'https://noggin.rea.gent/casual-shrew-6857',
+            {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer rg_v1_2ao8bkndrv8hhfw7bce3d10vhss9ehg0line_ngk',
+                },
+                body: JSON.stringify({
+                // fill variables here.
+                "prompt": searchInput.value,
+                }),
+            }
+        ).then(response => response.text());
+        navigateTo(response);
+        searchInput.value = '';
+    })
+
+    next.addEventListener('click', () => {
+        nextSlider();
+    });
+    prev.addEventListener('click', () => {
+        let builds = document.querySelectorAll('.build');
+        document.querySelector('.build-list').prepend(builds[builds.length - 1]);
+        let image = builds[2].querySelector('img');
+        let imgsrc = image.src;
+        slider.style.backgroundImage = `url('${imgsrc}')`;
+    });
+
+    const returnSlider = () => {
+        for (const blurb of document.querySelectorAll('.build-blurb')) {
+            blurb.classList.remove('selected');
+            blurb.classList.add('hidden');
+            setTimeout(() => {
+                blurb.style.display = 'none';
+            }, 550)
+        }
+        let next_prev = slider.querySelector(".list-buttons");
+        let buildList = slider.querySelector(".build-list");
+        next_prev.style.display = 'flex';
+        buildList.style.display = 'flex';
+        setTimeout(() => {
+            slider.classList.remove('off');
+            slider.classList.add('on');
+        }, 100)
+    }
+
+    
+    //TESTING SCROLL TO BACK REALLY GLITCHY
+    /*window.addEventListener('scroll', () => {
+        if (window.scrollY == 0) {
+            returnSlider();
+        }
+    })*/
+</script>
 </html>
