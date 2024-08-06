@@ -4,6 +4,7 @@ body {
     color: black;
     margin: 0;
     display: flex;
+    min-height: 100vh;
     font-family: 'Cinzel', serif; 
 }
 
@@ -51,6 +52,7 @@ body {
     flex-direction: column;
     align-items: center;
     min-height: 100vh;
+    min-width: 170px;
 }
 .sidebar img.sidebar-image {
     width: 100%;
@@ -93,6 +95,7 @@ body {
 }
 
 .main-content {
+    flex-direction: column;
     flex: 1;
     padding: 20px;
     display: flex;
@@ -167,7 +170,7 @@ button:hover {
   }
 } */
 
-.profile-selection, .build-list, .boss-list {
+.profile-selection, .boss-list {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
@@ -245,7 +248,79 @@ button:hover {
     padding-bottom: 20px;
 } */
 
-.profile, .build, .boss {
+.attributes-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #1e1e1ecb;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    transition: 0.3s;
+}
+
+.attributes-container p {
+    color: #DAA520;
+}
+
+.attributes-container:hover {
+    background-color: #233470a2;
+    transform: scale(1.20);
+}
+
+.attributes-title {
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.attributes-section {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    /* background-color: #f8f9fa; */
+    padding: 20px;
+    transition: transform 0.3s;
+}
+
+.attributes-section:hover {
+    transform: scale(1.20);
+}
+
+.attributes, .loaded-attributes {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    /* background-color: #fff; */
+    padding: 10px;
+    /* border: 1px solid #ccc; */
+}
+
+.attributes p, .loaded-attributes p {
+    margin: 5px 0;
+}
+
+.attributes p {
+    text-align: left;
+}
+
+.attributes {
+    flex: 0 0 100px;
+}
+
+.loaded-attributes {
+    flex: 1; /* Take the remaining space */
+}
+
+/* .profile-selection {
+    display: flex;
+    justify-content: space-around;
+    scroll-behavior: smooth;
+    width: 100%;
+    padding-bottom: 20px;
+} */
+
+.profile, .boss {
     background-color: #333333;
     margin: 10px;
     padding: 20px;
@@ -269,7 +344,7 @@ button:hover {
     transform: perspective(1000px);
 }
 
-.profile:hover, .build:hover, .boss:hover {
+.profile:hover, .boss:hover {
     background-color: #555555;
     transform: scale(1.05);
 }
@@ -334,6 +409,279 @@ button:hover {
     transform: scale(1.25);
 }
 
+.main-content .meta-build-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    min-width: 950px;
+}
+
+.meta-build-search {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+}
+
+.meta-build-search input {
+    height: 30px;
+    width: 400px;
+    border-radius: 12px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    padding-left: 10px;
+}
+.meta-build-search button {
+    height: 36px;
+    width: 60px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.meta-build-search button:hover {
+    transform: scale(1);
+}
+
+.build-list {
+    min-width: 1000px;
+    min-height: 600px;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    position: relative;
+    perspective: 500px;
+}
+
+.build-text {
+    background-color: aqua;
+}
+
+.build-image {
+    background-color: beige;
+    width: 100%;
+    height: 100%;
+}
+
+.build {
+    background-color: #333333;
+    border: 3px solid #555555;
+    min-width: 200px;
+    min-height: 300px;
+    height: 70%;
+    text-align: center;
+    border-radius: 12px;
+    position: absolute;
+    top: 10%;
+    transition: 0.4s;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+    transform-style: preserve-3d;
+    transform-origin: bottom;
+    pointer-events: none;
+}
+
+.build-list .build:nth-child(1) {
+    transform: translateX(-350px) scale(0.8) rotateY(25deg);
+    z-index: 1;
+}
+.build-list .build:nth-child(2) {
+    transform: translateX(-350px) scale(0.8) rotateY(25deg);
+    z-index: 2;
+}
+
+.build-list .build:nth-child(3) {
+    transform: translateX(-250px) scale(0.9) rotateY(15deg);
+    z-index: 3;
+}
+
+.build-list .build:nth-child(4) {
+    transform: translateX(0) scale(1) rotateY(0deg);
+    cursor: pointer;
+    width: 400px;
+    z-index: 4;
+    pointer-events: auto;
+}
+
+.build-list .build:nth-child(4)::before {
+    opacity: 1;
+}
+
+.build-list .build:nth-child(5) {
+    transform: translateX(250px) scale(0.9) rotateY(-15deg);
+    z-index: 3;
+}
+.build-list .build:nth-child(6) {
+    transform: translateX(350px) scale(0.8) rotateY(-25deg);
+    z-index: 2;
+}
+.build-list .build:nth-child(7) {
+    transform: translateX(350px) scale(0.8) rotateY(-25deg);
+    z-index: 1;
+}
+.list-buttons{
+    min-width: 1000px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.list-buttons span {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    border: 2px solid white;
+    border-radius: 50%;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+    opacity: 0.5;
+    margin-left: 5px;
+    margin-right: 5px;
+    bottom: 70px;
+}
+
+.list-buttons button {
+    position: relative;
+    bottom: 70px;
+}
+
+.list-buttons span:hover {
+    opacity: 1;
+}
+
+.list-buttons span::before {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-top: 2px solid white;
+    border-left: 2px solid white;
+    bottom: 20px;
+    left: 20px;
+    rotate: -45deg;
+}
+.list-buttons span:last-child::before {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-top: 2px solid white;
+    border-left: 2px solid white;
+    bottom: 20px;
+    left: initial;
+    right: 20px;
+    rotate: 135deg;
+}
+
+
+.build::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(196, 192, 192, 0.3), rgba(0, 0, 0, 0.9));
+    z-index: 2;
+    opacity: 0;
+    border-radius: 12px;
+    transition: 0.4s all;
+}
+
+
+.build-list .build:nth-child(4) .build-name {
+    opacity: 1;
+    transform: translateY(0px);
+}
+
+
+.build img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border-radius: 12px;
+}
+
+.build .build-name {
+    text-align: center;
+    position: relative;
+    z-index: 3;
+    color: white;
+    opacity: 0;
+    transform: translateY(-30px);
+    transition: 0.4s all;
+}
+
+.build-blurb header {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.slider {
+    background-color: rgb(96, 96, 96);
+    background-image: url("https://oyster.ignimgs.com/mediawiki/apis.ign.com/elden-ring/c/c9/Elden_BlasphemousBlade1.jpg");
+    background-size: cover;
+    min-height: 600px;
+    min-width: 1000px;
+    width: 100%;
+    background-position: center;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    transition: 0.4s all;
+}
+
+.slider.off *{
+    transform: scale(0);
+    transition: 0.4s all;
+}
+
+.slider.on *{
+    transform: scale(1);
+    transition: 0.4s all;
+}
+
+.slider.off {
+    min-height: 300px;
+    height: 300px;
+}
+
+.slider.on {
+    height: 85vh;
+}
+
+.build-button {
+    position: relative;
+    z-index: 2;
+}
+
+.build-blurb {
+    width: 100%;
+    display: none;
+    position: relative;
+}
+
+.build-blurb.hidden {
+    opacity: 0;
+    transform: translateY(100px);
+    transition: 0.4s all;
+}
+
+.build-blurb.selected {
+    opacity: 1;
+    transform: translateY(0);
+    transition: 0.4s all;
+}
 .chat-container {
     display: flex;
     flex-direction: column;
