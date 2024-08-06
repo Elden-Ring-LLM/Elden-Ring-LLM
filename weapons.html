@@ -7,13 +7,12 @@
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
 </head>
-<!-- <body style="background-image: url(assets/img/bg1.webp); background-size: 110%; filter: drop-shadow(100px);"> -->
 <body>
     <div class="background-container" id="weapons-bg-image">
         <div class="background-blur"></div>
     </div>
     <div class="sidebar">
-        <img onclick="location.href='index.html'" src="./images/eldenringicon.png" alt="Sidebar Image" class="sidebar-image">
+        <img onclick="location.href='index.html'" src="./images/eldenringlogo2.png" alt="Sidebar Image" class="sidebar-image">
         <button onclick="location.href='llm.html'" class="search-button">
             <img src="./images/whitesearch.png" alt="Search Icon" class="search-icon">
         </button>
@@ -25,10 +24,80 @@
     </div>
     <div class="main-content">
         <div class="title-container">
-            <h2>Recommanded Weapons</h2>
+            <h2>Recommended Weapons</h2>
+        </div>
+        <div class="weapon-content-container">
+            <div class="melina-container">
+                <div class="melina-suggestion"></div>
+            </div>
+            <div class="weapon-cards">
+                <div class="sub-weapon-cards unownedw">
+                    <div class="weapon-cards-title">
+                        Best fit weapons from all
+                    </div>
+                    <div class="weapon-cards-container">
+                        <div class="weapon-card" onclick="flipCard(this)">
+                            <div class="card-front">
+                                <img src="assets/img/armament/Alabaster Lord's Sword.webp" id="weapon-image-1">
+                                <p id="weapon-name-1">Weapon 1</p>
+                            </div>
+                            <div class="card-back">
+                                <p>Description of Weapon 1</p>
+                            </div>
+                        </div>
+                        <div class="weapon-card" onclick="flipCard(this)">
+                            <div class="card-front">
+                                <img src="assets/img/armament/Alabaster Lord's Sword.webp" id="weapon-image-2">
+                                <p id="weapon-name-2">Weapon 2</p>
+                            </div>
+                            <div class="card-back">
+                                <p>Description of Weapon 2</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sub-weapon-cards ownedw">
+                    <div class="weapon-cards-title">
+                        Best fit weapons from owned
+                    </div>
+                    <div class="weapon-cards-container">
+                        <div class="weapon-card" onclick="flipCard(this)">
+                            <div class="card-front">
+                                <img src="assets/img/armament/Alabaster Lord's Sword.webp" id="weapon-image-3">
+                                <p id="weapon-name-3">Weapon 3</p>
+                            </div>
+                            <div class="card-back">
+                                <p>Description of Weapon 3</p>
+                            </div>
+                        </div>
+                        <div class="weapon-card" onclick="flipCard(this)">
+                            <div class="card-front">
+                                <img src="assets/img/armament/Alabaster Lord's Sword.webp" id="weapon-image-4">
+                                <p id="weapon-name-4">Weapon 4</p>
+                            </div>
+                            <div class="card-back">
+                                <p>Description of Weapon 4</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <script src="assets/js/script.js"></script>
     <script type="text/javascript" src="vanilla-tilt.js"></script>
+    <script type="text/javascript">
+        VanillaTilt.init(document.querySelectorAll(".weapon-card"), {
+            scale: "1.15",
+            reset_to_start: true,
+            max: 25,
+            speed: 1000
+        });
+        VanillaTilt.init(document.querySelectorAll(".your-element"));
+
+        function flipCard(card) {
+            card.classList.toggle('flipped');
+        }
+    </script>
 </body>
 </html>

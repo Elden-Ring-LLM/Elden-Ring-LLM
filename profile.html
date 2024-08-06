@@ -13,7 +13,7 @@
         <div class="background-blur"></div>
     </div>
     <div class="sidebar">
-        <img onclick="location.href='index.html'" src="./images/eldenringicon.png" alt="Sidebar Image" class="sidebar-image">
+        <img onclick="location.href='index.html'" src="./images/eldenringlogo2.png" alt="Sidebar Image" class="sidebar-image">
         <button onclick="location.href='llm.html'" class="search-button">
             <img src="./images/whitesearch.png" alt="Search Icon" class="search-icon">
         </button>
@@ -129,17 +129,34 @@
             try {
                 const jsonObject = JSON.parse(json_response);
                 console.log("Parsed JSON Object:", jsonObject);
-    
-                document.getElementById("level").innerText = jsonObject.level;
-                document.getElementById("souls").innerText = jsonObject.souls;
-                document.getElementById("Vigor").innerText = jsonObject.Vigor;
-                document.getElementById("Mind").innerText = jsonObject.Mind;
-                document.getElementById("Endurance").innerText = jsonObject.Endurance;
-                document.getElementById("Strength").innerText = jsonObject.Strength;
-                document.getElementById("Dexterity").innerText = jsonObject.Dexterity;
-                document.getElementById("Intelligence").innerText = jsonObject.Intelligence;
-                document.getElementById("Faith").innerText = jsonObject.Faith;
-                document.getElementById("Arcane").innerText = jsonObject.Arcane;
+
+                const attributes = [
+                    { id: "level", value: jsonObject.level },
+                    { id: "souls", value: jsonObject.souls },
+                    { id: "Vigor", value: jsonObject.Vigor },
+                    { id: "Mind", value: jsonObject.Mind },
+                    { id: "Endurance", value: jsonObject.Endurance },
+                    { id: "Strength", value: jsonObject.Strength },
+                    { id: "Dexterity", value: jsonObject.Dexterity },
+                    { id: "Intelligence", value: jsonObject.Intelligence },
+                    { id: "Faith", value: jsonObject.Faith },
+                    { id: "Arcane", value: jsonObject.Arcane }
+                ];
+
+                attributes.forEach(attr => {
+                    const element = document.getElementById(attr.id);
+                    element.innerText = attr.value;
+                    element.classList.add('hidden');
+                });
+
+                attributes.forEach((attr, index) => {
+                    setTimeout(() => {
+                        const element = document.getElementById(attr.id);
+                        element.classList.remove('hidden');
+                        element.classList.add('fade-in');
+                    }, index * 300); // Adjust the delay as needed
+                });
+
             } catch (error) {
                 console.error("Error parsing JSON:", error);
             }
