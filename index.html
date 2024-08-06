@@ -191,7 +191,7 @@
                     <button onclick="allowNotifications()"><strong>Optional Real-Time Notifications</strong>: Play With a 🤖</button>
                     </div>
                     <div>
-                    <label class="form-label"><strong>One-Time Status Check</strong>: Upload Save File (C:\Users\{USERNAME}\AppData\Roaming\EldenRing\{YOUR_STEAM_ID}\ER0000.sl2)</label>
+                    <label class="form-label"><strong>Slow Start Here</strong>: Upload Save File (C:\Users\{USERNAME}\AppData\Roaming\EldenRing\{YOUR_STEAM_ID}\ER0000.sl2)</label>
                     <input class="form-control" type="file" id="savefile" accept=".sl2, .co2" />
                     </div>
                 </div>
@@ -214,7 +214,10 @@
               </li>
               <li style="display: none" id="calculate">
                 <div class="mid-container gap-2" style="margin: 10px">
-                  <button type="button" name="calculate" class="btn btn-dark" onclick="calculate()">Get Save File JSON</button>
+                  <div class="mid-container gap-2" style="margin: 10px">
+                    <button type="button" name="calculate" class="btn btn-dark" onclick="getSaveFileFromUploading()">Start LLM Here</button>
+                  </div>
+                  <button type="button" name="calculate" class="btn btn-dark" onclick="calculate()">Download Save File JSON</button>
                 </div>
               </li>
             </ul>
@@ -236,9 +239,9 @@
         <hr style="margin-top: 100px" />
       </div>
     </div>
-    <button type="button" class="btn btn-dark btn-floating btn-lg btn-outline-light" id="btn-back-to-top" style="width: 100px">
+    <!-- <button type="button" class="btn btn-dark btn-floating btn-lg btn-outline-light" id="btn-back-to-top" style="width: 100px">
       <i class="fas fa-arrow-up"></i>
-    </button>
+    </button> -->
 
     <!-- Vendor JS Files -->
     <script src="assets/js/script.js"></script>
@@ -268,7 +271,7 @@
       }
     </script>
     <script>
-      let r = Math.floor(Math.random() * 6);
+      let r = Math.floor(Math.random() * 12);
       document.getElementsByTagName("body")[0].style.backgroundImage = `url(assets/img/bg${r}.webp`;
       getFromRedditApi("#cypherring-sub", "https://www.reddit.com/r/CypherRing/about.json", "subscribers");
       getFromRedditApi("#cypherring-online", "https://www.reddit.com/r/CypherRing/about.json", "active_user_count");
@@ -293,7 +296,7 @@
       }
 
       const fileSelector = document.getElementById("savefile");
-      fileSelector.addEventListener("change", (event) => {
+      fileSelector.addEventListener("change", async (event) => {
         // no file selected to read
         if (document.querySelector("#savefile").value == null) {
           alert("No file selected");
@@ -305,6 +308,7 @@
         let reader = new FileReader();
         reader.onload = function (e) {
           file_read = e.target.result;
+          console.log(file_read);
           if (!buffer_equal(file_read["slice"](0, 4), new Int8Array([66, 78, 68, 52]))) {
             e.target.result = null;
             document.getElementById("slot_select").style.display = "none";
@@ -322,8 +326,70 @@
           console.log("Error : " + e.type);
         };
         reader.readAsArrayBuffer(file);
+
+        let load_json = JSON.parse(localStorage.getItem("save_json"));
+        let profile_name = load_json["character"];
+        localStorage.setItem("profile_name", profile_name);
+        console.log("Profile Name:", profile_name);
+        let json_response = queryData(load_json, "stats");
+        try {
+            const response = await fetch('https://noggin.rea.gent/daily-mandrill-3370', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer rg_v1_tikkosex4a85z1x5iy0yqx3hythmhjbxcdq0_ngk',
+                },
+                body: JSON.stringify({
+                    // fill variables here.
+                    "attributes": json_response,
+                }),
+            });
+            const responseData = await response.text();
+            localStorage.setItem("player_class", responseData);
+            console.log("Response from fetch:", responseData);
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
+        // try {
+        //     const description_response = await fetch('https://noggin.rea.gent/present-elk-8481', {
+        //         method: 'POST',
+        //         headers: {
+        //           'Content-Type': 'application/json',
+        //           Authorization: 'Bearer rg_v1_idacpmr61dydnofvwpun0xzvro6hoepipbhz_ngk',
+        //         },
+        //         body: JSON.stringify({
+        //           // fill variables here.
+        //           "attributes": json_response,
+        //         }),
+        //     });
+        //     const descriptionData = await description_response.text();
+        //     localStorage.setItem("player_save_description", descriptionData);
+        //     console.log("Description from fetch:", descriptionData);
+        // } catch (error) {
+        //     console.error("Error fetching data:", error);
+        // }
       });
 
+      function queryData(json, entry_str) {
+            console.log(entry_str);
+            if (!entry_str.includes(";")) {
+                if (isValidJSON(json[entry_str]) || !(json[entry_str] instanceof String)) {
+                    return JSON.stringify(json[entry_str]);
+                }
+                return json[entry_str];
+            }
+            const entries = entry_str.split(';');
+            return queryData(json[entries.shift()], entries.join(';'));
+        }
+    
+        function isValidJSON(str) {
+            try {
+                JSON.parse(str);
+                return true;
+            } catch (e) {
+                return false;
+            }
+        }
     </script>
   </body>
 </html>

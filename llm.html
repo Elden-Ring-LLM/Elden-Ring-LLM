@@ -31,9 +31,11 @@
         </div>
     </div>
     <script>
+        let r = Math.floor(Math.random() * 12);
+        document.getElementsByTagName("body")[0].style.backgroundImage = `url(assets/img/bg${r}.webp`;
         // Get the input field
         var input = document.getElementById("user-input");
-
+        
         // Execute a function when the user presses a key on the keyboard
         input.addEventListener("keypress", function(event) {
         // If the user presses the "Enter" key on the keyboard
@@ -189,6 +191,35 @@
                 }
                 ).then(response => response.text());
                 AI_response = "I'm loading image of " + query_response;
+            } else if (classifiedGenre == "talisman json query") {
+                query_response = await fetch(
+                'https://noggin.rea.gent/powerful-porpoise-5068',
+                {
+                    method: 'POST',
+                    headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer rg_v1_ntvi6hhjctemwew49vo728e6ynskkdpnpk7u_ngk',
+                    },
+                    body: JSON.stringify({
+                    // fill variables here.
+                    "question": userInput,
+                    }),
+                }
+                ).then(response => response.text());
+                AI_response = await fetch(
+                'https://noggin.rea.gent/definite-horse-1060',
+                {
+                    method: 'POST',
+                    headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer rg_v1_87ukppi2eczrin7ytp96t9hl8fptnuk6r0xs_ngk',
+                    },
+                    body: JSON.stringify({
+                    // fill variables here.
+                    "question": userInput,
+                    }),
+                }
+                ).then(response => response.text());
             } else {
                 AI_response = "Feature not enabled yet";
             }
@@ -224,6 +255,9 @@
                         document.getElementById('chat-window').appendChild(imgMessage);
                         // document.getElementById("chat-window").style.background = img_link;
                         ans = "Image Loaded";
+                    } else if (classifiedGenre == "talisman json query") {
+                        let talisman_json = JSON.parse(localStorage.getItem("talisman_json"));
+                        ans = queryData(talisman_json, query_response);
                     }
                     queriedMessage.innerHTML = `<span class="message-label">🤖:</span> Queried Result: ${ans}.`;
                 }
