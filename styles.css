@@ -416,6 +416,7 @@ button:hover {
 .armor-occupied:hover {
     transform: rotateY(20deg); /* Rotate around the vertical axis on hover */
     background-color: #233470a2 ;
+    z-index: 5;
 }
 
 .armor-occupied p {
