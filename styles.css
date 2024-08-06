@@ -46,6 +46,7 @@ body {
 
 .sidebar {
     width: 15%;
+    height: 100%;
     background-color: rgba(0, 0, 0, 0.438);
     padding-top: 20px;
     display: flex;
@@ -53,6 +54,10 @@ body {
     align-items: center;
     min-height: 100vh;
     min-width: 170px;
+}
+.sidebar:hover {
+    transition: background-color 0.5s, color 0.5s, transform 0.5s;
+    background-color: black;
 }
 .sidebar img.sidebar-image {
     width: 90%;
@@ -84,7 +89,7 @@ body {
 .sidebar button.active {
     background-color: #bb9107;
     color: white;
-    transform: scale(1.25);
+    transform: scale(1.2);
 }
 
 .sidebar button:hover {
@@ -118,6 +123,7 @@ body {
     flex-direction: column;
     align-items: center;
     background-color: #1e1e1e72;
+    color: #bb9107;
     /* padding: 10px; */
     width: 50%;
     border-radius: 20px;
@@ -125,7 +131,6 @@ body {
 
 h2 {
     color: #bb9107;
-    background-color: #222222;
     padding: 10px;
     border-radius: 8px;
 }
