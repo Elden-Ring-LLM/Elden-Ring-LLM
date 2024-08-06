@@ -45,7 +45,7 @@ body {
 
 .sidebar {
     width: 15%;
-    background-color: #9AC8CD;
+    background-color: rgba(0, 0, 0, 0.438);
     padding-top: 20px;
     display: flex;
     flex-direction: column;
@@ -53,8 +53,8 @@ body {
     min-height: 100vh;
 }
 .sidebar img.sidebar-image {
-    width: 100%;
-    border-radius: 8px;
+    width: 90%;
+    height:20%;
     cursor: pointer;
     transition: background-color 0.5s, color 0.5s, transform 0.5s;
 }
@@ -67,8 +67,8 @@ body {
 }
 
 .sidebar button {
-    background-color: #1E0342;
-    color: #E1F7F5;
+    background-color: #222222;
+    color: white;
     border: none;
     width: 70%;
     border-radius: 8px;
@@ -80,13 +80,13 @@ body {
 }
 
 .sidebar button.active {
-    background-color: #0E46A3;
+    background-color: #bb9107;
     color: white;
     transform: scale(1.25);
 }
 
 .sidebar button:hover {
-    background-color: #0E46A3;
+    background-color: #bb9107;
     color: white;
     transform: scale(1.25);
     
@@ -111,7 +111,10 @@ body {
 }
 
 h2 {
-    color: #DAA520;
+    color: #bb9107;
+    background-color: #222222;
+    padding: 10px;
+    border-radius: 8px;
 }
 
 button {
@@ -349,12 +352,13 @@ button:hover {
     /* background-repeat: repeat; */
     width: 80%;
     height: 75vh;
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.712);
     border: 1px solid #ccc;
     border-radius: 8px;
     overflow-y: auto;
     padding: 10px;
     margin-bottom: 10px;
+    font-size: 20px;
 }
 
 .chat-input {
@@ -372,12 +376,15 @@ button:hover {
 .chat-input button {
     width: 10%;
     padding: 10px;
-    background-color: #0E46A3;
+    background-color: #222222;
     color: white;
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    margin-left: 10px;
+    margin-left: 20px;
+}
+.chat-input button:hover {
+    background-color: #DAA520;
 }
 
 .user-message {
