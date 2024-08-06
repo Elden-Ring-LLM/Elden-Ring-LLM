@@ -15,6 +15,7 @@ let dlc_items_dictionary = null;
 let armors_dictionary = null;
 let armaments_dictionary = null;
 let listened_save_file = null;
+let spells_dictionary = null;
 
 function pushNotification(txt) {
   const notification = new Notification("Elden Ring LLM", {
@@ -92,6 +93,8 @@ function getSaveFileFromListening() {
         localStorage.setItem("armor_json", JSON.stringify(armors_dictionary, null, 2));
         localStorage.setItem("armament_json", JSON.stringify(armaments_dictionary, null, 2));
         localStorage.setItem("talisman_json", JSON.stringify(talismans_dictionary, null, 2));
+        localStorage.setItem("spell_json", JSON.stringify(spells_dictionary, null, 2));
+        // console.log(localStorage.getItem("spell_json"));
         window.location.href = 'profile.html';
         pushNotification(`Welcome back ${jsonObject.character}! Your save file is successfully loaded! You can start playing your Elden Ring, and we are actively monitoring your save file.🫡`);
       }
@@ -149,14 +152,19 @@ function getSaveFileFromUploading() {
       };
       save_json = JSON.stringify(jsonObject, null, 2);
       localStorage.setItem("save_json", save_json);
+      localStorage.setItem("character", jsonObject.character);
+      // localStorage.setItem("equippedArmor", jsonObject.equippedArmor);
       localStorage.setItem("armor_json", JSON.stringify(armors_dictionary, null, 2));
       localStorage.setItem("armament_json", JSON.stringify(armaments_dictionary, null, 2));
       localStorage.setItem("talisman_json", JSON.stringify(talismans_dictionary, null, 2));
+      localStorage.setItem("spell_json", JSON.stringify(spells_dictionary, null, 2));
+      // console.log(localStorage.getItem("spell_json"));
       window.location.href = 'profile.html';
       pushNotification(`Welcome back ${jsonObject.character}! Your save file is successfully loaded! You can start playing your Elden Ring, and we are actively monitoring your save file.🫡`);
     }
   };
   reader.readAsArrayBuffer(new Blob([file]));
+  // console.log(JSON.parse(localStorage.getItem("equippedArmor")));
 }
 
 function calculate() {
@@ -285,6 +293,10 @@ function getJsonFiles() {
   fetchJson("erdb/json/armaments.json", function (data) {
     armaments_dictionary = { ...data };
   });
+
+  fetchJson("erdb/json/spells.json", function (data) {
+    spells_dictionary = { ...data };
+  });
 }
 
 // function l_endian(val) {
@@ -360,7 +372,9 @@ function getEquippedTalismans(file_read) {
       talismanIds.push(l_endian(nm));
       idx += 4;
   }
-  return talismanIds.map(id => getTalismanName(id));
+  const tali = talismanIds.map(id => getTalismanName(id));
+  localStorage.setItem("equippedTalismans", JSON.stringify(tali));
+  return tali;
 }
 
 function getTalismanName(id) {
@@ -402,6 +416,8 @@ function getEquippedArmor(file_read) {
         idx += 4;
     });
 
+    localStorage.setItem("equippedArmor", JSON.stringify(armors));
+    // console.log(armors);
     return armors;
 }
 
