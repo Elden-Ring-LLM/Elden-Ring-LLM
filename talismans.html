@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equipped Talismans</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<!-- <body style="background-image: url(assets/img/bg1.webp); background-size: 110%; filter: drop-shadow(100px);"> -->
+<body>
+    <div class="sidebar">
+        <img onclick="location.href='index.html'" src="./images/eldenringicon.png" alt="Sidebar Image" class="sidebar-image">
+        <button onclick="location.href='llm.html'" class="search-button">
+            <img src="./images/whitesearch.png" alt="Search Icon" class="search-icon">
+        </button>
+        <button onclick="location.href='boss.html'">Bosses</button>
+        <button onclick="location.href='achievements.html'">Achievements</button>
+        <button onclick="location.href='weapons.html'">Weapons</button>
+        <button onclick="location.href='profile.html'">Profile</button>
+        <button onclick="location.href='metabuilds.html'">Meta Builds</button>
+        <button onclick="location.href='armors.html'">Armors</button>
+        <button class="active" onclick="location.href='talismans.html'">Talismans</button>
+    </div>
+    <div class="main-content">
+        <div class="armor-title-container">
+            <h2>Player's Equipped Armors</h2>
+        </div>
+        <div class="container">
+            <div class="armor-container" style="display: flex; width: 50%; height: 50%; flex-wrap: wrap" id="armor-set">
+                <div class="armor-occupied" id="head-occupied">
+                    <p id="head-name">Head</p>
+                    <img src="assets/img/armor/Alberich's Bracers.webp" alt="head" id="head-armor">
+                </div>
+                <div class="armor-occupied" id="chest-occupied">
+                    <p id="chest-name">Chest</p>
+                    <img src="assets/img/armor/Alberich's Bracers.webp" alt="chest" id="chest-armor">        
+                </div>
+                <div class="armor-occupied" id="arm-occupied">
+                    <p id="arm-name">Arm</p>
+                    <img src="assets/img/armor/Alberich's Bracers.webp" alt="arm" id="arm-armor">
+                    
+                </div>
+                <div class="armor-occupied" id="leg-occupied">
+                    <p id="leg-name">Leg</p>
+                    <img src="assets/img/armor/Alberich's Bracers.webp" alt="leg" id="leg-armor">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="assets/js/script.js"></script>
+    <script type="text/javascript" src="vanilla-tilt.js"></script>
+    <script type="text/javascript">
+        console.log(JSON.parse(localStorage.getItem("equippedTalismans")));
+        let r = Math.floor(Math.random() * 12);
+        document.getElementsByTagName("body")[0].style.backgroundImage = `url(assets/img/bg${r}.webp`;
+        function addTiltAnimation() {
+            VanillaTilt.init(document.querySelector("#head-occupied"), {
+                startX: -15,
+                // startY: -20,
+                scale: "1.2",
+                reset_to_start: true,
+                max: 25,
+                speed: 400
+            });
+            
+            VanillaTilt.init(document.querySelector("#chest-occupied"), {
+                startX: -15,
+                // startY: -20,
+                scale: "1.2",
+                reset_to_start: true,
+                max: 25,
+                speed: 400
+            });
+            VanillaTilt.init(document.querySelector("#arm-occupied"), {
+                startX: -15,
+                // startY: -20,
+                scale: "1.2",
+                reset_to_start: true,
+                max: 25,
+                speed: 400
+            });
+            VanillaTilt.init(document.querySelector("#leg-occupied"), {
+                startX: -15,
+                // startY: -20,
+                scale: "1.2",
+                reset_to_start: true,
+                max: 25,
+                speed: 400
+            });
+        }
+        const armors = JSON.parse(localStorage.getItem("equippedArmor"));
+        const armor_db = JSON.parse(localStorage.getItem("armor_json"));
+        link();
+        async function focus(armor) {
+            const containerDiv = document.querySelector(".container");
+            document.querySelector("#armor-set").style.display = "none";
+            const armorDiv = document.createElement("div");
+            armorDiv.className = 'attributes-container';
+            armorDiv.id = `${armor}-coccupied`;
+            const armor_name = armors[armor];
+            armorDiv.innerHTML = `<p id='${armor}-name'>${armor_name}</p>
+                    <img src="assets/img/armor/${armor_name}.webp" height=300px width=300px alt='${armor}' id='${armor}-armor'>`;
+            armorDiv.addEventListener("click", ()=> {window.location.href="armors.html";});
+            containerDiv.appendChild(armorDiv);
+
+            let desc = "Mysterious DLC Armor";
+            if (armor_name in armor_db) {
+                desc = armor_db[armor_name]["description"].join(" ");
+            }
+
+            let llm_desc = await fetch(
+            'https://noggin.rea.gent/sticky-woodpecker-4218',
+            {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer rg_v1_b7a5rrqswt9tg9qdahg0aynqwo43ynl4284c_ngk',
+                },
+                body: JSON.stringify({
+                // fill variables here.
+                "name": armor_name,
+                "desc": desc,
+                }),
+            }
+            ).then(response => response.text());
+
+            const descrDiv = document.createElement("div");
+            descrDiv.style.width = "50%";
+            descrDiv.className = "attributes-container";
+            descrDiv.innerHTML = `<p class="attributes-title">LLM Armor Background Story</p>`;
+
+            const sectionDiv = document.createElement("div");
+            sectionDiv.className = "attributes-section";
+
+            const attrDiv = document.createElement("div");
+            attrDiv.className = "attributes";
+            attrDiv.innerHTML = `<p>Armor Description:</p> <p>LLM Poem:</p>`;
+            
+            const loadDiv = document.createElement("div");
+            loadDiv.className = "loaded-attributes";
+            loadDiv.innerHTML = `<p><span>${desc}</span></p> <p><span>${llm_desc}</span></p>`;
+
+            sectionDiv.appendChild(attrDiv);
+            sectionDiv.appendChild(loadDiv);
+            descrDiv.appendChild(sectionDiv);
+            containerDiv.appendChild(descrDiv);
+        }
+        
+        // console.log(armor_db);
+        function link() {
+            addTiltAnimation();
+            const head_img = document.querySelector("#head-armor");
+            if (armors["head"] == "" ) {
+                document.querySelector("#head-occupied").style.display = "none";
+            }
+            head_img.addEventListener("click", ()=>{focus("head");});
+            head_img.src = `assets/img/armor/${armors["head"]}.webp`;
+            document.querySelector('#head-name').textContent = armors["head"];
+
+            const chest_img = document.querySelector("#chest-armor");
+            if (armors["chest"] == "" ) {
+                document.querySelector("#chest-occupied").style.display = "none";
+            }
+            chest_img.src = `assets/img/armor/${armors["chest"]}.webp`;
+            chest_img.addEventListener("click", ()=>{focus("chest");});
+            document.querySelector('#chest-name').textContent = armors["chest"];
+
+            const arm_img = document.querySelector("#arm-armor");
+            if (armors["arms"] == "" ) {
+                document.querySelector("#arm-occupied").style.display = "none";
+            }
+            arm_img.src = `assets/img/armor/${armors["arms"]}.webp`;
+            arm_img.addEventListener("click", ()=>{focus("arms");});
+            document.querySelector('#arm-name').textContent = armors["arms"];
+
+            const leg_img = document.querySelector("#leg-armor");
+            if (armors["legs"] == "" ) {
+                document.querySelector("#leg-occupied").style.display = "none";
+            }
+            leg_img.src = `assets/img/armor/${armors["legs"]}.webp`;
+            leg_img.addEventListener("click", ()=>{focus("legs");});
+            document.querySelector('#leg-name').textContent = armors["legs"];
+        }
+    </script>
+</body>
+</html>

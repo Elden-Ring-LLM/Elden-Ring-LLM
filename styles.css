@@ -110,6 +110,16 @@ body {
     border-radius: 20px;
 }
 
+.armor-title-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #1e1e1e72;
+    /* padding: 10px; */
+    width: 50%;
+    border-radius: 20px;
+}
+
 h2 {
     color: #DAA520;
 }
@@ -304,6 +314,47 @@ button:hover {
 .profile-occupied img {
     width: 100%; /* Ensure the image fits within the profile block */
     border-radius: 8px; /* Optional: Adds rounded corners to the image */
+}
+
+
+.armor-occupied {
+    background-color: #1e1e1ecb;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 300px;
+    height: 290px;
+    border: 2px solid #f0a500;
+    border-radius: 20px;
+    transition: transform 1s, box-shadow s;
+    display: inline-block;
+    transform-style: preserve-3d;
+    transform: perspective(1000px);
+}
+
+.armor-occupied img {
+    width: 100%; /* Ensure the image fits within the profile block */
+    border-radius: 8px; /* Optional: Adds rounded corners to the image */
+}
+
+.armor-occupied:hover {
+    transform: rotateY(20deg); /* Rotate around the vertical axis on hover */
+    background-color: #233470a2 ;
+}
+
+.armor-occupied p {
+    margin: 10px 0;
+    text-align: center;
+    color: #DAA520;
+    backface-visibility: hidden; /* Hides the back side of the elements when rotated */
+    transform: translateZ(30px)
+}
+
+#armor-name {
+    margin: 10px 0;
+    text-align: center;
+    color: #ebd35b;
+    backface-visibility: hidden; /* Hides the back side of the elements when rotated */
+    transform: translateZ(20px);
+    font-size: 40px;
 }
 
 .actions {

@@ -149,6 +149,8 @@ function getSaveFileFromUploading() {
       };
       save_json = JSON.stringify(jsonObject, null, 2);
       localStorage.setItem("save_json", save_json);
+      localStorage.setItem("character", jsonObject.character);
+      // localStorage.setItem("equippedArmor", jsonObject.equippedArmor);
       localStorage.setItem("armor_json", JSON.stringify(armors_dictionary, null, 2));
       localStorage.setItem("armament_json", JSON.stringify(armaments_dictionary, null, 2));
       localStorage.setItem("talisman_json", JSON.stringify(talismans_dictionary, null, 2));
@@ -157,6 +159,7 @@ function getSaveFileFromUploading() {
     }
   };
   reader.readAsArrayBuffer(new Blob([file]));
+  // console.log(JSON.parse(localStorage.getItem("equippedArmor")));
 }
 
 function calculate() {
@@ -360,7 +363,9 @@ function getEquippedTalismans(file_read) {
       talismanIds.push(l_endian(nm));
       idx += 4;
   }
-  return talismanIds.map(id => getTalismanName(id));
+  const tali = talismanIds.map(id => getTalismanName(id));
+  localStorage.setItem("equippedTalismans", JSON.stringify(tali));
+  return tali;
 }
 
 function getTalismanName(id) {
@@ -402,6 +407,8 @@ function getEquippedArmor(file_read) {
         idx += 4;
     });
 
+    localStorage.setItem("equippedArmor", JSON.stringify(armors));
+    // console.log(armors);
     return armors;
 }
 
