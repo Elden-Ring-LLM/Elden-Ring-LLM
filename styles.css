@@ -143,23 +143,51 @@ button:hover {
     margin-left: 10px;
 }
 
-.main-content header {
+.main-content .meta-build-header {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
     width: 100%;
     min-width: 950px;
 }
 
+.meta-build-search {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+}
+
+.meta-build-search input {
+    height: 30px;
+    width: 400px;
+    border-radius: 12px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    padding-left: 10px;
+}
+.meta-build-search button {
+    height: 36px;
+    width: 60px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.meta-build-search button:hover {
+    transform: scale(1);
+}
+
 .build-list {
     min-width: 1000px;
-    height: 600px;
+    min-height: 600px;
+    height: 100%;
     width: 100%;
     display: flex;
     justify-content: space-evenly;
     position: relative;
     perspective: 500px;
-
 }
 
 .build-text {
@@ -174,7 +202,6 @@ button:hover {
 
 .build {
     background-color: #333333;
-    cursor: pointer;
     border: 3px solid #555555;
     min-width: 200px;
     min-height: 300px;
@@ -187,6 +214,7 @@ button:hover {
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
     transform-style: preserve-3d;
     transform-origin: bottom;
+    pointer-events: none;
 }
 
 .build-list .build:nth-child(1) {
@@ -194,28 +222,39 @@ button:hover {
     z-index: 1;
 }
 .build-list .build:nth-child(2) {
-    transform: translateX(-250px) scale(0.9) rotateY(15deg);
+    transform: translateX(-350px) scale(0.8) rotateY(25deg);
     z-index: 2;
 }
+
 .build-list .build:nth-child(3) {
-    transform: translateX(0) scale(1) rotateY(0deg);
-    width: 400px;
+    transform: translateX(-250px) scale(0.9) rotateY(15deg);
     z-index: 3;
 }
 
-.build-list .build:nth-child(3)::before {
+.build-list .build:nth-child(4) {
+    transform: translateX(0) scale(1) rotateY(0deg);
+    cursor: pointer;
+    width: 400px;
+    z-index: 4;
+    pointer-events: auto;
+}
+
+.build-list .build:nth-child(4)::before {
     opacity: 1;
 }
 
-.build-list .build:nth-child(4) {
+.build-list .build:nth-child(5) {
     transform: translateX(250px) scale(0.9) rotateY(-15deg);
+    z-index: 3;
+}
+.build-list .build:nth-child(6) {
+    transform: translateX(350px) scale(0.8) rotateY(-25deg);
     z-index: 2;
 }
-.build-list .build:nth-child(5) {
+.build-list .build:nth-child(7) {
     transform: translateX(350px) scale(0.8) rotateY(-25deg);
     z-index: 1;
 }
-
 .list-buttons{
     min-width: 1000px;
     position: relative;
@@ -235,6 +274,11 @@ button:hover {
     opacity: 0.5;
     margin-left: 5px;
     margin-right: 5px;
+    bottom: 70px;
+}
+
+.list-buttons button {
+    position: relative;
     bottom: 70px;
 }
 
@@ -283,7 +327,7 @@ button:hover {
 }
 
 
-.build-list .build:nth-child(3) .build-name {
+.build-list .build:nth-child(4) .build-name {
     opacity: 1;
     transform: translateY(0px);
 }
@@ -309,33 +353,30 @@ button:hover {
     transition: 0.4s all;
 }
 
-/* might keep might not
-.build:hover .build-name {
-    opacity: 1;
-    transform: translateY(0px);
+.build-blurb header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
-    
-.build:hover:before {
-    opacity: 1;
-}    
-*/
+
 
 .slider {
     background-color: rgb(96, 96, 96);
-    background-image: url("https://static0.gamerantimages.com/wordpress/wp-content/uploads/2023/12/elden-ring-rivers-of-blood.jpg?q=70&fit=contain&w=750&h=415&dpr=1");
+    background-image: url("https://oyster.ignimgs.com/mediawiki/apis.ign.com/elden-ring/c/c9/Elden_BlasphemousBlade1.jpg");
     background-size: cover;
+    min-height: 600px;
     min-width: 1000px;
-    height: 600px;
     width: 100%;
     background-position: center;
     border-radius: 12px;
     display: flex;
     flex-direction: column;
+    transition: 0.4s all;
 }
 
 .slider.off *{
     transform: scale(0);
-    transition: 0.25s all;
+    transition: 0.4s all;
 }
 
 .slider.on *{
@@ -344,13 +385,12 @@ button:hover {
 }
 
 .slider.off {
+    min-height: 300px;
     height: 300px;
-    transition: 0.3s all;
 }
 
 .slider.on {
-    height: 600px;
-    transition: 0.3s all;
+    height: 85vh;
 }
 
 .build-button {
@@ -366,13 +406,13 @@ button:hover {
 .build-blurb.hidden {
     opacity: 0;
     transform: translateY(100px);
-    transition: 0.75s all;
+    transition: 0.4s all;
 }
 
 .build-blurb.selected {
     opacity: 1;
     transform: translateY(0);
-    transition: 0.75s all;
+    transition: 0.4s all;
 }
 .chat-container {
     display: flex;
