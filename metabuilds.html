@@ -6,7 +6,7 @@
     <title>Meta Builds</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body class="build-body">
     <div class="sidebar">
         <img onclick="location.href='index.html'" src="./images/eldenringicon.webp" alt="Sidebar Image" class="sidebar-image">
         <button onclick="location.href='llm.html'" class="search-button">
@@ -23,13 +23,15 @@
         <button onclick="location.href='ashesOfWar.html'">Ashes of War</button>
     </div>
     <div class="main-content">
-        <header class="meta-build-header">
-            <h2>Meta Builds</h2>
-            <div class="meta-build-search">
-                <input type="text", class="build-search" placeholder="What are you looking for">
-                <button class="build-search-button">Ask</button>
-            </div>
-        </header>
+        <div class="header-container">
+            <header class="meta-build-header">
+                <h2>Meta Builds</h2>
+                <div class="meta-build-search">
+                    <input type="text", class="build-search" placeholder="What are you looking for">
+                    <button class="build-search-button">Ask</button>
+                </div>
+            </header>
+        </div>
         <div class="slider on">
             <div class="build-list">
                 <div class="build" id="build-1" >
@@ -103,112 +105,779 @@
             </div>
         </div>
         <!--Build Blurbs hidden-->
+        <!--All builds came from https://gamerant.com/elden-ring-overpowered-builds/-->
         <div class="hidden build-blurb", id="build-1-blurb">
-            <header>
-                <h1>
-                    Lord Of Blood
-                </h1>
-                <button class = "back build-button">Back</button>
-            </header>   
-            <p>
-                Starting Class: 
-                Bandit
-                <br>
-                Weapon(s)
-                Mohgwyn's Sacred Spear
-                Eleonora's Poleblade/Rivers of Blood
-                <br>
-                Armor
-                White Mask
-                Anything that won't result in fat rolling
-                <br>
-                Talismans
-                Shard of Alexander
-                Lord of Blood's Exultation
-                Millicent's Prosthesis
-                Rotten/Winged Sword Insignia
-                <br>
-                Physick Flask
-                Thorny Cracked Tear
-                Cerulean Hidden Tear
-                <br>
-                Weapon Skill(s)
-                Bloodboon Ritual
-                Bloodblade Dance/Corpse Piler
-                <br>
-                Stat Priority
-                Arcane (60/80)
-                Vigor (prioritize 50/60)
-                Endurance (as needed for medium weight)
-                Mind (as needed)
-                Strength & Dexterity (depending on weapon used)
-            </p>
+            <div class="build-info", id = "build-1-info">
+                <div class="table-container">
+                    <header>
+                        <h1>
+                            Lord Of Blood
+                        </h1>
+                    </header>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>Starting Class</td>
+                                <td>
+                                    <ul>
+                                        <li>Bandit</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Weapon(s)</td>
+                                <td>
+                                    <ul>
+                                        <li>Mohgwyn's Sacred Spear</li>
+                                        <li>Eleonora's Poleblade/Rivers of Blood</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Armor</td>
+                                <td>
+                                    <ul>
+                                        <li>White Mask</li>
+                                        <li>Anything that won't result in fat rolling</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Talismans</td>
+                                <td>
+                                    <ul>
+                                        <li>Shard of Alexander</li>
+                                        <li>Lord of Blood's Exultation</li>
+                                        <li>Millicent's Prosthesis</li>
+                                        <li>Rotten/Winged Sword Insignia</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Physick Flask</td>
+                                <td>
+                                    <ul>
+                                        <li>Thorny Cracked Tear</li>
+                                        <li>Cerulean Hidden Tear</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Weapon Skill(s)</td>
+                                <td>
+                                    <ul>
+                                        <li>Bloodboon Ritual</li>
+                                        <li>Bloodblade Dance/Corpse Piler</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Stat Priority</td>
+                                <td>
+                                    <ul>
+                                        <li>Arcane (60/80)</li>
+                                        <li>Vigor (prioritize 50/60)</li>
+                                        <li>Endurance (as needed for medium weight)</li>
+                                        <li>Mind (as needed)</li>
+                                        <li>Strength & Dexterity (depending on weapon used)</li>
+                                    </ul>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class = 'info-container'>
+                    <div>
+                        <h2 style="margin: 10px;">
+                            <bold>Details</bold>
+                        </h2>
+                        <p>
+                            Thanks to the fixes introduced in past updates, bleed is not only a viable tactic now, 
+                            but it's also quite busted. It made Mohgwyn's Sacred Spear a little too powerful, where 
+                            abusing its Bloodboon Ritual weapon skill can gradually deal more than 10,000 points of 
+                            damage, which is usually enough to kill bosses using less than a full bar of FP. The best 
+                            part about Mohg's spear is that it's a thrusting weapon and can be used with a shield. 
+                            Meanwhile, both Rivers of Blood and Eleonora's Poleblade are powerful thanks to proper 
+                            Arcane scaling and can be used for smaller encounters. Of course, this build isn't 
+                            that powerful against enemies that can't bleed, so use it wisely.
+                        </p>
+                    </div>
+                    <button class = "back build-button">Back</button>
+                </div> 
+            </div> 
         </div>
         <div class="hidden build-blurb", id="build-2-blurb">
-            <header>
-                <h1>
-                    Black Flame Reaper Paladin
-                </h1>
-                <button class = "back build-button">Back</button>
-            </header>
-            <p>
-                Weapons: 
-            </p>
+            <div class="build-info", id = "build-2-info">
+                <div class="table-container">
+                    <header>
+                        <h1>
+                            BLACK FLAME REAPER PALADIN
+                        </h1>
+                    </header>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>Starting Class</td>
+                                <td>
+                                    <ul>
+                                        <li>Confessor</li>
+                                        <li>Prophet</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Weapon(s)</td>
+                                <td>
+                                    <ul>
+                                        <li>Winged Scythe</li>
+                                        <li>Godslayer's Seal</li>
+                                        <li>Godslayer's Greatsword/Gargoyle's Flame Art Twinblade</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Armor</td>
+                                <td>
+                                    <ul>
+                                        <li>Anything heavy that won't result in fat rolling</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Talismans</td>
+                                <td>
+                                    <ul>
+                                        <li>Two Fingers Heirloom</li>
+                                        <li>Sacred/Fire Scorpion Charm</li>
+                                        <li>Shard of Alexander</li>
+                                        <li>Carian Filigreed Crest</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Physick Flask</td>
+                                <td>
+                                    <ul>
+                                        <li>Flame-Shrouding Cracked Tear</li>
+                                        <li>Leaden Hardtear</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Weapon Skill(s)</td>
+                                <td>
+                                    <ul>
+                                        <li>Angel's Wings</li>
+                                        <li>The Queen's Black Flame/Blackflame Tornado in Gargoyle's Twinblade</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Spells/Incantation</td>
+                                <td>
+                                    <ul>
+                                        <li>Black Flame</li>
+                                        <li>Black Flame Blade</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Stat Priority</td>
+                                <td>
+                                    <ul>
+                                        <li>Faith (60/80)</li>
+                                        <li>Vigor (prioritize 50/60)</li>
+                                        <li>Endurance (as needed for medium weight)</li>
+                                        <li>Dexterity (as needed)</li>
+                                        <li>Mind (as needed)</li>
+                                    </ul>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            
+                <div class = 'info-container'>
+                    <div>
+                        <h2 style="margin: 10px;">
+                            <bold>Details</bold>
+                        </h2>
+                        <p>
+                            This is a build that can start out strong and become even stronger late-game. 
+                            Players will start with the Winged Scythe and take advantage of its weapon skill, 
+                            which deals Holy damage and has incredible range.Later on, players can swap the 
+                            Winged Scythe with the Godslayer's Greatsword which also relies on its busted weapon 
+                            skill.
+                        </p>
+                    </div>
+                    <button class = "back build-button">Back</button>
+                </div> 
+            </div>
         </div>
         <div class="hidden build-blurb", id="build-3-blurb">
-            <header>
-                <h1>
-                    Dual-Wield Rivers of Blood
-                </h1>
-                <button class = "back build-button">Back</button>
-            </header>
-            <p>
-                Weapons: 
-            </p>
+            <div class="build-info", id = "build-3-info">
+                <div class="table-container">
+                    <header>
+                        <h1>
+                            Dual-Wield Rivers of Blood
+                        </h1>
+                    </header>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>Starting Class</td>
+                                <td>
+                                    <ul>
+                                        <li>Bandit</li>
+                                        <li>Vagabond</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Weapon(s)</td>
+                                <td>
+                                    <ul>
+                                        <li>Rivers of Blood x2</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Armor</td>
+                                <td>
+                                    <ul>
+                                        <li>White Mask</li>
+                                        <li>Raptor's Black Feathers</li>
+                                        <li>Any other armor for Medium Load</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Talismans</td>
+                                <td>
+                                    <ul>
+                                        <li>Lord of Blood's Exaltation</li>
+                                        <li>Rotten Winged Sword Insignia</li>
+                                        <li>Carian Filigree Crest</li>
+                                        <li>Erdtree's Favor +2</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Physick Flask</td>
+                                <td>
+                                    <ul>
+                                        <li>Dexterity-Knot Crystal Tear</li>
+                                        <li>Thorny Cracked Tear</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Weapon Skill(s)</td>
+                                <td>
+                                    <ul>
+                                        <li>Corpse Piler (Rivers of Blood Ash of War)</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Stat Priority</td>
+                                <td>
+                                    <ul>
+                                        <li>Arcane (60/80)</li>
+                                        <li>Dexterity (prioritize 40/50)</li>
+                                        <li>Endurance (as needed for medium weight)</li>
+                                    </ul>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            
+                <div class = 'info-container'>
+                    <div>
+                        <h2 style="margin: 10px;">
+                            <bold>Details</bold>
+                        </h2>
+                        <p>
+                            No pairing of weapons and no build is quite as feared in Elden Ring PvP 
+                            as the Dual Rivers of Blood build. By going into New Game Plus or trading 
+                            with another player, one can get twoRivers of Blood for the ultimate bleed 
+                            combination. Paired with armor, talismans, and other items to boost the power 
+                            of your Bleed buildup, this build is nigh-unstoppable.
+                            <br>
+                            However, the nature of Bleed damage is that, while it's extremely powerful against 
+                            fleshy foes that can bleed, its borderline useless against enemies that don't bleed. 
+                            In PvE, the Rivers of Blood dual wield build is only OK, but against other players 
+                            (and in areas of the game with lots of humanoids), this build shows its teeth.
+                        </p>
+                    </div>
+                    <button class = "back build-button">Back</button>
+                </div> 
+            </div>
         </div>
         <div class="hidden build-blurb", id="build-4-blurb">
-            <header>
-                <h1>
-                    Blasphemous Paladin
-                </h1>
-                <button class = "back build-button">Back</button>
-            </header>
-            <p>
-                Weapons: 
-            </p>
+            <div class="build-info", id = "build-4-info">
+                <div class="table-container">
+                    <header>
+                        <h1>
+                            Blasphemous Paladin
+                        </h1>
+                    </header>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>Starting Class</td>
+                                <td>
+                                    <ul>
+                                        <li>Confessor</li>
+                                        <li>Any</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Weapon(s)</td>
+                                <td>
+                                    <ul>
+                                        <li>Blasphemous Blade</li>
+                                        <li>Erdtree Seal</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Armor</td>
+                                <td>
+                                    <ul>
+                                        <li>Any armor for Medium Load</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Talismans</td>
+                                <td>
+                                    <ul>
+                                        <li>Shard of Alexander</li>
+                                        <li>Fire Scorpion Charm</li>
+                                        <li>Radagon's Soreseal/Two Fingers Heirloom</li>
+                                        <li>Ritual Sword Talisman</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Physick Flask</td>
+                                <td>
+                                    <ul>
+                                        <li>Flame-Shrouding Cracked Tear</li>
+                                        <li>Cerulean Hidden Tear</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Weapon Skill(s)</td>
+                                <td>
+                                    <ul>
+                                        <li>Taker's Flames</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Spells/Incantations</td>
+                                <td>
+                                    <ul>
+                                        <li>Golden Vow</li>
+                                        <li>Flame, Grant Me Strength</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Stat Priority</td>
+                                <td>
+                                    <ul>
+                                        <li>Faith (60/80)</li>
+                                        <li>Vigor (prioritize 50/60)</li>
+                                        <li>Mind (as needed)</li>
+                                        <li>Endurance (as needed for medium weight)</li>
+                                    </ul>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>    
+                <div class = 'info-container'>
+                    <div>
+                        <h2 style="margin: 10px;">
+                            <bold>Details</bold>
+                        </h2>
+                        <p>
+                            Quite possibly the most powerful fire paladinbuild at the moment, this build 
+                            relies on abusing Blasphemous Blade's weapon skill; Taker's Flames Skill . 
+                            It deals staggeringly high fire damage, which is further increased by the 
+                            talismans.
+                            <br>
+                            To maximize Ritual Sword Talisman , make sure HP is full before firing off the 
+                            weapon skill. Radagon's Soreseal makes characters a glass cannon, but this can 
+                            be mitigated with the Golden Vow buff. That, in conjunction with Flame, Grant me 
+                            Strength , will also buff Taker's Flames' damage to astronomical levels.
+                        </p>
+                    </div>
+                    <button class = "back build-button">Back</button>
+                </div> 
+            </div>
         </div>
         <div class="hidden build-blurb", id="build-5-blurb">
-            <header>
-                <h1>
-                    Comet Azur Wizard
-                </h1>
-                <button class = "back build-button">Back</button>
-            </header>
-            <p>
-                Weapons: 
-            </p>
+            <div class="build-info", id = "build-5-info">
+                <div class="table-container">
+                    <header>
+                        <h1>
+                            Comet Azur Wizard
+                        </h1>
+                    </header>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>Starting Class</td>
+                                <td>
+                                    <ul>
+                                        <li>Astrologer</li>
+                                        <li>Wretch</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Weapon(s)</td>
+                                <td>
+                                    <ul>
+                                        <li>Carian Regal Scepter</li>
+                                        <li>Lusat's Glintstone Staff</li>
+                                        <li>Uchigatana (optional)</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Armor</td>
+                                <td>
+                                    <ul>
+                                        <li>Azur's Glintstone Crown</li>
+                                        <li>Any other armor for Medium Load</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Talismans</td>
+                                <td>
+                                    <ul>
+                                        <li>Primal Glintstone Blade/Carian Filigreed Crest</li>
+                                        <li>Cerulean Amber Medallion</li>
+                                        <li>Graven-Mass Talisman</li>
+                                        <li>Red-Feathered Branch Sword (optional)</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Physick Flask</td>
+                                <td>
+                                    <ul>
+                                        <li>Magic-Shrouding Cracked Tear</li>
+                                        <li>Cerulean Hidden Tear</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Weapon Skill(s)</td>
+                                <td>
+                                    <ul>
+                                        <li>Seppuku (on Uchigatana to activate Red-Feathered Branch Sword, optional)</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Spells/Incantations</td>
+                                <td>
+                                    <ul>
+                                        <li>Comet Azur</li>
+                                        <li>Terra Magicus</li>
+                                        <li>Glintstone Pebble</li>
+                                        <li>Night Comet</li>
+                                        <li>Carian Greatsword</li>
+                                        <li>Carian Slicer</li>
+                                        <li>Carian Piercer</li>
+                                        <li>Unseen Form</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Stat Priority</td>
+                                <td>
+                                    <ul>
+                                        <li>Intelligence (80)</li>
+                                        <li>Mind (30/40)</li>
+                                        <li>Vigor (prioritize 50/60)</li>
+                                        <li>Endurance (as needed for medium weight)</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>    
+                <div class = 'info-container'>
+                    <div>
+                        <h2 style="margin: 10px;">
+                            <bold>Details</bold>
+                        </h2>
+                        <p>
+                            Most likely the build that everyone's been talking about, this wizard is 
+                            all about one-shotting the enemy with a Kamehameha wave of Comet Azur . 
+                            Buff up using Terra Magica , drink the Physick Flask, and then fire away 
+                            with an 8-second unlimited beam of magic that will deplete a stationary boss' 
+                            HP (or at least halve it).
+                            <br>
+                            For even more damage, do some Seppuku with a modified Uchigatana until 
+                            low HP to trigger the Red-Feathered Branchsword's buff.
+                        </p>
+                    </div>
+                    <button class = "back build-button">Back</button>
+                </div> 
+            </div>
         </div>
         <div class="hidden build-blurb", id="build-6-blurb">
-            <header>
-                <h1>
-                    Moonveil Mage
-                </h1>
-                <button class = "back build-button">Back</button>
-            </header>   
-            <p>
-                Weapons: 
-            </p>
+            <div class="build-info", id = "build-6-info">
+                <div class="table-container">
+                    <header>
+                        <h1>
+                            Moonveil Mage
+                        </h1>
+                    </header>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>Starting Class</td>
+                                <td>
+                                    <ul>
+                                        <li>Astrologer</li>
+                                        <li>Prisoner</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Weapon(s)</td>
+                                <td>
+                                    <ul>
+                                        <li>Moonveil Katana</li>
+                                        <li>Carian Regal Scepter</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Armor</td>
+                                <td>
+                                    <ul>
+                                        <li>Any armor for Medium Load</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Talismans</td>
+                                <td>
+                                    <ul>
+                                        <li>Magic Scorpion Charm</li>
+                                        <li>Carian Filigreed Crest</li>
+                                        <li>Graven-Mass Talisman</li>
+                                        <li>Shard of Alexander</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Physick Flask</td>
+                                <td>
+                                    <ul>
+                                        <li>Magic-Shrouding Cracked Tear</li>
+                                        <li>Cerulean Hidden Tear</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Weapon Skill(s)</td>
+                                <td>
+                                    <ul>
+                                        <li>Transient Moonlight</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Spells/Incantations</td>
+                                <td>
+                                    <ul>
+                                        <li>Carian Greatsword</li>
+                                        <li>Glintstone Pebble</li>
+                                        <li>Night Comet</li>
+                                        <li>Loretta's Greatbow</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Stat Priority</td>
+                                <td>
+                                    <ul>
+                                        <li>Intelligence (60/80)</li>
+                                        <li>Vigor (prioritize 50/60)</li>
+                                        <li>Mind (30/40)</li>
+                                        <li>Endurance (as needed for medium weight)</li>
+                                        <li>Dexterity (as needed)</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>    
+                <div class = 'info-container'>
+                    <div>
+                        <h2 style="margin: 10px;">
+                            <bold>Details</bold>
+                        </h2>
+                        <p>
+                            Moonveil 's poise damage has been nerfed a bit, so the weapon barely makes the
+                             cut when it comes to "overpowered," but it slaps hard. Much like Blasphemous 
+                             Blade builds, players will simply have to abuse Moonveil's Transient Moonlight 
+                             Skill weapon skill (usually the heavy variant) to deal magic damage from a safe 
+                             distance.
+                            <br>
+                            Moonveil also deals a small amount of Bleed damage, and can be paired with a second
+                             Katana to unlock the dual-wielding moveset, if you have the Weight to stay in the 
+                             Medium Weight category. Think of it as more of a melee katana build with a few magic
+                              spells for situational encounters.
+                        </p>
+                    </div>
+                    <button class = "back build-button">Back</button>
+                </div> 
+            </div>
         </div>
         <div class="hidden build-blurb", id="build-7-blurb">
-            <header>
-                <h1>
-                    One-Strike Lightning
-                </h1>
-                <button class = "back build-button">Back</button>
-            </header>   
-            <p>
-                Weapons: 
-            </p>
+            <div class="build-info", id = "build-7-info">
+                <div class="table-container">
+                    <header style="background-color: transparent; padding: 10px;">
+                        <h1>
+                            One-Strike Lightning
+                        </h1>
+                    </header>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>Starting Class</td>
+                                <td>
+                                    <ul>
+                                        <li>Prophet</li>
+                                        <li>Confessor</li>
+                                        <li>Vagabond</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Weapon(s)</td>
+                                <td>
+                                    <ul>
+                                        <li>Golden Order Seal</li>
+                                        <li>Jellyfish Shield</li>
+                                        <li>Fetid Pot (throwable)</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Armor</td>
+                                <td>
+                                    <ul>
+                                        <li>Black Dumpling (to be swapped for Mushroom Crown)</li>
+                                        <li>Mushroom Crown</li>
+                                        <li>Any other armor for Medium Load</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Talismans</td>
+                                <td>
+                                    <ul>
+                                        <li>Red-Feathered Branch Sword</li>
+                                        <li>Godfrey Icon</li>
+                                        <li>Kindred of Rot's Exaltation</li>
+                                        <li>Lightning Scorpion Charm</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Physick Flask</td>
+                                <td>
+                                    <ul>
+                                        <li>Lightning-Shrouding Cracked Tear</li>
+                                        <li>Opaline Bubble Tear</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Weapon Skill(s)</td>
+                                <td>
+                                    <ul>
+                                        <li>Contagious Fury</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Spells/Incantations</td>
+                                <td>
+                                    <ul>
+                                        <li>Ancient Dragon's Lightning Strike</li>
+                                        <li>Howl of Shabriri</li>
+                                        <li>Golden Vow</li>
+                                        <li>Ancient Dragon Lightning Spear</li>
+                                        <li>Other lightning incantations for regular enemies</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Stat Priority</td>
+                                <td>
+                                    <ul>
+                                        <li>Faith (60/80)</li>
+                                        <li>Intelligence (60/80)</li>
+                                        <li>Vigor (prioritize 40/50)</li>
+                                        <li>Mind (40)</li>
+                                        <li>Endurance (as needed for medium weight)</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>    
+                <div class = 'info-container'>
+                    <div>
+                        <h2 style="margin: 10px;">
+                            <bold>Details</bold>
+                        </h2>
+                        <p>
+                            The creators of this build (the community) swear by its one-shot potential, 
+                            but the sequence of buffs for ensuring that is a little complicated. So for 
+                            bosses, follow these instructions swiftly and carefully, it's crucial to do 
+                            them in quick succession:
+                            <br>
+                            First, equip the Black Dumpling helmet. Then, cast Howl of Shabriri repeatedly 
+                            until Madness triggers and until HP is low (which triggers Red-Feathered Branchsword
+                             ). Switch to the Mushroom Crown helmet, and cast Golden Vow.
+                            <br>
+                            Activate Contagious Fury Skill from the Jellyfish Shield , then trigger Poison on 
+                            the character using the Poison Pot (which activates Mushroom Crown buff). Finally, 
+                            remove the Poison using boluses.
+                            <br>
+                            Quickly enter the boss arena or fight after completing all of these steps, and then 
+                            cast Ancient Dragons' Lightning Strike on the boss. If they're not dead, or they 
+                            entered the second phase, then cast Ancient Dragon Lightning Strike again. Most 
+                            regular enemies will simply die to Lightning Spear or something similar without the 
+                            need for elaborate buffs.
+                        </p>
+                    </div>
+                    <button class = "back build-button">Back</button>
+                </div> 
+            </div>
         </div>
     </div>
 </body>
@@ -216,6 +885,7 @@
     let prev = document.querySelector('.prev');
     let next = document.querySelector('.next');
     let slider = document.querySelector('.slider');
+    let body = document.querySelector('body');
     let searchInput = document.querySelector('.build-search');
     let search_button = document.querySelector('.build-search-button');
 
@@ -235,13 +905,8 @@
             setTimeout(() => {
                 blurb.classList.remove('hidden')
                 blurb.classList.add('selected')
-            }, 1)
-            setTimeout(() => {
-                let next_prev = slider.querySelector(".list-buttons")
-                let buildList = slider.querySelector(".build-list")
-                next_prev.style.display = 'none'
-                buildList.style.display = 'none'
-            }, 500);
+            }, 100)
+            slider.style.display = 'none';
         })
     }
     const nextSlider = () => {
@@ -249,7 +914,7 @@
         document.querySelector('.build-list').appendChild(builds[0]);
         let image = builds[4].querySelector('img');
         let imgsrc = image.src;
-        slider.style.backgroundImage = `url('${imgsrc}')`;
+        body.style.backgroundImage = `url('${imgsrc}')`;
     }
 
     const navigateTo = (buildID) => {
@@ -272,11 +937,14 @@
 
     searchInput.addEventListener("keydown", async (event) => {
         if (event.key === 'Enter' || event.keyCode === 13) {
+            if (searchInput.value == '') {
+                searchInput.placeholder = 'Could not find what you are looking for'
+                return
+            }
             for (const blurb of document.querySelectorAll('.build-blurb')) {
             blurb.classList.remove('selected');
             blurb.classList.add('hidden');
             blurb.style.display = 'none';
-
             }
             const response = await fetch(
                 'https://noggin.rea.gent/casual-shrew-6857',
@@ -298,6 +966,11 @@
     });
 
     search_button.addEventListener("click", async () => {
+        if (searchInput.value == '') {
+            searchInput.placeholder = 'Could not find what you are looking for'
+            return
+        }
+
         for (const blurb of document.querySelectorAll('.build-blurb')) {
             blurb.classList.remove('selected');
             blurb.classList.add('hidden');
@@ -330,17 +1003,16 @@
         document.querySelector('.build-list').prepend(builds[builds.length - 1]);
         let image = builds[2].querySelector('img');
         let imgsrc = image.src;
-        slider.style.backgroundImage = `url('${imgsrc}')`;
+        body.style.backgroundImage = `url('${imgsrc}')`;
     });
 
     const returnSlider = () => {
         for (const blurb of document.querySelectorAll('.build-blurb')) {
             blurb.classList.remove('selected');
             blurb.classList.add('hidden');
-            setTimeout(() => {
-                blurb.style.display = 'none';
-            }, 550)
+            blurb.style.display = 'none'
         }
+        slider.style.display = 'flex'
         let next_prev = slider.querySelector(".list-buttons");
         let buildList = slider.querySelector(".build-list");
         next_prev.style.display = 'flex';
@@ -348,7 +1020,7 @@
         setTimeout(() => {
             slider.classList.remove('off');
             slider.classList.add('on');
-        }, 100)
+        }, 50)
     }
 
     
