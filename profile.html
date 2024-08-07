@@ -8,10 +8,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <!-- <body style="background-image: url(assets/img/bg1.webp); background-size: 110%; filter: drop-shadow(100px);"> -->
-<body>
-    <div class="background-container" id="profile-bg-image">
+<body id="profile-bg-image">
+    <!-- <div class="background-container" id="profile-bg-image">
         <div class="background-blur"></div>
-    </div>
+    </div> -->
     <div class="sidebar">
         <img onclick="location.href='index.html'" src="./images/eldenringlogo2.png" alt="Sidebar Image" class="sidebar-image">
         <button onclick="location.href='llm.html'" class="search-button">
@@ -96,6 +96,27 @@
         document.addEventListener('DOMContentLoaded', async () => {
             let profile_name = localStorage.getItem('profile_name');
             let load_json = JSON.parse(localStorage.getItem("save_json"));
+            console.log("Loaded JSON:", JSON.stringify(load_json.owned.armament));
+            // let armament_info = queryData(load_json, "owned.armament");
+            // console.log("Armament Info:", armament_info);
+            let json_response = queryData(load_json, "stats");
+            // import fetch from 'node-fetch'; // for node.js
+            const classResponse = await fetch(
+            'https://noggin.rea.gent/daily-mandrill-3370',
+            {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer rg_v1_tikkosex4a85z1x5iy0yqx3hythmhjbxcdq0_ngk',
+                },
+                body: JSON.stringify({
+                // fill variables here.
+                "attributes": json_response,
+                }),
+            }
+            ).then(classResponse => classResponse.text());
+            const playerImage = document.getElementById('player-image');
+            playerImage.src = `images/${classResponse}.png`;
             if (profile_name) {
                 document.getElementById('profile-details').innerText = `Selected Profile: ${load_json.character}`;
                 document.getElementById('profile-name').innerText = load_json.character;// import fetch from 'node-fetch'; // for node.js
@@ -128,7 +149,6 @@
             }
     
             // let load_json = JSON.parse(localStorage.getItem("save_json"));
-            let json_response = queryData(load_json, "stats");
             try {
                 const jsonObject = JSON.parse(json_response);
                 console.log("Parsed JSON Object:", jsonObject);
@@ -163,6 +183,65 @@
             } catch (error) {
                 console.error("Error parsing JSON:", error);
             }
+
+            // import fetch from 'node-fetch'; // for node.js
+
+            const weaponsResponse = await fetch(
+            'https://noggin.rea.gent/obliged-baboon-6865',
+            {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer rg_v1_qpps7rgnsqebo8jtdoigvrexqw3c1zd8n720_ngk',
+                },
+                body: JSON.stringify({
+                // fill variables here.
+                "attributes": json_response,
+                }),
+            }
+            ).then(weaponsResponse => weaponsResponse.text());
+            const jsonObject = JSON.parse(weaponsResponse);
+            for (const key in jsonObject) {
+                if (jsonObject.hasOwnProperty(key)) {
+                    localStorage.setItem(key, jsonObject[key]);
+                }
+            }
+
+            // Verify that the data has been stored in local storage
+            console.log(localStorage.getItem("weapon1")); // Outputs: Moonlight Greatsword
+            console.log(localStorage.getItem("description1")); // Outputs: Radiant blade of magic, cuts through darkness with arcane power.
+            console.log(localStorage.getItem("weapon2")); // Outputs: Frayed Blade
+            console.log(localStorage.getItem("description2"));
+
+            // import fetch from 'node-fetch'; // for node.js
+            console.log("Owned Armament:", queryData(load_json, "owned.armament"));
+
+            const weaponsResponse2 = await fetch(
+            'https://noggin.rea.gent/fiscal-ferret-4473',
+            {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer rg_v1_6foqxj3g7l311fmi88sposaq589460ww35b4_ngk',
+                },
+                body: JSON.stringify({
+                // fill variables here.
+                "attributes": json_response,
+                "owned": JSON.stringify(load_json.owned.armament),
+                }),
+            }
+            ).then(weaponsResponse2 => weaponsResponse2.text());
+            const jsonObject2 = JSON.parse(weaponsResponse2);
+            for (const key in jsonObject2) {
+                if (jsonObject2.hasOwnProperty(key)) {
+                    localStorage.setItem(key, jsonObject2[key]);
+                }
+            }
+
+            console.log(localStorage.getItem("owned_weapon1")); // Outputs: Moonlight Greatsword
+            console.log(localStorage.getItem("owned_description1")); // Outputs: Radiant blade of magic, cuts through darkness with arcane power.
+            console.log(localStorage.getItem("owned_weapon2")); // Outputs: Frayed Blade
+            console.log(localStorage.getItem("owned_description2"));
         });
     
         function adviseAttributes() {
