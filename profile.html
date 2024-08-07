@@ -187,62 +187,65 @@
 
             // import fetch from 'node-fetch'; // for node.js
 
-            const weaponsResponse = await fetch(
-            'https://noggin.rea.gent/amused-turtle-6511',
-            {
-                method: 'POST',
-                headers: {
-                'Content-Type': 'application/json',
-                Authorization: 'Bearer rg_v1_hzhpa02lryativbyznfzmhzxbmjaxbkkan3p_ngk',
-                },
-                body: JSON.stringify({
-                // fill variables here.
-                "attributes": json_response,
-                }),
-            }
-            ).then(weaponsResponse => weaponsResponse.text());
-            const jsonObject = JSON.parse(weaponsResponse);
-            for (const key in jsonObject) {
-                if (jsonObject.hasOwnProperty(key)) {
-                    localStorage.setItem(key, jsonObject[key]);
-                }
-            }
+            // const weaponsResponse = await fetch(
+            // 'https://noggin.rea.gent/amused-turtle-6511',
+            // {
+            //     method: 'POST',
+            //     headers: {
+            //     'Content-Type': 'application/json',
+            //     Authorization: 'Bearer rg_v1_hzhpa02lryativbyznfzmhzxbmjaxbkkan3p_ngk',
+            //     },
+            //     body: JSON.stringify({
+            //     // fill variables here.
+            //     "attributes": json_response,
+            //     }),
+            // }
+            // ).then(weaponsResponse => weaponsResponse.text());
+            // const jsonObject = JSON.parse(weaponsResponse);
+            // for (const key in jsonObject) {
+            //     if (jsonObject.hasOwnProperty(key)) {
+            //         localStorage.setItem(key, jsonObject[key]);
+            //     }
+            // }
 
-            // Verify that the data has been stored in local storage
-            console.log(localStorage.getItem("weapon1")); // Outputs: Moonlight Greatsword
-            console.log(localStorage.getItem("description1")); // Outputs: Radiant blade of magic, cuts through darkness with arcane power.
-            console.log(localStorage.getItem("weapon2")); // Outputs: Frayed Blade
-            console.log(localStorage.getItem("description2"));
+            // // Verify that the data has been stored in local storage
+            // console.log(localStorage.getItem("weapon1"));
+            // console.log(localStorage.getItem("description1"));
+            // console.log(localStorage.getItem("weapon2"));
+            // console.log(localStorage.getItem("description2"));
 
-            // import fetch from 'node-fetch'; // for node.js
-            console.log("Owned Armament:", queryData(load_json, "owned.armament"));
+            // // import fetch from 'node-fetch'; // for node.js
+            // console.log("Owned Armament:", queryData(load_json, "owned.armament"));
 
-            const weaponsResponse2 = await fetch(
-            'https://noggin.rea.gent/greasy-toucan-3614',
-            {
-                method: 'POST',
-                headers: {
-                'Content-Type': 'application/json',
-                Authorization: 'Bearer rg_v1_qa80x6wh3epy3stg5wnlmghr1zahcc90xx2i_ngk',
-                },
-                body: JSON.stringify({
-                // fill variables here.
-                "attributes": json_response,
-                "owned": JSON.stringify(load_json.owned.armament),
-                }),
-            }
-            ).then(weaponsResponse2 => weaponsResponse2.text());
-            const jsonObject2 = JSON.parse(weaponsResponse2);
-            for (const key in jsonObject2) {
-                if (jsonObject2.hasOwnProperty(key)) {
-                    localStorage.setItem(key, jsonObject2[key]);
-                }
-            }
+            // const weaponsResponse2 = await fetch(
+            // 'https://noggin.rea.gent/greasy-toucan-3614',
+            // {
+            //     method: 'POST',
+            //     headers: {
+            //     'Content-Type': 'application/json',
+            //     Authorization: 'Bearer rg_v1_qa80x6wh3epy3stg5wnlmghr1zahcc90xx2i_ngk',
+            //     },
+            //     body: JSON.stringify({
+            //     // fill variables here.
+            //     "attributes": json_response,
+            //     "owned": JSON.stringify(load_json.owned.armament),
+            //     }),
+            // }
+            // ).then(weaponsResponse2 => weaponsResponse2.text());
+            // const jsonObject2 = JSON.parse(weaponsResponse2);
+            // for (const key in jsonObject2) {
+            //     if (jsonObject2.hasOwnProperty(key)) {
+            //         localStorage.setItem(key, jsonObject2[key]);
+            //     }
+            // }
 
-            console.log(localStorage.getItem("owned_weapon1")); // Outputs: Moonlight Greatsword
-            console.log(localStorage.getItem("owned_description1")); // Outputs: Radiant blade of magic, cuts through darkness with arcane power.
-            console.log(localStorage.getItem("owned_weapon2")); // Outputs: Frayed Blade
-            console.log(localStorage.getItem("owned_description2"));
+            // console.log(localStorage.getItem("owned_weapon1"));
+            // console.log(localStorage.getItem("owned_description1"));
+            // console.log(localStorage.getItem("owned_weapon2"));
+            // console.log(localStorage.getItem("owned_description2"));
+
+            fetchWeaponsData(json_response).catch(error => console.error('Error initiating fetch process:', error));
+            fetchOwnedWeaponsData(json_response).catch(error => console.error('Error initiating fetch owned process:', error));
         });
     
         function adviseAttributes() {
@@ -271,6 +274,96 @@
                 return true;
             } catch (e) {
                 return false;
+            }
+        }
+
+        async function fetchWeaponsData(json_response, retryCount = 0) {
+            if (retryCount >= 10) {
+                console.error('Max retry attempts reached. Exiting.');
+                return;
+            }
+
+            try {
+                const weaponsResponse = await fetch(
+                    'https://noggin.rea.gent/amused-turtle-6511',
+                    {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization: 'Bearer rg_v1_hzhpa02lryativbyznfzmhzxbmjaxbkkan3p_ngk',
+                        },
+                        body: JSON.stringify({
+                            "attributes": json_response,
+                        }),
+                    }
+                ).then(response => response.text());
+
+                const jsonObject = JSON.parse(weaponsResponse);
+                for (const key in jsonObject) {
+                    if (jsonObject.hasOwnProperty(key)) {
+                        localStorage.setItem(key, jsonObject[key]);
+                    }
+                }
+
+                // Check if the images exist for the first set of weapons
+                await checkImageExistence(localStorage.getItem("weapon1"), json_response, retryCount);
+                await checkImageExistence(localStorage.getItem("weapon2"), json_response, retryCount);
+            } catch (error) {
+                console.error('Error fetching weapons data:', error);
+                await fetchWeaponsData(json_response, retryCount + 1);
+            }
+        }
+
+        async function fetchOwnedWeaponsData(json_response, retryCount = 0) {
+            if (retryCount >= 3) {
+                console.error('Max retry attempts reached. Exiting.');
+                return;
+            }
+
+            try {
+                console.log("Owned Armament:", queryData(load_json, "owned.armament"));
+
+                const weaponsResponse2 = await fetch(
+                    'https://noggin.rea.gent/greasy-toucan-3614',
+                    {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization: 'Bearer rg_v1_qa80x6wh3epy3stg5wnlmghr1zahcc90xx2i_ngk',
+                        },
+                        body: JSON.stringify({
+                            "attributes": json_response,
+                            "owned": JSON.stringify(load_json.owned.armament),
+                        }),
+                    }
+                ).then(response => response.text());
+
+                const jsonObject2 = JSON.parse(weaponsResponse2);
+                for (const key in jsonObject2) {
+                    if (jsonObject2.hasOwnProperty(key)) {
+                        localStorage.setItem(key, jsonObject2[key]);
+                    }
+                }
+
+                // Check if the images exist for the second set of weapons
+                await checkImageExistence(localStorage.getItem("owned_weapon1"), json_response, retryCount);
+                await checkImageExistence(localStorage.getItem("owned_weapon2"), json_response, retryCount);
+            } catch (error) {
+                console.error('Error fetching owned weapons data:', error);
+                await fetchOwnedWeaponsData(json_response, retryCount + 1);
+            }
+        }
+
+        async function checkImageExistence(weaponName, json_response, retryCount) {
+            const imageUrl = `assets/img/armament/${weaponName}.webp`;
+            try {
+                const response = await fetch(imageUrl);
+                if (!response.ok) {
+                    throw new Error('Image not found');
+                }
+            } catch (error) {
+                console.error(`Image ${imageUrl} not found, retrying...`);
+                await fetchWeaponsData(json_response, retryCount + 1);
             }
         }
     </script>
