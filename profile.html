@@ -94,11 +94,15 @@
         const player_class = localStorage.getItem("player_class");
         console.log("Player Class:", player_class);
         document.getElementById('player-image').src = `images/${player_class}.png`;
-        */
+
         document.addEventListener('DOMContentLoaded', async () => {
-            let profile_name = localStorage.getItem('profile_name');
             let load_json = JSON.parse(localStorage.getItem("save_json"));
             console.log("Loaded JSON:", JSON.stringify(load_json.owned.armament));
+            let profile_name = queryData(load_json, "character");
+            // let charname = queryData(load_json, "character");
+            // alert(charname);
+            // localStorage.setItem('selected_profile_name', charname);
+            console.log("Loaded JSON2:", JSON.stringify(load_json));
             // let armament_info = queryData(load_json, "owned.armament");
             // console.log("Armament Info:", armament_info);
             let json_response = queryData(load_json, "stats");
@@ -120,7 +124,7 @@
             const playerImage = document.getElementById('player-image');
             playerImage.src = `images/${classResponse}.png`;
             if (profile_name) {
-                document.getElementById('profile-details').innerText = `${load_json.character}`;
+                document.getElementById('profile-details').innerText = localStorage.getItem('selected_profile_name');
                 document.getElementById('profile-name').innerText = load_json.character;// import fetch from 'node-fetch'; // for node.js
                 const des_response = await fetch(
                 'https://noggin.rea.gent/frantic-felidae-1191',
@@ -229,12 +233,14 @@
 
             try {
                 const weaponsResponse = await fetch(
-                    'https://noggin.rea.gent/amused-turtle-6511',
+                    // 'https://noggin.rea.gent/amused-turtle-6511',
+                    'https://noggin.rea.gent/cool-alpaca-3332',
                     {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
-                            Authorization: 'Bearer rg_v1_hzhpa02lryativbyznfzmhzxbmjaxbkkan3p_ngk',
+                            // Authorization: 'Bearer rg_v1_hzhpa02lryativbyznfzmhzxbmjaxbkkan3p_ngk',
+                            Authorization: 'Bearer rg_v1_oqli0bppp9roiu2fgtm7z927o5ds7ei18jvg_ngk',
                         },
                         body: JSON.stringify({
                             "attributes": json_response,
