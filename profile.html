@@ -30,7 +30,7 @@
     <div class="main-content">
         <div class="title-container">
             <h2>Player Profile</h2>
-            <h2 id="profile-details"></h2>
+            <h2>Selected Profile: <span id="profile-details"></span></h2>
         </div>
         <div class="container">
             <div class="profile-occupied" >
@@ -119,7 +119,7 @@
             const playerImage = document.getElementById('player-image');
             playerImage.src = `images/${classResponse}.png`;
             if (profile_name) {
-                document.getElementById('profile-details').innerText = `Selected Profile: ${load_json.character}`;
+                document.getElementById('profile-details').innerText = `${load_json.character}`;
                 document.getElementById('profile-name').innerText = load_json.character;// import fetch from 'node-fetch'; // for node.js
                 const des_response = await fetch(
                 'https://noggin.rea.gent/frantic-felidae-1191',
