@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Missed Spirit Ashes</title>
+    <title>Missed Ashes of War</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
 </head>
@@ -21,12 +21,12 @@
         <button onclick="location.href='talismans.html'">Talismans</button>
         <button onclick="location.href='incantations.html'">Incantations</button>
         <button onclick="location.href='magics.html'">Sorceries</button>
-        <button class="active" onclick="location.href='spiritAshes.html'">Spirit Ashes</button>
-        <button onclick="location.href='ashesOfWar.html'">Ashes of War</button>
+        <button onclick="location.href='spiritAshes.html'">Spirit Ashes</button>
+        <button class="active" onclick="location.href='ashesOfWar.html'">Ashes of War</button>
     </div>
     <div class="main-content">
-        <div class="armor-title-container" style="height:10%">
-            <h2>Player's Missed Spirit Ashes</h2>
+        <div class="armor-title-container">
+            <h2>Player's Missed Ashes of War</h2>
         </div>
         <div class="container">
             <div class="armor-container" style="display: flex; padding-top: 10%; width: 100%; height: 100vh; justify-content: space-evenly; flex-wrap: wrap; overflow-y: auto" id="armor-set"></div>
@@ -40,19 +40,24 @@
     <script type="text/javascript" src="vanilla-tilt.js"></script>
     <script type="text/javascript">
         const load_json = JSON.parse(localStorage.getItem("save_json"));
-        const not_owned_incantations = load_json["not-owned"]["spiritAshes"];
-        console.log(not_owned_incantations);
-        loadIncantions(not_owned_incantations);
+        const not_owned_dic = load_json["not-owned"]["ashesOfWar"];
+        let not_owned_ashesOfWar = [];
+        for (const [key, lst] of Object.entries(not_owned_dic)) {
+            not_owned_ashesOfWar = not_owned_ashesOfWar.concat(lst);
+        }
+        console.log(not_owned_ashesOfWar);
+        loadAshesOfWar(not_owned_ashesOfWar);
     
-        function loadIncantions(incantation_names) {    
-            const incantation_container = document.querySelector("#armor-set");
-            for (let idx = 0; idx < incantation_names.length; idx++) {
-                const name = incantation_names[idx];
+        function loadAshesOfWar(ash_name) {    
+            const ash_container = document.querySelector("#armor-set");
+            for (let idx = 0; idx < not_owned_ashesOfWar.length; idx++) {
+                const name = not_owned_ashesOfWar[idx];
+                const img_name = name.replace(':', '');
                 const new_div = document.createElement("div");
                 
                 // too lazy to create a new CSS, just use armor-occupied
                 new_div.className = "armor-occupied";
-                new_div.innerHTML = `<p>${name}</p> <img src="assets/img/spiritAshes/${name}.webp" alt="${name}">`;
+                new_div.innerHTML = `<p>${name}</p> <img src="assets/img/ashesOfWar/${img_name}.webp" alt="${name}">`;
                 VanillaTilt.init(new_div, {
                     startX: -15,
                     // startY: -20,
@@ -62,26 +67,27 @@
                     speed: 400
                 });
                 new_div.addEventListener("click", ()=>{focus(name);});
-                incantation_container.appendChild(new_div);
+                ash_container.appendChild(new_div);
             }
         }
         
-        const spirit_db = JSON.parse(localStorage.getItem("spirit_ash_json"));
-        // console.log(spell_db);
-        async function focus(talisman_name) {
+        const ash_db = JSON.parse(localStorage.getItem("ash_of_war_json"));
+        async function focus(ash_name) {
             const containerDiv = document.querySelector(".container");
             document.querySelector("#armor-set").style.display = "none";
-            const taliDiv = document.createElement("div");
-            taliDiv.className = 'attributes-container';
-            taliDiv.innerHTML = `<p style="font-weight:bold;">${talisman_name}</p>
-                    <img src="assets/img/spiritAshes/${talisman_name}.webp" height=300px width=300px alt='${talisman_name}'>
+            const ashDiv = document.createElement("div");
+            ashDiv.className = 'attributes-container';
+            const img_name = ash_name.replace(':', '');
+            ashDiv.innerHTML = `<p style="font-weight:bold;">${ash_name}</p>
+                    <img src="assets/img/ashesOfWar/${img_name}.webp" height=300px width=300px alt='${ash_name}'>
                     <p>Click to Go Back</p>`;
-            taliDiv.addEventListener("click", ()=> {window.location.href="spiritAshes.html";});
-            containerDiv.appendChild(taliDiv);
+            ashDiv.addEventListener("click", ()=> {window.location.href="ashesOfWar.html";});
+            ashDiv.style.width = '20%';
+            containerDiv.appendChild(ashDiv);
     
             let desc = "Mysterious DLC Armor";
-            if (talisman_name in spirit_db) {
-                desc = spirit_db[talisman_name]["description"].join(" ");
+            if (ash_name in ash_db) {
+                desc = ash_db[ash_name]["description"].join(" ");
             }
             
             async function getLoc() {
@@ -95,7 +101,7 @@
                     },
                     body: JSON.stringify({
                     // fill variables here.
-                    "item": "spirit ash: " + talisman_name,
+                    "item": "Ash of War: " + ash_name,
                     }),
                 }
                 ).then(response => response.text());
@@ -103,16 +109,16 @@
             }
     
             const descrDiv = document.createElement("div");
-            descrDiv.style.width = "57%";
+            descrDiv.style.width = "60%";
             descrDiv.className = "attributes-container";
-            descrDiv.innerHTML = `<p class="attributes-title">LLM Spirit Ash</p>`;
+            descrDiv.innerHTML = `<p class="attributes-title">LLM Ash of War</p>`;
     
             const sectionDiv = document.createElement("div");
             sectionDiv.className = "attributes-section";
     
             const attrDiv = document.createElement("div");
             attrDiv.className = "attributes";
-            attrDiv.innerHTML = `<p>Spirit Ash Description:</p> <p>LLM Generated Location:</p>`;
+            attrDiv.innerHTML = `<p>Ash of War Description:</p> <p>LLM Generated Location:</p>`;
             
             const loadDiv = document.createElement("div");
             loadDiv.className = "loaded-attributes";
