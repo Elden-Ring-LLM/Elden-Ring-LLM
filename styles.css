@@ -179,6 +179,7 @@ body {
     width: 100%;
     border-radius: 20px;
     font-size: 15px;
+    line-height: 0.1;
 }
 
 .armor-title-container {
@@ -462,6 +463,16 @@ button:hover {
 }
 
 #profile-name {
+    margin: 10px 0;
+    text-align: center;
+    color: #ebd35b;
+    backface-visibility: hidden; /* Hides the back side of the elements when rotated */
+    transform: translateZ(20px);
+    font-size: 40px;
+}
+
+#profile-details {
+    font-weight: 100;
     margin: 10px 0;
     text-align: center;
     color: #ebd35b;
