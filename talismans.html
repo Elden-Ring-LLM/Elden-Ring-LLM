@@ -22,18 +22,20 @@
         <button onclick="location.href='incantations.html'">Incantations</button>
         <button onclick="location.href='magics.html'">Sorceries</button>
         <button onclick="location.href='spiritAshes.html'">Spirit Ashes</button>
+        <button onclick="location.href='ashesOfWar.html'">Ashes of War</button>
     </div>
     <div class="main-content">
         <div class="armor-title-container">
             <h2>Player's Missed Talismans</h2>
         </div>
         <div class="container">
-            <div class="armor-container" style="display: flex; padding-top: 10%; width: 100%; height: 100vh; justify-content: space-evenly; flex-wrap: wrap; overflow-y: auto" id="armor-set"></div>
+            <div class="armor-container" style="display: flex; padding-top: 10%;  height: 100vh; justify-content: space-evenly; flex-wrap: wrap; overflow-y: auto" id="armor-set"></div>
         </div>
     </div>
     <script>
         let r = Math.floor(Math.random() * 12);
-        document.getElementsByTagName("body")[0].style.backgroundImage = `url(assets/img/bg${r}.webp`;
+        const body = document.getElementsByTagName("body")[0];
+        body.style.backgroundImage = `url(assets/img/bg${r}.webp`;
     </script>
     <script src="assets/js/script.js"></script>
     <script type="text/javascript" src="vanilla-tilt.js"></script>
