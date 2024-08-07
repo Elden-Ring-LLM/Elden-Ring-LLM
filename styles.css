@@ -6,6 +6,8 @@ body {
     display: flex;
     min-height: 100vh;
     font-family: 'Cinzel', serif; 
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .container {
@@ -73,7 +75,7 @@ body {
     height: 30px;
 }
 
-.sidebar button {
+.sidebar button, .meta-build-search button, .back {
     background-color: #222222;
     color: white;
     border: none;
@@ -92,7 +94,7 @@ body {
     transform: scale(1.2);
 }
 
-.sidebar button:hover {
+.sidebar button:hover{
     background-color: #bb9107;
     color: white;
     transform: scale(1.25);
@@ -217,11 +219,6 @@ button:hover {
 .attributes-title {
     margin-bottom: 20px;
     font-weight: bold;
-    text-align: center;
-}
-.attributes-subtitle {
-    margin-bottom: 10px;
-    /* font-weight: bold; */
     text-align: center;
 }
 
@@ -476,10 +473,17 @@ button:hover {
 
 .main-content .meta-build-header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: center;
+    flex-direction: column;
     width: 100%;
     min-width: 950px;
+}
+
+.header-container {
+    background-color: #1e1e1e72;
+    padding: 20px;
+    width: 100%;
 }
 
 .meta-build-search {
@@ -506,7 +510,8 @@ button:hover {
     padding: 0;
 }
 
-.meta-build-search button:hover {
+.meta-build-search button:hover, .back:hover {
+    background-color: #bb9107;
     transform: scale(1);
 }
 
@@ -650,7 +655,7 @@ button:hover {
     display: block;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to top, rgba(196, 192, 192, 0.3), rgba(0, 0, 0, 0.9));
+    background: linear-gradient(to top, rgba(196, 192, 192, 0), rgba(0, 0, 0, 0.5));
     z-index: 2;
     opacity: 0;
     border-radius: 12px;
@@ -686,16 +691,14 @@ button:hover {
 
 .build-blurb header {
     display: flex;
-    width: 100%;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    background-color: #1e1e1ecb ;
+    border-radius: 12px;
 }
 
-
 .slider {
-    background-color: rgb(96, 96, 96);
-    background-image: url("https://oyster.ignimgs.com/mediawiki/apis.ign.com/elden-ring/c/c9/Elden_BlasphemousBlade1.jpg");
-    background-size: cover;
+    background-color: rgba(96, 96, 96, 0);
     min-height: 600px;
     min-width: 1000px;
     width: 100%;
@@ -717,8 +720,7 @@ button:hover {
 }
 
 .slider.off {
-    min-height: 300px;
-    height: 300px;
+    transform: scale(0);
 }
 
 .slider.on {
@@ -734,6 +736,7 @@ button:hover {
     width: 100%;
     display: none;
     position: relative;
+    color: #DAA520;
 }
 
 .build-blurb.hidden {
@@ -747,6 +750,69 @@ button:hover {
     transform: translateY(0);
     transition: 0.4s all;
 }
+
+.build-info {
+    display: flex;
+    margin: 10px;
+    justify-content: space-evenly;
+}
+
+
+.build-info table {
+    border-collapse: collapse;
+    margin-right: 10px;
+    border-radius: 12px;
+}
+
+.build-info th, td{
+    padding-left: 20px;
+    white-space: normal;
+}
+
+.table-container, .info-container {
+    border: 3px solid #DAA520;
+    border-radius: 12px;
+    transition: 0.4s all;
+    background-color: #1e0342b5;
+    margin: 5px;
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    max-height: 600px;
+}
+
+.info-container {
+    justify-content: space-between;
+}
+
+.back {
+    height: 100px;
+    margin: 10px;
+    width: auto;
+}
+
+
+.table-container header {
+    background-color: transparent;
+    padding: 10;
+}
+
+
+.info-container p {
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 1.3rem;
+}
+
+.build-body {
+    background-image: url("https://oyster.ignimgs.com/mediawiki/apis.ign.com/elden-ring/c/c9/Elden_BlasphemousBlade1.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+
+}
+
+
 .chat-container {
     display: flex;
     flex-direction: column;
