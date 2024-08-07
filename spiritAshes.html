@@ -77,6 +77,7 @@
                     <img src="assets/img/spiritAshes/${talisman_name}.webp" height=300px width=300px alt='${talisman_name}'>
                     <p>Click to Go Back</p>`;
             taliDiv.addEventListener("click", ()=> {window.location.href="spiritAshes.html";});
+            taliDiv.style.width = "15%";
             containerDiv.appendChild(taliDiv);
     
             let desc = "Mysterious DLC Armor";
@@ -103,7 +104,7 @@
             }
     
             const descrDiv = document.createElement("div");
-            descrDiv.style.width = "57%";
+            descrDiv.style.width = "60%";
             descrDiv.className = "attributes-container";
             descrDiv.innerHTML = `<p class="attributes-title">LLM Spirit Ash</p>`;
     
