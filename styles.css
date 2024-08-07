@@ -219,6 +219,11 @@ button:hover {
     font-weight: bold;
     text-align: center;
 }
+.attributes-subtitle {
+    margin-bottom: 10px;
+    /* font-weight: bold; */
+    text-align: center;
+}
 
 .attributes-section {
     display: flex;
