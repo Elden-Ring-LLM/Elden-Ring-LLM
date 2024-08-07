@@ -482,7 +482,7 @@ button:hover {
 }
 
 .header-container {
-    background-color: #1e1e1e72;
+    background-color: rgba(0, 0, 0, 0.438);
     padding: 20px;
     width: 100%;
 }
@@ -809,7 +809,7 @@ button:hover {
 }
 
 .build-body {
-    background-image: url("https://oyster.ignimgs.com/mediawiki/apis.ign.com/elden-ring/c/c9/Elden_BlasphemousBlade1.jpg");
+    background-image: url("images/blas.webp");
     background-size: cover;
     background-repeat: no-repeat;
 
