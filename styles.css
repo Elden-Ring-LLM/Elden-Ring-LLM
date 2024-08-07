@@ -1070,7 +1070,7 @@ button:hover {
     align-self: flex-end;
     z-index: 10;
     scale: 0.9;
-    /* animation: breathing 3s ease-in-out infinite; */
+    animation: breathing 3s ease-in-out infinite;
     position: absolute;
     margin-right: 150px;
 }
@@ -1214,7 +1214,7 @@ button:hover {
     object-fit: cover;
     backface-visibility: hidden;
     transform: translateZ(70px);
-    /* animation: breathing1 3s ease-in-out infinite; */
+    animation: breathing1 3s ease-in-out infinite;
 }
 
 .weapon-card p {
