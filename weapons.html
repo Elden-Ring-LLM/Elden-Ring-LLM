@@ -7,13 +7,12 @@
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
 </head>
-<!-- <body style="background-image: url(assets/img/bg1.webp); background-size: 110%; filter: drop-shadow(100px);"> -->
-<body>
+<body id="weapons-bg-image">
     <div class="background-container" id="weapons-bg-image">
         <div class="background-blur"></div>
     </div>
     <div class="sidebar">
-        <img onclick="location.href='index.html'" src="./images/eldenringicon.webp" alt="Sidebar Image" class="sidebar-image">
+        <img onclick="location.href='index.html'" src="./images/eldenringlogo2.png" alt="Sidebar Image" class="sidebar-image">
         <button onclick="location.href='llm.html'" class="search-button">
             <img src="./images/whitesearch.png" alt="Search Icon" class="search-icon">
         </button>
@@ -28,10 +27,124 @@
     </div>
     <div class="main-content">
         <div class="title-container">
-            <h2>Recommanded Weapons</h2>
+            <h2>Recommended Weapons</h2>
+        </div>
+        <div class="weapon-content-container">
+            <div class="melina-container">
+                <div class="item melina-suggestion" id="melina-suggestion">
+                    <p id="melina-name">Melina</p>
+                    <p>“Tarnished, <span>let me, </span> </p>
+                    <p>Melina, be your witch, </p>
+                    <p>Guide you in becoming the Elden Lord. </p>
+                    <p>Now, <span>allow me to help you find the weapon that suits you best.”</span></p>
+                    <!-- <p></p> -->
+                </div>
+                <div class="item melina-image">
+                    <img src="images/Melina.png" alt="Melina" id="melina-image-showing">
+                </div>
+            </div>
+            <div class="weapon-cards">
+                <div class="sub-weapon-cards unownedw">
+                    <div class="weapon-cards-title">
+                        Best fit weapons from all
+                    </div>
+                    <div class="weapon-cards-container">
+                        <div class="weapon-card" onclick="flipCard(this)">
+                            <div class="card-front">
+                                <img src="assets/img/armament/Alabaster Lord's Sword.webp" id="weapon-image-1">
+                                <p id="weapon-name-1">Weapon 1</p>
+                            </div>
+                            <div class="card-back">
+                                <p id="weapon-1-description">Description of Weapon 1</p>
+                            </div>
+                        </div>
+                        <div class="weapon-card" onclick="flipCard(this)">
+                            <div class="card-front">
+                                <img src="assets/img/armament/Alabaster Lord's Sword.webp" id="weapon-image-2">
+                                <p id="weapon-name-2">Weapon 2</p>
+                            </div>
+                            <div class="card-back">
+                                <p id="weapon-2-description">Description of Weapon 2</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sub-weapon-cards ownedw">
+                    <div class="weapon-cards-title">
+                        Best fit weapons from owned
+                    </div>
+                    <div class="weapon-cards-container">
+                        <div class="weapon-card" onclick="flipCard(this)">
+                            <div class="card-front">
+                                <img src="assets/img/armament/Alabaster Lord's Sword.webp" id="owned-weapon-image-1">
+                                <p id="owned-weapon-name-1">Weapon 3</p>
+                            </div>
+                            <div class="card-back">
+                                <p id="owned-weapon-1-description">Description of Weapon 3</p>
+                            </div>
+                        </div>
+                        <div class="weapon-card" onclick="flipCard(this)">
+                            <div class="card-front">
+                                <img src="assets/img/armament/Alabaster Lord's Sword.webp" id="owned-weapon-image-2">
+                                <p id="owned-weapon-name-2">Weapon 4</p>
+                            </div>
+                            <div class="card-back">
+                                <p id="owned-weapon-2-description">Description of Weapon 4</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <script src="assets/js/script.js"></script>
     <script type="text/javascript" src="vanilla-tilt.js"></script>
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', () => {
+            const elements = document.querySelectorAll('#melina-suggestion p, #melina-suggestion span');
+            elements.forEach((element, index) => {
+                setTimeout(() => {
+                    element.classList.add('fade-in');
+                }, index * 1000);
+            });
+        });
+        let weapon_image_1 = document.getElementById('weapon-image-1');
+        weapon_image_1.src = `assets/img/armament/${localStorage.getItem("weapon1")}.webp`;
+        let weapon_name_1 = document.getElementById('weapon-name-1');
+        weapon_name_1.innerHTML = localStorage.getItem("weapon1");
+        let weapon_image_2 = document.getElementById('weapon-image-2');
+        weapon_image_2.src = `assets/img/armament/${localStorage.getItem("weapon2")}.webp`;
+        let weapon_name_2 = document.getElementById('weapon-name-2');
+        weapon_name_2.innerHTML = localStorage.getItem("weapon2");
+        let weapon_description_1 = document.getElementById('weapon-1-description');
+        weapon_description_1.innerHTML = localStorage.getItem("description1");
+        let weapon_description_2 = document.getElementById('weapon-2-description');
+        weapon_description_2.innerHTML = localStorage.getItem("description2");
+
+        let owned_weapon_image_1 = document.getElementById('owned-weapon-image-1');
+        owned_weapon_image_1.src = `assets/img/armament/${localStorage.getItem("owned_weapon1")}.webp`;
+        let owned_weapon_name_1 = document.getElementById('owned-weapon-name-1');
+        owned_weapon_name_1.innerHTML = localStorage.getItem("owned_weapon1");
+        let owned_weapon_image_2 = document.getElementById('owned-weapon-image-2');
+        owned_weapon_image_2.src = `assets/img/armament/${localStorage.getItem("owned_weapon2")}.webp`;
+        let owned_weapon_name_2 = document.getElementById('owned-weapon-name-2');
+        owned_weapon_name_2.innerHTML = localStorage.getItem("owned_weapon2");
+        let owned_weapon_description_1 = document.getElementById('owned-weapon-1-description');
+        owned_weapon_description_1.innerHTML = localStorage.getItem("owned_description1");
+        let owned_weapon_description_2 = document.getElementById('owned-weapon-2-description');
+        owned_weapon_description_2.innerHTML = localStorage.getItem("owned_description2");
+
+        VanillaTilt.init(document.querySelectorAll(".weapon-card"), {
+            scale: "1.15",
+            reset_to_start: true,
+            max: 25,
+            speed: 1000
+        });
+        VanillaTilt.init(document.querySelectorAll(".your-element"));
+
+        function flipCard(card) {
+            card.classList.toggle('flipped');
+        }
+    </script>
 </body>
 </html>
