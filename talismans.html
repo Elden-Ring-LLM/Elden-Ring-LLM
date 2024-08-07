@@ -14,26 +14,28 @@
         <button onclick="location.href='llm.html'" class="search-button">
             <img src="./images/whitesearch.png" alt="Search Icon" class="search-icon">
         </button>
-        <button onclick="location.href='boss.html'">Bosses</button>
-        <button onclick="location.href='achievements.html'">Achievements</button>
-        <button onclick="location.href='weapons.html'">Weapons</button>
         <button onclick="location.href='profile.html'">Profile</button>
+        <button onclick="location.href='weapons.html'">Weapons</button>
         <button onclick="location.href='metabuilds.html'">Meta Builds</button>
         <button onclick="location.href='armors.html'">Armors</button>
         <button class="active" onclick="location.href='talismans.html'">Talismans</button>
         <button onclick="location.href='incantations.html'">Incantations</button>
+        <button onclick="location.href='magics.html'">Sorceries</button>
+        <button onclick="location.href='spiritAshes.html'">Spirit Ashes</button>
+        <button onclick="location.href='ashesOfWar.html'">Ashes of War</button>
     </div>
     <div class="main-content">
         <div class="armor-title-container">
             <h2>Player's Missed Talismans</h2>
         </div>
         <div class="container">
-            <div class="armor-container" style="display: flex; width: 100%; height: 95%; justify-content: space-evenly; flex-wrap: wrap" id="armor-set"></div>
+            <div class="armor-container" style="display: flex; padding-top: 15%;  height: 100vh; justify-content: space-evenly; flex-wrap: wrap; overflow-y: auto" id="armor-set"></div>
         </div>
     </div>
     <script>
         let r = Math.floor(Math.random() * 12);
-        document.getElementsByTagName("body")[0].style.backgroundImage = `url(assets/img/bg${r}.webp`;
+        const body = document.getElementsByTagName("body")[0];
+        body.style.backgroundImage = `url(assets/img/bg${r}.webp`;
     </script>
     <script src="assets/js/script.js"></script>
     <script type="text/javascript" src="vanilla-tilt.js"></script>
@@ -71,9 +73,11 @@
             document.querySelector("#armor-set").style.display = "none";
             const taliDiv = document.createElement("div");
             taliDiv.className = 'attributes-container';
-            taliDiv.innerHTML = `<p>${talisman_name}</p>
-                    <img src="assets/img/talisman/${talisman_name}.webp" height=300px width=300px alt='${talisman_name}'>`;
+            taliDiv.innerHTML = `<p style="font-weight:bold;">${talisman_name}</p>
+                    <img src="assets/img/talisman/${talisman_name}.webp" height=300px width=300px alt='${talisman_name}'>
+                    <p>Click to Go Back</p>`;
             taliDiv.addEventListener("click", ()=> {window.location.href="talismans.html";});
+            taliDiv.style.width = "12%";
             containerDiv.appendChild(taliDiv);
     
             let desc = "Mysterious DLC Armor";
@@ -100,7 +104,7 @@
             }
     
             const descrDiv = document.createElement("div");
-            descrDiv.style.width = "50%";
+            descrDiv.style.width = "67%";
             descrDiv.className = "attributes-container";
             descrDiv.innerHTML = `<p class="attributes-title">LLM Talisman</p>`;
     

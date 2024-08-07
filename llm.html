@@ -12,14 +12,15 @@
         <button class="search-button active">
             <img src="./images/whitesearch.png" alt="Search Icon" class="search-icon">
         </button>
-        <button onclick="location.href='boss.html'">Bosses</button>
-        <button onclick="location.href='achievements.html'">Achievements</button>
-        <button onclick="location.href='weapons.html'">Weapons</button>
-        <button onclick="location.href='armors.html'">Armors</button>
         <button onclick="location.href='profile.html'">Profile</button>
+        <button onclick="location.href='weapons.html'">Weapons</button>
         <button onclick="location.href='metabuilds.html'">Meta Builds</button>
+        <button onclick="location.href='armors.html'">Armors</button>
         <button onclick="location.href='talismans.html'">Talismans</button>
         <button onclick="location.href='incantations.html'">Incantations</button>
+        <button onclick="location.href='magics.html'">Sorceries</button>
+        <button onclick="location.href='spiritAshes.html'">Spirit Ashes</button>
+        <button onclick="location.href='ashesOfWar.html'">Ashes of War</button>
     </div>
     <div class="main-content">
         <div class="armor-title-container">
@@ -270,13 +271,29 @@
             chatWindow.scrollTop = chatWindow.scrollHeight;
         }
         async function userInputGenreClassiifer(user_input) {
+            // const response = await fetch(
+            // 'https://noggin.rea.gent/top-smelt-9743',
+            // {
+            //     method: 'POST',
+            //     headers: {
+            //     'Content-Type': 'application/json',
+            //     Authorization: 'Bearer rg_v1_inqxpx789wvph41hdoyryckymng4qjh9oawc_ngk',
+            //     },
+            //     body: JSON.stringify({
+            //     // fill variables here.
+            //     "question": user_input,
+            //     }),
+            // }
+            // ).then(response => response.text());
+            // import fetch from 'node-fetch'; // for node.js
+
             const response = await fetch(
-            'https://noggin.rea.gent/top-smelt-9743',
+            'https://noggin.rea.gent/suspicious-owl-3479',
             {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
-                Authorization: 'Bearer rg_v1_inqxpx789wvph41hdoyryckymng4qjh9oawc_ngk',
+                Authorization: 'Bearer rg_v1_npa5e6otbr2kxeba0v4mkycng14p3xow6hwg_ngk',
                 },
                 body: JSON.stringify({
                 // fill variables here.

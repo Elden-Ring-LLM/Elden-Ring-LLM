@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Missed Incantations</title>
+    <title>Missed Spirit Ashes</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
 </head>
@@ -19,28 +19,28 @@
         <button onclick="location.href='metabuilds.html'">Meta Builds</button>
         <button onclick="location.href='armors.html'">Armors</button>
         <button onclick="location.href='talismans.html'">Talismans</button>
-        <button class="active" onclick="location.href='incantations.html'">Incantations</button>
+        <button onclick="location.href='incantations.html'">Incantations</button>
         <button onclick="location.href='magics.html'">Sorceries</button>
-        <button onclick="location.href='spiritAshes.html'">Spirit Ashes</button>
+        <button class="active" onclick="location.href='spiritAshes.html'">Spirit Ashes</button>
         <button onclick="location.href='ashesOfWar.html'">Ashes of War</button>
     </div>
-    <div class="main-content" style="display:flex">
-        <div class="armor-title-container">
-            <h2>Player's Missed Incantations</h2>
+    <div class="main-content">
+        <div class="armor-title-container" style="height:10%">
+            <h2>Player's Missed Spirit Ashes</h2>
         </div>
         <div class="container">
             <div class="armor-container" style="display: flex; padding-top: 15%; width: 100%; height: 100vh; justify-content: space-evenly; flex-wrap: wrap; overflow-y: auto" id="armor-set"></div>
         </div>
     </div>
     <script>
-        let r = Math.floor(Math.random() * 21);
+        let r = Math.floor(Math.random() * 12);
         document.getElementsByTagName("body")[0].style.backgroundImage = `url(assets/img/bg${r}.webp`;
     </script>
     <script src="assets/js/script.js"></script>
     <script type="text/javascript" src="vanilla-tilt.js"></script>
     <script type="text/javascript">
         const load_json = JSON.parse(localStorage.getItem("save_json"));
-        const not_owned_incantations = load_json["not-owned"]["magic"]["Incantation"];
+        const not_owned_incantations = load_json["not-owned"]["spiritAshes"];
         console.log(not_owned_incantations);
         loadIncantions(not_owned_incantations);
     
@@ -52,7 +52,7 @@
                 
                 // too lazy to create a new CSS, just use armor-occupied
                 new_div.className = "armor-occupied";
-                new_div.innerHTML = `<p>${name}</p> <img src="assets/img/magic/${name}.webp" alt="${name}">`;
+                new_div.innerHTML = `<p>${name}</p> <img src="assets/img/spiritAshes/${name}.webp" alt="${name}">`;
                 VanillaTilt.init(new_div, {
                     startX: -15,
                     // startY: -20,
@@ -66,7 +66,7 @@
             }
         }
         
-        const spell_db = JSON.parse(localStorage.getItem("spell_json"));
+        const spirit_db = JSON.parse(localStorage.getItem("spirit_ash_json"));
         // console.log(spell_db);
         async function focus(talisman_name) {
             const containerDiv = document.querySelector(".container");
@@ -74,15 +74,15 @@
             const taliDiv = document.createElement("div");
             taliDiv.className = 'attributes-container';
             taliDiv.innerHTML = `<p style="font-weight:bold;">${talisman_name}</p>
-                    <img src="assets/img/magic/${talisman_name}.webp" height=300px width=300px alt='${talisman_name}'>
+                    <img src="assets/img/spiritAshes/${talisman_name}.webp" height=300px width=300px alt='${talisman_name}'>
                     <p>Click to Go Back</p>`;
-            taliDiv.addEventListener("click", ()=> {window.location.href="incantations.html";});
+            taliDiv.addEventListener("click", ()=> {window.location.href="spiritAshes.html";});
             taliDiv.style.width = "15%";
             containerDiv.appendChild(taliDiv);
     
             let desc = "Mysterious DLC Armor";
-            if (talisman_name in spell_db) {
-                desc = spell_db[talisman_name]["description"].join(" ");
+            if (talisman_name in spirit_db) {
+                desc = spirit_db[talisman_name]["description"].join(" ");
             }
             
             async function getLoc() {
@@ -96,7 +96,7 @@
                     },
                     body: JSON.stringify({
                     // fill variables here.
-                    "item": "incantation: " + talisman_name,
+                    "item": "spirit ash: " + talisman_name,
                     }),
                 }
                 ).then(response => response.text());
@@ -106,14 +106,14 @@
             const descrDiv = document.createElement("div");
             descrDiv.style.width = "60%";
             descrDiv.className = "attributes-container";
-            descrDiv.innerHTML = `<p class="attributes-title">LLM Incantation</p>`;
+            descrDiv.innerHTML = `<p class="attributes-title">LLM Spirit Ash</p>`;
     
             const sectionDiv = document.createElement("div");
             sectionDiv.className = "attributes-section";
     
             const attrDiv = document.createElement("div");
             attrDiv.className = "attributes";
-            attrDiv.innerHTML = `<p>Incantation Description:</p> <p>LLM Generated Location:</p>`;
+            attrDiv.innerHTML = `<p>Spirit Ash Description:</p> <p>LLM Generated Location:</p>`;
             
             const loadDiv = document.createElement("div");
             loadDiv.className = "loaded-attributes";

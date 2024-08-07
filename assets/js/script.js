@@ -13,9 +13,11 @@ var item_dict_template = null;
 let talismans_dictionary = null;
 let dlc_items_dictionary = null;
 let armors_dictionary = null;
-let armaments_dictionary = null;
+// let armaments_dictionary = null;
 let listened_save_file = null;
 let spells_dictionary = null;
+let spiritAshes_dictionary = null;
+let ashesOfWar_dictionary = null;
 
 function pushNotification(txt) {
   const notification = new Notification("Elden Ring LLM", {
@@ -91,9 +93,13 @@ function getSaveFileFromListening() {
         save_json = JSON.stringify(jsonObject, null, 2);
         localStorage.setItem("save_json", save_json);
         localStorage.setItem("armor_json", JSON.stringify(armors_dictionary, null, 2));
-        localStorage.setItem("armament_json", JSON.stringify(armaments_dictionary, null, 2));
+        localStorage.setItem("stats", jsonObject.stats);
+        localStorage.setItem("stats", JSON.stringify(jsonObject.stats));
+        // localStorage.setItem("armament_json", JSON.stringify(armaments_dictionary, null, 2));
         localStorage.setItem("talisman_json", JSON.stringify(talismans_dictionary, null, 2));
         localStorage.setItem("spell_json", JSON.stringify(spells_dictionary, null, 2));
+        localStorage.setItem("spirit_ash_json", JSON.stringify(spiritAshes_dictionary, null, 2));
+        localStorage.setItem("ash_of_war_json", JSON.stringify(ashesOfWar_dictionary, null, 2));
         // console.log(localStorage.getItem("spell_json"));
         window.location.href = 'profile.html';
         pushNotification(`Welcome back ${jsonObject.character}! Your save file is successfully loaded! You can start playing your Elden Ring, and we are actively monitoring your save file.🫡`);
@@ -154,10 +160,13 @@ function getSaveFileFromUploading() {
       localStorage.setItem("save_json", save_json);
       localStorage.setItem("character", jsonObject.character);
       // localStorage.setItem("equippedArmor", jsonObject.equippedArmor);
+      localStorage.setItem("stats", JSON.stringify(jsonObject.stats));
       localStorage.setItem("armor_json", JSON.stringify(armors_dictionary, null, 2));
-      localStorage.setItem("armament_json", JSON.stringify(armaments_dictionary, null, 2));
+      // localStorage.setItem("armament_json", JSON.stringify(armaments_dictionary, null, 2));
       localStorage.setItem("talisman_json", JSON.stringify(talismans_dictionary, null, 2));
       localStorage.setItem("spell_json", JSON.stringify(spells_dictionary, null, 2));
+      localStorage.setItem("spirit_ash_json", JSON.stringify(spiritAshes_dictionary, null, 2));
+      localStorage.setItem("ash_of_war_json", JSON.stringify(ashesOfWar_dictionary, null, 2));
       // console.log(localStorage.getItem("spell_json"));
       window.location.href = 'profile.html';
       pushNotification(`Welcome back ${jsonObject.character}! Your save file is successfully loaded! You can start playing your Elden Ring, and we are actively monitoring your save file.🫡`);
@@ -290,12 +299,20 @@ function getJsonFiles() {
     armors_dictionary = { ...data };
   });
 
-  fetchJson("erdb/json/armaments.json", function (data) {
-    armaments_dictionary = { ...data };
-  });
+  // fetchJson("erdb/json/armaments.json", function (data) {
+  //   armaments_dictionary = { ...data };
+  // });
 
   fetchJson("erdb/json/spells.json", function (data) {
     spells_dictionary = { ...data };
+  });
+
+  fetchJson("erdb/json/spirit-ashes.json", function (data) {
+    spiritAshes_dictionary = { ...data };
+  });
+
+  fetchJson("erdb/json/ashes-of-war.json", function (data) {
+    ashesOfWar_dictionary = { ...data };
   });
 }
 

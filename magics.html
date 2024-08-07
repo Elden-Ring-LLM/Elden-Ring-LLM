@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Missed Incantations</title>
+    <title>Missed Sorceries</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
 </head>
@@ -19,14 +19,14 @@
         <button onclick="location.href='metabuilds.html'">Meta Builds</button>
         <button onclick="location.href='armors.html'">Armors</button>
         <button onclick="location.href='talismans.html'">Talismans</button>
-        <button class="active" onclick="location.href='incantations.html'">Incantations</button>
-        <button onclick="location.href='magics.html'">Sorceries</button>
+        <button onclick="location.href='incantations.html'">Incantations</button>
+        <button class="active" onclick="location.href='magics.html'">Sorceries</button>
         <button onclick="location.href='spiritAshes.html'">Spirit Ashes</button>
         <button onclick="location.href='ashesOfWar.html'">Ashes of War</button>
     </div>
-    <div class="main-content" style="display:flex">
-        <div class="armor-title-container">
-            <h2>Player's Missed Incantations</h2>
+    <div class="main-content" style="display: flex; flex-wrap: wrap;">
+        <div class="armor-title-container" style="height: 10%;">
+            <h2>Player's Missed Sorceries</h2>
         </div>
         <div class="container">
             <div class="armor-container" style="display: flex; padding-top: 15%; width: 100%; height: 100vh; justify-content: space-evenly; flex-wrap: wrap; overflow-y: auto" id="armor-set"></div>
@@ -40,7 +40,7 @@
     <script type="text/javascript" src="vanilla-tilt.js"></script>
     <script type="text/javascript">
         const load_json = JSON.parse(localStorage.getItem("save_json"));
-        const not_owned_incantations = load_json["not-owned"]["magic"]["Incantation"];
+        const not_owned_incantations = load_json["not-owned"]["magic"]["Sorcery"];
         console.log(not_owned_incantations);
         loadIncantions(not_owned_incantations);
     
@@ -76,7 +76,7 @@
             taliDiv.innerHTML = `<p style="font-weight:bold;">${talisman_name}</p>
                     <img src="assets/img/magic/${talisman_name}.webp" height=300px width=300px alt='${talisman_name}'>
                     <p>Click to Go Back</p>`;
-            taliDiv.addEventListener("click", ()=> {window.location.href="incantations.html";});
+            taliDiv.addEventListener("click", ()=> {window.location.href="magics.html";});
             taliDiv.style.width = "15%";
             containerDiv.appendChild(taliDiv);
     
@@ -96,7 +96,7 @@
                     },
                     body: JSON.stringify({
                     // fill variables here.
-                    "item": "incantation: " + talisman_name,
+                    "item": "sorcery: " + talisman_name,
                     }),
                 }
                 ).then(response => response.text());
@@ -106,14 +106,14 @@
             const descrDiv = document.createElement("div");
             descrDiv.style.width = "60%";
             descrDiv.className = "attributes-container";
-            descrDiv.innerHTML = `<p class="attributes-title">LLM Incantation</p>`;
+            descrDiv.innerHTML = `<p class="attributes-title">LLM Sorcery</p>`;
     
             const sectionDiv = document.createElement("div");
             sectionDiv.className = "attributes-section";
     
             const attrDiv = document.createElement("div");
             attrDiv.className = "attributes";
-            attrDiv.innerHTML = `<p>Incantation Description:</p> <p>LLM Generated Location:</p>`;
+            attrDiv.innerHTML = `<p>Sorcery Description:</p> <p>LLM Generated Location:</p>`;
             
             const loadDiv = document.createElement("div");
             loadDiv.className = "loaded-attributes";
