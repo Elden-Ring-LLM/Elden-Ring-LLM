@@ -124,7 +124,7 @@
             const playerImage = document.getElementById('player-image');
             playerImage.src = `images/${classResponse}.png`;
             if (profile_name) {
-                document.getElementById('profile-details').innerText = localStorage.getItem('selected_profile_name');
+                document.getElementById('profile-details').innerText = profile_name;
                 document.getElementById('profile-name').innerText = load_json.character;// import fetch from 'node-fetch'; // for node.js
                 const des_response = await fetch(
                 'https://noggin.rea.gent/frantic-felidae-1191',
@@ -193,7 +193,7 @@
             fetchWeaponsData(json_response).catch(error => console.error('Error initiating fetch process:', error));
             fetchOwnedWeaponsData(json_response, load_json).catch(error => console.error('Error initiating fetch owned process:', error));
             // alert("Done");
-            // sendNotification("Melina", "Then its settled, Tarnished", "images/MelinaIcon.png");
+            // sendNotification("Melina", "Then its settled, Tarnished", "melinaIcon.png");
         });
     
         function adviseAttributes() {
@@ -226,21 +226,23 @@
         }
 
         async function fetchWeaponsData(json_response, retryCount = 0) {
-            if (retryCount >= 10) {
+            if (retryCount >= 15) {
                 console.error('Max retry attempts reached. Exiting.');
                 return;
             }
 
             try {
                 const weaponsResponse = await fetch(
-                    // 'https://noggin.rea.gent/amused-turtle-6511',
-                    'https://noggin.rea.gent/cool-alpaca-3332',
+                    // 'https://noggin.rea.gent/amused-turtle-6511', 4o
+                    // 'https://noggin.rea.gent/cool-alpaca-3332', 3.5
+                    'https://noggin.rea.gent/swift-swift-1790',
                     {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
-                            // Authorization: 'Bearer rg_v1_hzhpa02lryativbyznfzmhzxbmjaxbkkan3p_ngk',
-                            Authorization: 'Bearer rg_v1_oqli0bppp9roiu2fgtm7z927o5ds7ei18jvg_ngk',
+                            // Authorization: 'Bearer rg_v1_hzhpa02lryativbyznfzmhzxbmjaxbkkan3p_ngk', 4o
+                            // Authorization: 'Bearer rg_v1_oqli0bppp9roiu2fgtm7z927o5ds7ei18jvg_ngk', 3.5
+                            Authorization: 'Bearer rg_v1_m83q6ni5hx9hkjqzhayb8hbflnms3zuvbng0_ngk',
                         },
                         body: JSON.stringify({
                             "attributes": json_response,
@@ -265,7 +267,7 @@
         }
 
         async function fetchOwnedWeaponsData(json_response, load_json, retryCount = 0) {
-            if (retryCount >= 10) {
+            if (retryCount >= 15) {
                 console.error('Max retry attempts reached. Exiting.');
                 return;
             }
@@ -324,7 +326,6 @@
             try {
                 const response = await fetch(imageUrl);
                 if (!response.ok) {
-                    alert("Image not found");
                     throw new Error('Image not found');
                 }
             } catch (error) {
