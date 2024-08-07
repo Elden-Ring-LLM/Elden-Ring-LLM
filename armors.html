@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Equipped Armors</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="patch.css">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <!-- <body style="background-image: url(assets/img/bg1.webp); background-size: 110%; filter: drop-shadow(100px);"> -->
@@ -98,7 +99,7 @@
             const containerDiv = document.querySelector(".container");
             document.querySelector("#armor-set").style.display = "none";
             const armorDiv = document.createElement("div");
-            armorDiv.className = 'attributes-container';
+            armorDiv.className = 'items-container';
             armorDiv.id = `${armor}-coccupied`;
             const armor_name = armors[armor];
             armorDiv.innerHTML = `<p id='${armor}-name' style='font-weight:bold;'>${armor_name}</p>
@@ -133,18 +134,18 @@
             }
             const descrDiv = document.createElement("div");
             descrDiv.style.width = "60%";
-            descrDiv.className = "attributes-container";
-            descrDiv.innerHTML = `<p class="attributes-title">LLM Armor Background Story</p><p class="attributes-subtitle">Click to Get Another Poem</p>`;
+            descrDiv.className = "items-container";
+            descrDiv.innerHTML = `<p class="items-title">LLM Armor Background Story</p><p class="items-subtitle">Click to Get Another Poem</p>`;
 
             const sectionDiv = document.createElement("div");
-            sectionDiv.className = "attributes-section";
+            sectionDiv.className = "items-section";
 
             const attrDiv = document.createElement("div");
-            attrDiv.className = "attributes";
+            attrDiv.className = "items";
             attrDiv.innerHTML = `<p>Armor Description:</p> <p>LLM Poem:</p>`;
             
             const loadDiv = document.createElement("div");
-            loadDiv.className = "loaded-attributes";
+            loadDiv.className = "loaded-items";
             loadDiv.innerHTML = `<p><span>${desc}</span></p> <p><span>Loading Poem...</span></p>`;
 
             sectionDiv.appendChild(attrDiv);

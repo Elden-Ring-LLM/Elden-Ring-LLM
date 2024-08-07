@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Missed Talismans</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="patch.css">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <!-- <body style="background-image: url(assets/img/bg1.webp); background-size: 110%; filter: drop-shadow(100px);"> -->
@@ -72,7 +73,7 @@
             const containerDiv = document.querySelector(".container");
             document.querySelector("#armor-set").style.display = "none";
             const taliDiv = document.createElement("div");
-            taliDiv.className = 'attributes-container';
+            taliDiv.className = 'items-container';
             taliDiv.innerHTML = `<p style="font-weight:bold;">${talisman_name}</p>
                     <img src="assets/img/talisman/${talisman_name}.webp" height=300px width=300px alt='${talisman_name}'>
                     <p>Click to Go Back</p>`;
@@ -105,18 +106,18 @@
     
             const descrDiv = document.createElement("div");
             descrDiv.style.width = "67%";
-            descrDiv.className = "attributes-container";
-            descrDiv.innerHTML = `<p class="attributes-title">LLM Talisman</p>`;
+            descrDiv.className = "items-container";
+            descrDiv.innerHTML = `<p class="items-title">LLM Talisman</p>`;
     
             const sectionDiv = document.createElement("div");
-            sectionDiv.className = "attributes-section";
+            sectionDiv.className = "items-section";
     
             const attrDiv = document.createElement("div");
-            attrDiv.className = "attributes";
+            attrDiv.className = "items";
             attrDiv.innerHTML = `<p>Talisman Description:</p> <p>LLM Generated Location:</p>`;
             
             const loadDiv = document.createElement("div");
-            loadDiv.className = "loaded-attributes";
+            loadDiv.className = "loaded-items";
             loadDiv.innerHTML = `<p><span>${desc}</span></p> <p><span>Loading Location</span></p>`;
             getLoc().then(loc => {
                 loadDiv.innerHTML = `<p><span>${desc}</span></p> <p><span>${loc}</span></p>`;

@@ -1,0 +1,135 @@
+.items-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #1e1e1ecb;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    transition: 0.3s;
+}
+
+.items-container p {
+    color: #DAA520;
+}
+
+.items-container:hover {
+    background-color: #233470a2;
+    transform: scale(1.20);
+}
+
+.items-title {
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.items-section {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    /* background-color: #f8f9fa; */
+    padding: 20px;
+    transition: transform 0.3s;
+}
+
+.items-section:hover {
+    transform: scale(1.20);
+}
+
+.items, .loaded-items {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    /* background-color: #fff; */
+    padding: 10px;
+    /* border: 1px solid #ccc; */
+}
+
+.items p, .loaded-items p {
+    margin: 5px 0;
+}
+
+.items p {
+    text-align: left;
+}
+
+.items {
+    flex: 0 0 100px;
+}
+
+.loaded-items {
+    flex: 1; /* Take the remaining space */
+}
+
+/* .profile-selection {
+    display: flex;
+    justify-content: space-around;
+    scroll-behavior: smooth;
+    width: 100%;
+    padding-bottom: 20px;
+} */
+
+.items-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #1e1e1ecb;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    transition: 0.3s;
+}
+
+.items-container p {
+    color: #DAA520;
+}
+
+.items-container:hover {
+    background-color: #233470a2;
+    transform: scale(1.20);
+}
+
+.items-title {
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.items-section {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    /* background-color: #f8f9fa; */
+    padding: 20px;
+    transition: transform 0.3s;
+}
+
+.items-section:hover {
+    transform: scale(1.20);
+}
+
+.items, .loaded-items {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    /* background-color: #fff; */
+    padding: 10px;
+    /* border: 1px solid #ccc; */
+}
+
+.items p, .loaded-items p {
+    margin: 5px 0;
+}
+
+.items p {
+    text-align: left;
+}
+
+.items {
+    flex: 0 0 100px;
+}
+
+.loaded-items {
+    flex: 1; /* Take the remaining space */
+}
