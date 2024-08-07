@@ -128,6 +128,9 @@ function getSaveFileFromListening() {
 }
 
 function getSaveFileFromUploading() {
+  if (window.localStorage.length != 0) {
+    localStorage.clear();
+  }
   let options = $("#slot_selector option:selected");
   let selected_slot = options[0].value;
   localStorage.setItem("selected_slot", selected_slot);
