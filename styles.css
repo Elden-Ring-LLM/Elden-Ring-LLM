@@ -26,12 +26,12 @@ body {
 }
 
 #profile-bg-image {
-    background-image: url('assets/img/bg1.webp');
+    background-image: url('assets/img/bg1.webp'); 
     background-size: cover;
     background-position: center;
-    width: 110%;
-    height: 110%;
-    filter: blur(2px);
+    width: 100%;
+    height: 100%;
+    /* filter: blur(2px); */
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
@@ -40,10 +40,12 @@ body {
     background-image: url('assets/img/bg2.webp');
     background-size: cover;
     background-position: center;
-    width: 110%;
-    height: 110%;
+    width: 100%;
+    height: 100%;
     position: absolute;
-    filter: blur(2px);
+    /* filter: blur(2px); */
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 .sidebar {
@@ -101,7 +103,63 @@ body {
     transform: scale(1.25);
     
 }
+/* feafaefa */
 
+.sidebar1 {
+    width: 15%;
+    background-color: #012d3692;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    transition: 0.5s;
+}
+.sidebar1:hover {
+    background-color: #031515;
+}
+.sidebar1 img.sidebar-image {
+    width: 100%;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.5s, color 0.5s, transform 0.5s;
+}
+.sidebar1 img.sidebar-image:hover {
+    transform: scale(1.1);
+}
+
+.sidebar1 button.search-button img.search-icon {
+    height: 30px;
+}
+
+.sidebar1 button {
+    background-color: #0000008e;
+    font-family: 'Cinzel', serif;
+    font-weight: bold;
+    color: #DAA520;
+    border: none;
+    width: 70%;
+    border-radius: 8px;
+    padding: 20px 10px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar1 button.active {
+    background-color: #DAA520;
+    color: #000000;
+    transform: scale(1.15);
+}
+
+.sidebar1 button:hover {
+    background-color: #DAA520;
+    color: #000000;
+    transform: scale(1.25);
+    
+}
+/* ffaefaf */
 .main-content {
     flex-direction: column;
     flex: 1;
@@ -109,16 +167,18 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 10px;
 }
 
 .title-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #1e1e1e72;
+    background-color: #1e1e1ee4;
     padding: 20px;
     width: 100%;
     border-radius: 20px;
+    font-size: 15px;
 }
 
 .armor-title-container {
@@ -203,9 +263,18 @@ button:hover {
     align-items: center;
     background-color: #1e1e1ecb;
     padding: 20px;
-    border: 1px solid #ccc;
+    border: 1px solid #f0a500;
     border-radius: 20px;
     transition: 0.3s;
+}
+
+.hidden {
+    opacity: 0;
+}
+
+.fade-in {
+    opacity: 1;
+    transition: opacity 1s ease-in;
 }
 
 .attributes-container p {
@@ -243,6 +312,10 @@ button:hover {
     /* background-color: #fff; */
     padding: 10px;
     /* border: 1px solid #ccc; */
+}
+
+.loaded-attributes {
+    width: 50px;
 }
 
 .attributes p, .loaded-attributes p {
@@ -385,7 +458,7 @@ button:hover {
     text-align: center;
     color: #DAA520;
     backface-visibility: hidden; /* Hides the back side of the elements when rotated */
-    transform: translateZ(30px)
+    transform: translateZ(50px)
 }
 
 #profile-name {
@@ -892,4 +965,253 @@ button:hover {
 .message-label {
     font-weight: bold;
     margin-right: 10px;
+}
+.weapon-content-container {
+    align-items: center;
+    justify-content: center;
+    background-color: #1e1e1ecb;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-radius: 20px;
+    gap: 10px;
+}
+
+.melina-container {
+    display: flex;
+    flex-direction: row-reverse;
+    /* background-color: #1e1e1ecb; */
+    align-items: center;
+    justify-content: space-around;
+    /* gap: 2rem; */
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    z-index: 10;
+    /* margin-left: 30px; */
+}
+
+/* .item {
+  border: 1px solid grey;
+  border-radius: 8px;
+} */
+
+.melina-suggestion {
+    border: 2px solid #f0a500;
+    border-radius: 20px;
+    width: 40rem;
+    height: 8.3rem;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    justify-content: end;
+    /* align-items: start; */
+    text-align: left;
+    line-height: 0.001;
+    position: relative;
+    color: #ffffff;
+    font-size: 16px;
+    transition: 1s;
+    z-index: 13;
+    margin-top: 550px;
+    padding-left: 20px;
+}
+
+.melina-suggestion:hover {
+    background-color: #1e1e1ed6;
+    transform: scale(1.05);
+    z-index: 11;
+    transition: 1s;
+}
+
+.melina-suggestion p, .melina-suggestion span {
+    opacity: 0; /* Initial state for fade-in effect */
+}
+
+#melina-name {
+    font-size: 40px;
+    /* margin: 10px 0; */
+    text-align: left;
+    color: #9269a2;
+    z-index: 15;
+    backface-visibility: hidden; /* Hides the back side of the elements when rotated */
+    /* transform: translateZ(20px); */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.fade-in {
+    animation: fadeIn 1s forwards;
+}
+
+.melina-image {
+    /* min-width: 35rem; */
+    min-height: 35rem;
+    max-width: 30rem;
+    align-self: flex-end;
+    z-index: 10;
+    scale: 0.9;
+    /* animation: breathing 3s ease-in-out infinite; */
+    position: absolute;
+    margin-right: 150px;
+}
+
+#melina-image-showing {
+    max-width: 40rem;
+    max-height: 50rem;
+}
+
+.weapon-cards {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    grid-template-rows: 1fr 1fr;
+    gap: 10px;
+    /* z-index: 100; */
+    z-index: 10;
+}
+
+.sub-weapon-cards {
+    display: grid;
+    background-color: #1e1e1ecb;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    z-index: 100;
+}
+
+.sub-weapon-cards.unownedw {
+    grid-template-rows: 1fr 9fr;
+}
+
+.sub-weapon-cards.ownedw {
+    grid-template-rows: 1fr 9fr;
+}
+
+.weapon-cards-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #daa520bb;
+    font-weight: 900;
+    font-size: 20px;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    z-index: 100;
+}
+
+.weapon-cards-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    width: calc(100% - 60px);
+    height: calc(100% - 60px);
+    gap: 30px;
+    z-index: 100;
+    margin: 30px;
+}
+
+.weapon-card {
+    /* background-color: #1e1e1ecb; */
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
+    width: 250px;
+    height: 300px;
+    border-radius: 20px;
+    transition: transform 1s, box-shadow 1s;
+    position: relative;
+    cursor: pointer;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+/* .weapon-card:hover {
+    transform: rotateY(20deg);
+    background-color: #1e1e1ecb;
+} */
+
+@keyframes breathing {
+    0%, 100% {
+        transform: scale(1.08);
+    }
+    50% {
+        transform: scale(1.12);
+    }
+}
+
+@keyframes breathing1 {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.15);
+    }
+}
+
+.weapon-card .card-front, .weapon-card .card-back {
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    position: absolute; /* Position within the relatively positioned parent */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 20px;
+    border: 2px solid #f0a500;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.weapon-card .card-front {
+    background-color: #1e1e1ecb;
+    transform: rotateY(0deg);
+}
+
+.weapon-card .card-back {
+    font-size: large;
+    text-align: start;
+    background-color: #1e1e1ecb;
+    transform: rotateY(180deg);
+}
+
+.weapon-card.flipped .card-front {
+    transform: rotateY(-180deg);
+}
+
+.weapon-card.flipped .card-back {
+    transform: rotateY(0deg);
+}
+
+.weapon-card img {
+    height: 80%;
+    width: 100%;
+    object-fit: cover;
+    backface-visibility: hidden;
+    transform: translateZ(70px);
+    /* animation: breathing1 3s ease-in-out infinite; */
+}
+
+.weapon-card p {
+    margin: 10px 0;
+    text-align: center;
+    color: #DAA520;
+    backface-visibility: hidden;
+    height: 20%;
+    width: 100%;
+    transform: translateZ(20px);
 }
