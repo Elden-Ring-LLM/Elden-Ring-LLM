@@ -78,6 +78,7 @@
             userMessage.innerHTML = `<span class="message-label">${save_json.character}:</span> ${userInput}`;
             userMessage.classList.add('bounce-new-usr-msg');
             chatWindow.appendChild(userMessage);
+            chatWindow.scrollTop = chatWindow.scrollHeight;
 
             const classifiedGenre = await userInputGenreClassiifer(userInput);
             const classifierMessage = document.createElement('div');
@@ -85,6 +86,7 @@
             classifierMessage.innerHTML = `<span class="message-label">🤖:</span> Question Genre: ${classifiedGenre}.`;
             classifierMessage.classList.add('bounce-new-bot-msg');
             chatWindow.appendChild(classifierMessage);
+            chatWindow.scrollTop = chatWindow.scrollHeight;
 
             let AI_response = null;
             let query_response = null;
@@ -248,6 +250,7 @@
             botMessage.innerHTML = `<span class="message-label">🤖:</span> ${AI_response}.`;
             botMessage.classList.add('bounce-new-bot-msg');
             chatWindow.appendChild(botMessage);
+            chatWindow.scrollTop = chatWindow.scrollHeight;
 
             let armament_json = null;
             if (query_response != null) {
@@ -280,6 +283,7 @@
                         // console.log(img_link);
                         imgMessage.classList.add('bounce-new-bot-msg');
                         document.getElementById('chat-window').appendChild(imgMessage);
+                        chatWindow.scrollTop = chatWindow.scrollHeight;
                         // document.getElementById("chat-window").style.background = img_link;
                         ans = "Image Loaded";
                     } else if (classifiedGenre == "talisman json query") {
