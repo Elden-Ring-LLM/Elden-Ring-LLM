@@ -1140,6 +1140,24 @@ button:hover {
     background-color: #1e1e1ecb;
 } */
 
+@keyframes breathing {
+    0%, 100% {
+        transform: scale(1.08);
+    }
+    50% {
+        transform: scale(1.12);
+    }
+}
+
+@keyframes breathing1 {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.15);
+    }
+}
+
 .weapon-card .card-front, .weapon-card .card-back {
     width: 100%;
     height: 100%;
@@ -1185,6 +1203,7 @@ button:hover {
     object-fit: cover;
     backface-visibility: hidden;
     transform: translateZ(70px);
+    /* animation: breathing1 3s ease-in-out infinite; */
 }
 
 .weapon-card p {
@@ -1195,13 +1214,4 @@ button:hover {
     height: 20%;
     width: 100%;
     transform: translateZ(20px);
-}
-
-@keyframes breathing {
-    0%, 100% {
-        transform: scale(1.08);
-    }
-    50% {
-        transform: scale(1.12); /* Scale up slightly */
-    }
 }
