@@ -90,6 +90,7 @@
         VanillaTilt.init(document.querySelectorAll(".your-element"));
     </script>
     <script>
+        sendNotification("Melina", "Greetings. Traveller from beyond the fog. I Am Melina. I offer you an accord. Let my hand rest upon you, for but a moment...", `melinaIcon.png`);
         const player_class = localStorage.getItem("player_class");
         console.log("Player Class:", player_class);
         document.getElementById('player-image').src = `images/${player_class}.png`;
@@ -185,67 +186,10 @@
                 console.error("Error parsing JSON:", error);
             }
 
-            // import fetch from 'node-fetch'; // for node.js
-
-            // const weaponsResponse = await fetch(
-            // 'https://noggin.rea.gent/amused-turtle-6511',
-            // {
-            //     method: 'POST',
-            //     headers: {
-            //     'Content-Type': 'application/json',
-            //     Authorization: 'Bearer rg_v1_hzhpa02lryativbyznfzmhzxbmjaxbkkan3p_ngk',
-            //     },
-            //     body: JSON.stringify({
-            //     // fill variables here.
-            //     "attributes": json_response,
-            //     }),
-            // }
-            // ).then(weaponsResponse => weaponsResponse.text());
-            // const jsonObject = JSON.parse(weaponsResponse);
-            // for (const key in jsonObject) {
-            //     if (jsonObject.hasOwnProperty(key)) {
-            //         localStorage.setItem(key, jsonObject[key]);
-            //     }
-            // }
-
-            // // Verify that the data has been stored in local storage
-            // console.log(localStorage.getItem("weapon1"));
-            // console.log(localStorage.getItem("description1"));
-            // console.log(localStorage.getItem("weapon2"));
-            // console.log(localStorage.getItem("description2"));
-
-            // // import fetch from 'node-fetch'; // for node.js
-            // console.log("Owned Armament:", queryData(load_json, "owned.armament"));
-
-            // const weaponsResponse2 = await fetch(
-            // 'https://noggin.rea.gent/greasy-toucan-3614',
-            // {
-            //     method: 'POST',
-            //     headers: {
-            //     'Content-Type': 'application/json',
-            //     Authorization: 'Bearer rg_v1_qa80x6wh3epy3stg5wnlmghr1zahcc90xx2i_ngk',
-            //     },
-            //     body: JSON.stringify({
-            //     // fill variables here.
-            //     "attributes": json_response,
-            //     "owned": JSON.stringify(load_json.owned.armament),
-            //     }),
-            // }
-            // ).then(weaponsResponse2 => weaponsResponse2.text());
-            // const jsonObject2 = JSON.parse(weaponsResponse2);
-            // for (const key in jsonObject2) {
-            //     if (jsonObject2.hasOwnProperty(key)) {
-            //         localStorage.setItem(key, jsonObject2[key]);
-            //     }
-            // }
-
-            // console.log(localStorage.getItem("owned_weapon1"));
-            // console.log(localStorage.getItem("owned_description1"));
-            // console.log(localStorage.getItem("owned_weapon2"));
-            // console.log(localStorage.getItem("owned_description2"));
-
             fetchWeaponsData(json_response).catch(error => console.error('Error initiating fetch process:', error));
-            fetchOwnedWeaponsData(json_response).catch(error => console.error('Error initiating fetch owned process:', error));
+            fetchOwnedWeaponsData(json_response, load_json).catch(error => console.error('Error initiating fetch owned process:', error));
+            // alert("Done");
+            // sendNotification("Melina", "Then its settled, Tarnished", "images/MelinaIcon.png");
         });
     
         function adviseAttributes() {
@@ -296,7 +240,7 @@
                             "attributes": json_response,
                         }),
                     }
-                ).then(response => response.text());
+                ).then(weaponsResponse => weaponsResponse.text());
 
                 const jsonObject = JSON.parse(weaponsResponse);
                 for (const key in jsonObject) {
@@ -314,8 +258,8 @@
             }
         }
 
-        async function fetchOwnedWeaponsData(json_response, retryCount = 0) {
-            if (retryCount >= 3) {
+        async function fetchOwnedWeaponsData(json_response, load_json, retryCount = 0) {
+            if (retryCount >= 10) {
                 console.error('Max retry attempts reached. Exiting.');
                 return;
             }
@@ -324,19 +268,21 @@
                 console.log("Owned Armament:", queryData(load_json, "owned.armament"));
 
                 const weaponsResponse2 = await fetch(
-                    'https://noggin.rea.gent/greasy-toucan-3614',
+                    // 'https://noggin.rea.gent/greasy-toucan-3614',
+                    'https://noggin.rea.gent/fiscal-ferret-4473',
                     {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
-                            Authorization: 'Bearer rg_v1_qa80x6wh3epy3stg5wnlmghr1zahcc90xx2i_ngk',
+                            // Authorization: 'Bearer rg_v1_qa80x6wh3epy3stg5wnlmghr1zahcc90xx2i_ngk',
+                            Authorization: 'Bearer rg_v1_6foqxj3g7l311fmi88sposaq589460ww35b4_ngk',
                         },
                         body: JSON.stringify({
                             "attributes": json_response,
                             "owned": JSON.stringify(load_json.owned.armament),
                         }),
                     }
-                ).then(response => response.text());
+                ).then(weaponsResponse2 => weaponsResponse2.text());
 
                 const jsonObject2 = JSON.parse(weaponsResponse2);
                 for (const key in jsonObject2) {
@@ -346,11 +292,11 @@
                 }
 
                 // Check if the images exist for the second set of weapons
-                await checkImageExistence(localStorage.getItem("owned_weapon1"), json_response, retryCount);
-                await checkImageExistence(localStorage.getItem("owned_weapon2"), json_response, retryCount);
+                await checkImageExistence2(localStorage.getItem("owned_weapon1"), retryCount);
+                await checkImageExistence2(localStorage.getItem("owned_weapon2"), retryCount);
             } catch (error) {
                 console.error('Error fetching owned weapons data:', error);
-                await fetchOwnedWeaponsData(json_response, retryCount + 1);
+                await fetchOwnedWeaponsData(json_response, load_json, retryCount + 1);
             }
         }
 
@@ -365,6 +311,43 @@
                 console.error(`Image ${imageUrl} not found, retrying...`);
                 await fetchWeaponsData(json_response, retryCount + 1);
             }
+        }
+
+        async function checkImageExistence2(weaponName, retryCount) {
+            const imageUrl = `assets/img/armament/${weaponName}.webp`;
+            try {
+                const response = await fetch(imageUrl);
+                if (!response.ok) {
+                    alert("Image not found");
+                    throw new Error('Image not found');
+                }
+            } catch (error) {
+                console.error(`Image ${imageUrl} not found, retrying...`);
+                await fetchOwnedWeaponsData(json_response, load_json, retryCount + 1);
+            }
+        }
+        
+        function sendNotification(title, body, icon) {
+            if (!("Notification" in window)) {
+                alert("This browser does not support notifications.");
+                return;
+            }
+
+            if (Notification.permission === "granted") {
+                // alert("Notifications are enabled.");
+                createNotification(title, body, icon);
+            } else if (Notification.permission !== "denied") {
+                Notification.requestPermission().then(permission => {
+                    if (permission === "granted") createNotification(title, body, icon);
+                });
+            }
+        }
+
+        function createNotification(title, body, icon) {
+            new Notification(title, {
+                body: body,
+                icon: icon
+            });
         }
     </script>
 </body>
