@@ -247,7 +247,7 @@
 
             const botMessage = document.createElement('div');
             botMessage.className = 'bot-message';
-            botMessage.innerHTML = `<span class="message-label">🤖:</span> ${AI_response}.`;
+            botMessage.innerHTML = `<span class="message-label">🤖:</span> ${AI_response}...`;
             botMessage.classList.add('bounce-new-bot-msg');
             chatWindow.appendChild(botMessage);
             chatWindow.scrollTop = chatWindow.scrollHeight;
@@ -364,7 +364,9 @@
             sysMessage0.className = 'bot-message';
             sysMessage0.innerHTML = `<span class="message-label">🤖:</span> ${str}`;
             sysMessage0.classList.add('bounce-new-bot-msg');
-            document.getElementById('chat-window').appendChild(sysMessage0);
+            const chatWindow = document.getElementById('chat-window');
+            chatWindow.appendChild(sysMessage0);
+            chatWindow.scrollTop = chatWindow.scrollHeight;
         }
 
         setTimeout(() => {
@@ -372,31 +374,31 @@
         }, 500);
 
         setTimeout(() => {
-            sysMessage("If you don't get the answer, try to ask again.😅 Trust me we won't save your answer.🫡");
+            sysMessage("If you don't get the answer, try to ask again.😅 Trust me! I won't save your information.🫡");
         }, 1000);
 
         setTimeout(() => {
             sysMessage("If you think weapon data is a little bit off, ask Miyazaki 👨‍🦳 why he updates armament data so frequently.");
-        }, 1000);
+        }, 1500);
 
         setTimeout(() => {
-            sysMessage("If you are not getting desirable answer, try to add a question genre prefix. For example: Question genre: general. Is vigor 59 high?");
-        }, 1000);
+            sysMessage("If you are not getting desirable answers, try to add a question genre prefix. For example: Question genre: general. Is vigor 59 high?");
+        }, 2000);
         setTimeout(() => {
-            sysMessage("Sample question: what is my vigor?");
-        }, 1000);
+            sysMessage("Sample question: how many hours have I played the game?");
+        }, 2500);
         setTimeout(() => {
-            sysMessage("Sample question: how many talismans do I have?");
-        }, 1000);
+            sysMessage("Sample question: Show me all talismans I missed?");
+        }, 3000);
         setTimeout(() => {
-            sysMessage("Sample question: Show me the image of Erdtree Flavor?");
-        }, 1000);
+            sysMessage("Sample question: Show me the image of Green Turtle Talisman?");
+        }, 3500);
         setTimeout(() => {
-            sysMessage("Sample question: What is the bloodloss status effects of the Dagger with blood affinity?");
-        }, 1000);
+            sysMessage("Sample question: What are the bloodloss status effects of the Dagger with blood affinity?");
+        }, 4000);
         setTimeout(() => {
             sysMessage("Sample question: What is the weight of Brass Shield?");
-        }, 1000);
+        }, 4500);
     </script>
     <script src="assets/js/script.js"></script>
 </body>
