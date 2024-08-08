@@ -911,8 +911,6 @@ button:hover {
 }
 
 .chat-window {
-    /* background: url('assets/img/armament/Academy\ Glintstone\ Staff.webp'); */
-    /* background-repeat: repeat; */
     width: 80%;
     height: 75vh;
     background-color: rgba(255, 255, 255, 0.712);
@@ -951,19 +949,45 @@ button:hover {
 }
 
 .user-message {
-    color: black;
+    clear: both;
+    float: right;
+    padding: 6px 10px 7px;
+    border-radius: 15px 15px 0 15px;
+    background: rgba(148, 182, 255, 0.4);
+    margin: 8px 0;
+    font-size: 20px;
+    line-height: 1.4;
+    margin-left: 35px;
+    position: relative;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, .2);
+    max-width: 60%;
+    align-self: flex-end;
+    /* color: black;
     padding: 10px;
     border-radius: 8px;
     margin: 5px 0;
     align-self: flex-end;
     word-wrap: break-word;
     display: block;
-    text-align: right;
+    text-align: right; */
     
 }
 
 .bot-message {
-    color: black;
+    clear: both;
+    float: left;
+    padding: 6px 10px 7px;
+    border-radius: 15px 15px 15px 0;
+    background: rgba(148, 182, 255, 0.4);
+    margin: 8px 0;
+    font-size: 20px;
+    line-height: 1.4;
+    /* margin-left: 35px; */
+    position: relative;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, .2);
+    max-width: 60%;
+    align-self: flex-start;
+    /* color: black;
     padding: 10px;
     border-radius: 8px;
     margin: 5px 0;
@@ -971,8 +995,37 @@ button:hover {
     max-width: 60%;
     word-wrap: break-word;
     display: block;
-    text-align: left;
+    text-align: left; */
 }
+
+.bounce-new-bot-msg {
+    transform: scale(1.1);
+    transform-origin: bottom left;
+    animation: bounce 1s linear both;
+}
+
+.bounce-new-usr-msg {
+    transform: scale(1.1);
+    transform-origin: bottom right;
+    animation: bounce 1s linear both;
+}
+
+@keyframes bounce { 
+    0% { transform: matrix3d(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+    4.7% { transform: matrix3d(0.45, 0, 0, 0, 0, 0.45, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+    9.41% { transform: matrix3d(0.883, 0, 0, 0, 0, 0.883, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+    14.11% { transform: matrix3d(1.141, 0, 0, 0, 0, 1.141, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+    18.72% { transform: matrix3d(1.212, 0, 0, 0, 0, 1.212, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+    24.32% { transform: matrix3d(1.151, 0, 0, 0, 0, 1.151, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+    29.93% { transform: matrix3d(1.048, 0, 0, 0, 0, 1.048, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+    35.54% { transform: matrix3d(0.979, 0, 0, 0, 0, 0.979, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+    41.04% { transform: matrix3d(0.961, 0, 0, 0, 0, 0.961, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+    52.15% { transform: matrix3d(0.991, 0, 0, 0, 0, 0.991, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+    63.26% { transform: matrix3d(1.007, 0, 0, 0, 0, 1.007, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+    85.49% { transform: matrix3d(0.999, 0, 0, 0, 0, 0.999, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
+    100% { transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); } 
+}
+
 .message-label {
     font-weight: bold;
     margin-right: 10px;

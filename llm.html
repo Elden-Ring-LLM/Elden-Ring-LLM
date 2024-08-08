@@ -5,8 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LLM Chat</title>
     <link rel="stylesheet" href="styles.css">
+    <script> 
+        function randomizeCompanion(len) {
+            let r0 = Math.floor(Math.random() * len);
+            const img = document.getElementById("companion");
+            img.src = `images/character${r0}.png`;
+        }
+    </script>
 </head>
-<body>
+<body onload="randomizeCompanion(19);">
     <div class="sidebar">
         <img onclick="location.href='index.html'" src="./images/eldenringicon.webp" alt="Sidebar Image" class="sidebar-image">
         <button class="search-button active">
@@ -26,17 +33,22 @@
         <div class="armor-title-container">
             <h2>Elden Ring LLM Chatbot</h2>
         </div>
+        <div style="display: flex; flex-direction: row; justify-content: flex-end; height: 100%;">
+        <div class="chat-container" style="width:5%; z-index: -10;"> 
+            <img src="images/character6.png" height="100%" id="companion">
+        </div>
         <div class="chat-container">
             <div class="chat-window" id="chat-window"></div>
             <div class="chat-input">
-                <input type="text" id="user-input" placeholder="Tarnished, type your wish here...">
+                <input type="text" id="user-input" placeholder="Tarnished, type your wish here..."></input>
                 <button onclick="sendMessage()" id="sendbtn">Send</button>
             </div>
         </div>
+        <div>
     </div>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script>
-        let r = Math.floor(Math.random() * 12);
+        let r = Math.floor(Math.random() * 21);
         document.getElementsByTagName("body")[0].style.backgroundImage = `url(assets/img/bg${r}.webp`;
         // Get the input field
         var input = document.getElementById("user-input");
@@ -64,13 +76,17 @@
             const userMessage = document.createElement('div');
             userMessage.className = 'user-message';
             userMessage.innerHTML = `<span class="message-label">${save_json.character}:</span> ${userInput}`;
+            userMessage.classList.add('bounce-new-usr-msg');
             chatWindow.appendChild(userMessage);
+            chatWindow.scrollTop = chatWindow.scrollHeight;
 
             const classifiedGenre = await userInputGenreClassiifer(userInput);
             const classifierMessage = document.createElement('div');
             classifierMessage.className = 'bot-message';
             classifierMessage.innerHTML = `<span class="message-label">🤖:</span> Question Genre: ${classifiedGenre}.`;
+            classifierMessage.classList.add('bounce-new-bot-msg');
             chatWindow.appendChild(classifierMessage);
+            chatWindow.scrollTop = chatWindow.scrollHeight;
 
             let AI_response = null;
             let query_response = null;
@@ -232,7 +248,9 @@
             const botMessage = document.createElement('div');
             botMessage.className = 'bot-message';
             botMessage.innerHTML = `<span class="message-label">🤖:</span> ${AI_response}.`;
+            botMessage.classList.add('bounce-new-bot-msg');
             chatWindow.appendChild(botMessage);
+            chatWindow.scrollTop = chatWindow.scrollHeight;
 
             let armament_json = null;
             if (query_response != null) {
@@ -263,7 +281,9 @@
                         imgMessage.className = 'bot-message';
                         imgMessage.innerHTML = `<span class="message-label">🤖:</span> <img src="${img_link}" width="100" height="100">`;
                         // console.log(img_link);
+                        imgMessage.classList.add('bounce-new-bot-msg');
                         document.getElementById('chat-window').appendChild(imgMessage);
+                        chatWindow.scrollTop = chatWindow.scrollHeight;
                         // document.getElementById("chat-window").style.background = img_link;
                         ans = "Image Loaded";
                     } else if (classifiedGenre == "talisman json query") {
@@ -272,6 +292,7 @@
                     }
                     queriedMessage.innerHTML = `<span class="message-label">🤖:</span> Queried Result: ${ans}.`;
                 }
+                queriedMessage.classList.add('bounce-new-bot-msg');
                 chatWindow.appendChild(queriedMessage);
             }
             document.getElementById('user-input').value = "";
@@ -328,6 +349,7 @@
             const sysMessage0 = document.createElement('div');
             sysMessage0.className = 'bot-message';
             sysMessage0.innerHTML = `<span class="message-label">🤖:</span> ${str}`;
+            sysMessage0.classList.add('bounce-new-bot-msg');
             document.getElementById('chat-window').appendChild(sysMessage0);
         }
 
