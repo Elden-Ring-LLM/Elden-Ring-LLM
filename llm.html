@@ -347,7 +347,13 @@
         }
         function queryData(json, entry_str) {
             console.log(entry_str);
+            if (entry_str == null || entry_str == undefined) {
+                return "Unretrievable Data";
+            }
             if (!entry_str.includes(";")) {
+                if (!(entry_str in json)) {
+                    return "Unretrievable Data";
+                }
                 if (isValidJSON(json[entry_str]) || !(json[entry_str] instanceof String)) {
                     return JSON.stringify(json[entry_str]);
                 }
