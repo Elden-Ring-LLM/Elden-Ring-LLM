@@ -11,7 +11,10 @@ If you are a user who wants to open eldenringllm webapp while playing the game, 
 
 ## Special Thanks
 https://github.com/ClayAmore/ER-Save-Editor
+
 https://elden-ring-progression-tracker.github.io/
+
 https://github.com/EldenRingDatabase/erdb
+
 https://github.com/EthanShoeDev/elden-ring-compass
 
