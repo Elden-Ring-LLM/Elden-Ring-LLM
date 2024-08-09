@@ -486,12 +486,15 @@ button:hover {
     border-radius: 8px; /* Optional: Adds rounded corners to the image */
 }
 
+.armor-container {
+    width:100%;
+}
 
 .armor-occupied {
     background-color: #1e1e1ecb;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    width: 300px;
-    height: 290px;
+    width: 285px;
+    height: 265px;
     border: 2px solid #f0a500;
     border-radius: 20px;
     transition: transform 1s, box-shadow s;

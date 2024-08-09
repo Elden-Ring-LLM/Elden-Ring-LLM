@@ -15,6 +15,25 @@ a:visited {
     text-decoration: none;
 }
 
+.sort-btn {
+    background-color: #1e1e1ecb;
+    opacity: 80%;
+    color: #da7d20;
+    border-radius: 8px;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px 0;
+    cursor: pointer;
+    font-size: 15px;
+    font-family: 'Cinzel', serif; 
+    transition: background-color 0.5s, color 0.5s, transform 0.5s;
+}
+
+.sort-btn:hover {
+    color: #da4f20;
+    font-weight: bold;
+}
+
 .items-container {
     display: flex;
     flex-direction: column;
@@ -150,3 +169,14 @@ a:visited {
 .loaded-items {
     flex: 1; /* Take the remaining space */
 }
+
+#confetti-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 9999;
+  }

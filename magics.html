@@ -25,20 +25,22 @@
         <button onclick="location.href='spiritAshes.html'">Spirit Ashes</button>
         <button onclick="location.href='ashesOfWar.html'">Ashes of War</button>
     </div>
-    <div class="main-content" style="display: flex; flex-wrap: wrap;">
-        <div class="armor-title-container" style="height: 10%;">
+    <div class="main-content">
+        <div class="armor-title-container" >
             <h2>Player's Missed Sorceries</h2>
         </div>
         <div class="container">
             <div class="armor-container" style="display: flex; padding-top: 15%; width: 100%; height: 100vh; justify-content: space-evenly; flex-wrap: wrap; overflow-y: auto" id="armor-set"></div>
         </div>
     </div>
+    <div style="display: flex; height: 10%; width:1%; justify-content: flex-end; padding-right: 10px;"><button class="sort-btn" onclick="sort()">SORT ALPHABETICALLY</button></div>
     <script>
         let r = Math.floor(Math.random() * 21);
         document.getElementsByTagName("body")[0].style.backgroundImage = `url(assets/img/bg${r}.webp`;
     </script>
     <script src="assets/js/script.js"></script>
     <script type="text/javascript" src="vanilla-tilt.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
     <script type="text/javascript">
         const load_json = JSON.parse(localStorage.getItem("save_json"));
         const not_owned_incantations = load_json["not-owned"]["magic"]["Sorcery"];
@@ -130,6 +132,26 @@
             sectionDiv.appendChild(loadDiv);
             descrDiv.appendChild(sectionDiv);
             containerDiv.appendChild(descrDiv);
+        }
+        function sort() {
+            confetti({
+            particleCount: 500,
+            startVelocity:70, 
+            gravity: 0.7, 
+            angle: -135,
+            spread: 90,
+            origin: { y: 0.1, x:0.9 },
+            colors: ['#f5d742'],
+            scalar: 5
+            });
+            const talimsans_container = document.querySelector("#armor-set");
+            if (talimsans_container.childElementCount != 0) {
+                while(talimsans_container.firstChild) { 
+                    talimsans_container.removeChild(talimsans_container.firstChild); 
+                }
+            } 
+            not_owned_incantations.sort();
+            loadIncantions(not_owned_incantations);
         }
     </script>
 </body>
