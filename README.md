@@ -1,4 +1,4 @@
-# cs-160-group-9-project
+# Elden Ring LLM
 
 Pls try using different branches to prevent conflicts
 
