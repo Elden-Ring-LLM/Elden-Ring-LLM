@@ -1,3 +1,20 @@
+a:link {
+    color: #da7d20;
+    background-color: transparent;
+    text-decoration: none;
+  }
+  
+a:hover {
+color: #da4f20;
+text-decoration: underline;
+}
+
+a:visited {
+    color: #da7d20;
+    background-color: transparent;
+    text-decoration: none;
+}
+
 .items-container {
     display: flex;
     flex-direction: column;
