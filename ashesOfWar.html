@@ -81,7 +81,7 @@
             const img_name = ash_name.replace(':', '');
             ashDiv.innerHTML = `<p style="font-weight:bold;">${ash_name}</p>
                     <img src="assets/img/ashesOfWar/${img_name}.webp" height=300px width=300px alt='${ash_name}'>
-                    <p>Click to Go Back</p>`;
+                    <p style="color: #da7d20;">Click to Go Back</p>`;
             ashDiv.addEventListener("click", ()=> {window.location.href="ashesOfWar.html";});
             ashDiv.style.width = '15%';
             containerDiv.appendChild(ashDiv);
@@ -125,7 +125,11 @@
             loadDiv.className = "loaded-items";
             loadDiv.innerHTML = `<p><span>${desc}</span></p> <p><span>Loading Location</span></p>`;
             getLoc().then(loc => {
-                loadDiv.innerHTML = `<p><span>${desc}</span></p> <p><span>${loc}</span></p>`;
+                const link_start = loc.indexOf('[');
+                const link_end = loc.indexOf(']');
+                const pureDes = loc.slice(0, link_start);
+                const link = loc.slice(link_start + 1, link_end);
+                loadDiv.innerHTML = `<p><span>${desc}</span></p> <p><span>${pureDes}<a href='${link}' target='_blank'>${link}</a></span></p>`;
             });
             sectionDiv.appendChild(attrDiv);
             sectionDiv.appendChild(loadDiv);

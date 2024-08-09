@@ -76,7 +76,7 @@
             taliDiv.className = 'items-container';
             taliDiv.innerHTML = `<p style="font-weight:bold;">${talisman_name}</p>
                     <img src="assets/img/talisman/${talisman_name}.webp" height=300px width=300px alt='${talisman_name}'>
-                    <p>Click to Go Back</p>`;
+                    <p style="color: #da7d20;">Click to Go Back</p>`;
             taliDiv.addEventListener("click", ()=> {window.location.href="talismans.html";});
             taliDiv.style.width = "12%";
             containerDiv.appendChild(taliDiv);
@@ -120,7 +120,11 @@
             loadDiv.className = "loaded-items";
             loadDiv.innerHTML = `<p><span>${desc}</span></p> <p><span>Loading Location</span></p>`;
             getLoc().then(loc => {
-                loadDiv.innerHTML = `<p><span>${desc}</span></p> <p><span>${loc}</span></p>`;
+                const link_start = loc.indexOf('[');
+                const link_end = loc.indexOf(']');
+                const pureDes = loc.slice(0, link_start);
+                const link = loc.slice(link_start + 1, link_end);
+                loadDiv.innerHTML = `<p><span>${desc}</span></p> <p><span>${pureDes}<a href='${link}' target='_blank'>${link}</a></span></p>`;
             });
             sectionDiv.appendChild(attrDiv);
             sectionDiv.appendChild(loadDiv);

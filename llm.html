@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LLM Chat</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="patch.css">
     <script> 
         function randomizeCompanion(len) {
             let r0 = Math.floor(Math.random() * len);
@@ -247,7 +248,16 @@
 
             const botMessage = document.createElement('div');
             botMessage.className = 'bot-message';
-            botMessage.innerHTML = `<span class="message-label">🤖:</span> ${AI_response}...`;
+            if (classifiedGenre != 'general') {
+                botMessage.innerHTML = `<span class="message-label">🤖:</span> ${AI_response}...`;
+            } else {
+                const link_start = AI_response.indexOf('[');
+                const link_end = AI_response.indexOf(']');
+                const pureDes = AI_response.slice(0, link_start);
+                const link = AI_response.slice(link_start + 1, link_end);
+                botMessage.innerHTML = `<span class="message-label">🤖:</span>${pureDes}<a href='${link}' target='_blank'>${link}</a>`;
+            }
+            
             botMessage.classList.add('bounce-new-bot-msg');
             chatWindow.appendChild(botMessage);
             chatWindow.scrollTop = chatWindow.scrollHeight;
@@ -388,7 +398,7 @@
         }, 1500);
 
         setTimeout(() => {
-            sysMessage("If you are not getting desirable answers, try to add a question genre prefix. For example: Question genre: general. Is vigor 59 high?");
+            sysMessage("Sample question: where can I find Messmer?");
         }, 2000);
         setTimeout(() => {
             sysMessage("Sample question: how many hours have I played the game?");
