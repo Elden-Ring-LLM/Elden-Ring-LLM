@@ -247,7 +247,7 @@
 
             const botMessage = document.createElement('div');
             botMessage.className = 'bot-message';
-            botMessage.innerHTML = `<span class="message-label">🤖:</span> ${AI_response}.`;
+            botMessage.innerHTML = `<span class="message-label">🤖:</span> ${AI_response}...`;
             botMessage.classList.add('bounce-new-bot-msg');
             chatWindow.appendChild(botMessage);
             chatWindow.scrollTop = chatWindow.scrollHeight;
@@ -316,12 +316,12 @@
             // import fetch from 'node-fetch'; // for node.js
 
             const response = await fetch(
-            'https://noggin.rea.gent/suspicious-owl-3479',
+            'https://noggin.rea.gent/psychiatric-mite-3705',
             {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
-                Authorization: 'Bearer rg_v1_npa5e6otbr2kxeba0v4mkycng14p3xow6hwg_ngk',
+                Authorization: 'Bearer rg_v1_rm9gwwixm0tofzq5r5kvqbhgcfjbo1d5523m_ngk',
                 },
                 body: JSON.stringify({
                 // fill variables here.
@@ -329,11 +329,31 @@
                 }),
             }
             ).then(response => response.text());
+            // const response = await fetch(
+            // 'https://noggin.rea.gent/suspicious-owl-3479',
+            // {
+            //     method: 'POST',
+            //     headers: {
+            //     'Content-Type': 'application/json',
+            //     Authorization: 'Bearer rg_v1_npa5e6otbr2kxeba0v4mkycng14p3xow6hwg_ngk',
+            //     },
+            //     body: JSON.stringify({
+            //     // fill variables here.
+            //     "question": user_input,
+            //     }),
+            // }
+            // ).then(response => response.text());
             return response;
         }
         function queryData(json, entry_str) {
             console.log(entry_str);
+            if (entry_str == null || entry_str == undefined) {
+                return "Unretrievable Data";
+            }
             if (!entry_str.includes(";")) {
+                if (!(entry_str in json)) {
+                    return "Unretrievable Data";
+                }
                 if (isValidJSON(json[entry_str]) || !(json[entry_str] instanceof String)) {
                     return JSON.stringify(json[entry_str]);
                 }
@@ -350,7 +370,9 @@
             sysMessage0.className = 'bot-message';
             sysMessage0.innerHTML = `<span class="message-label">🤖:</span> ${str}`;
             sysMessage0.classList.add('bounce-new-bot-msg');
-            document.getElementById('chat-window').appendChild(sysMessage0);
+            const chatWindow = document.getElementById('chat-window');
+            chatWindow.appendChild(sysMessage0);
+            chatWindow.scrollTop = chatWindow.scrollHeight;
         }
 
         setTimeout(() => {
@@ -358,7 +380,7 @@
         }, 500);
 
         setTimeout(() => {
-            sysMessage("If you don't get the answer, try to ask again.😅");
+            sysMessage("If you don't get the answer, try to ask again.😅 Trust me! I won't save your information.🫡");
         }, 1000);
 
         setTimeout(() => {
@@ -366,8 +388,23 @@
         }, 1500);
 
         setTimeout(() => {
-            sysMessage("If you are not getting desirable answer, try to add a question genre prefix. For example: Question genre: general. Is vigor 59 high?");
+            sysMessage("If you are not getting desirable answers, try to add a question genre prefix. For example: Question genre: general. Is vigor 59 high?");
         }, 2000);
+        setTimeout(() => {
+            sysMessage("Sample question: how many hours have I played the game?");
+        }, 2500);
+        setTimeout(() => {
+            sysMessage("Sample question: Show me all talismans I missed?");
+        }, 3000);
+        setTimeout(() => {
+            sysMessage("Sample question: Show me the image of Green Turtle Talisman?");
+        }, 3500);
+        setTimeout(() => {
+            sysMessage("Sample question: What are the bloodloss status effects of the Dagger with blood affinity?");
+        }, 4000);
+        setTimeout(() => {
+            sysMessage("Sample question: What is the weight of Brass Shield?");
+        }, 4500);
     </script>
     <script src="assets/js/script.js"></script>
 </body>
