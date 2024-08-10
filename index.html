@@ -301,55 +301,9 @@
           console.log("Error : " + e.type);
         };
         reader.readAsArrayBuffer(file);
-
-        let load_json = JSON.parse(localStorage.getItem("save_json"));
-        let profile_name = load_json["character"];
-        localStorage.setItem("profile_name", profile_name);
-        console.log("Profile Name:", profile_name);
-        let json_response = queryData(load_json, "stats");
-        try {
-            const response = await fetch(
-              'https://noggin.rea.gent/disciplinary-mule-6592',
-              {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                  Authorization: 'Bearer rg_v1_w98fomrpb05ihq4u5tneap1wynewee4jnm21_ngk',
-                },
-                body: JSON.stringify({
-                  // fill variables here.
-                  "attributes": json_response,
-                }),
-              }
-            ).then(response => response.text());
-            const responseData = await response.text();
-            localStorage.setItem("player_class", responseData);
-            console.log("Response from fetch:", responseData);
-        } catch (error) {
-            console.error("Error fetching data:", error);
-        }
       });
 
-      function queryData(json, entry_str) {
-            console.log(entry_str);
-            if (!entry_str.includes(";")) {
-                if (isValidJSON(json[entry_str]) || !(json[entry_str] instanceof String)) {
-                    return JSON.stringify(json[entry_str]);
-                }
-                return json[entry_str];
-            }
-            const entries = entry_str.split(';');
-            return queryData(json[entries.shift()], entries.join(';'));
-        }
 
-        function isValidJSON(str) {
-            try {
-                JSON.parse(str);
-                return true;
-            } catch (e) {
-                return false;
-            }
-        }
     </script>
   </body>
 </html>

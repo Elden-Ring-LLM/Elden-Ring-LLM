@@ -35,7 +35,7 @@
         </div>
         <div class="container">
             <div class="profile-occupied" >
-                <img src="images/Hero.png" alt="Player 1" id="player-image">
+                <img src="images/Warrior.png" alt="Player 1" id="player-image">
                 <p id="profile-name">Profile 1</p>
                 <p id="profile-description"></p>
             </div>
@@ -91,6 +91,27 @@
         VanillaTilt.init(document.querySelectorAll(".your-element"));
     </script>
     <script>
+        async function updatePlayerClass() {
+            if (localStorage.getItem("player_class") == null) {
+                const response = await fetch(
+                    'https://noggin.rea.gent/disciplinary-mule-6592',
+                    {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: 'Bearer rg_v1_w98fomrpb05ihq4u5tneap1wynewee4jnm21_ngk',
+                    },
+                    body: JSON.stringify({
+                        // fill variables here.
+                        "attributes": localStorage.getItem("stats"),
+                    }),
+                    }
+                ).then(response => response.text());
+                localStorage.setItem("player_class", response);
+                document.getElementById('player-image').src = `images/${response}.png`;
+            }
+        }
+        updatePlayerClass();
         sendNotification("Melina", "Greetings. Traveller from beyond the fog. I Am Melina. Let my hand rest upon you, for but a moment...", `melinaIcon.png`);
         const player_class = localStorage.getItem("player_class");
         console.log("Player Class:", player_class);
@@ -108,20 +129,21 @@
             // console.log("Armament Info:", armament_info);
             let json_response = queryData(load_json, "stats");
             // import fetch from 'node-fetch'; // for node.js
-            const classResponse = await fetch(
-            'https://noggin.rea.gent/daily-mandrill-3370',
-            {
-                method: 'POST',
-                headers: {
-                'Content-Type': 'application/json',
-                Authorization: 'Bearer rg_v1_tikkosex4a85z1x5iy0yqx3hythmhjbxcdq0_ngk',
-                },
-                body: JSON.stringify({
-                // fill variables here.
-                "attributes": json_response,
-                }),
-            }
-            ).then(classResponse => classResponse.text());
+            const classResponse = localStorage.getItem("player_class");
+            // await fetch(
+            // 'https://noggin.rea.gent/daily-mandrill-3370',
+            // {
+            //     method: 'POST',
+            //     headers: {
+            //     'Content-Type': 'application/json',
+            //     Authorization: 'Bearer rg_v1_tikkosex4a85z1x5iy0yqx3hythmhjbxcdq0_ngk',
+            //     },
+            //     body: JSON.stringify({
+            //     // fill variables here.
+            //     "attributes": json_response,
+            //     }),
+            // }
+            // ).then(classResponse => classResponse.text());
             const playerImage = document.getElementById('player-image');
             playerImage.src = `images/${classResponse}.png`;
             if (profile_name) {
