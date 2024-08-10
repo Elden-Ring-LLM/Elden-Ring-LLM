@@ -277,21 +277,36 @@
                 console.log("Owned Armament:", queryData(load_json, "owned;armament"));
 
                 const weaponsResponse2 = await fetch(
-                    // 'https://noggin.rea.gent/greasy-toucan-3614',
-                    'https://noggin.rea.gent/fiscal-ferret-4473',
-                    {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            // Authorization: 'Bearer rg_v1_qa80x6wh3epy3stg5wnlmghr1zahcc90xx2i_ngk',
-                            Authorization: 'Bearer rg_v1_6foqxj3g7l311fmi88sposaq589460ww35b4_ngk',
-                        },
-                        body: JSON.stringify({
-                            "attributes": json_response,
-                            "owned": JSON.stringify(load_json.owned.armament),
-                        }),
-                    }
+                'https://noggin.rea.gent/yummy-orca-6751',
+                {
+                    method: 'POST',
+                    headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer rg_v1_qhie014gcsa977pbrbplm6ptlvs39i1wi1od_ngk',
+                    },
+                    body: JSON.stringify({
+                    // fill variables here.
+                    "owned": JSON.stringify(load_json.owned.armament),
+                    "attributes": json_response,
+                    }),
+                }
                 ).then(weaponsResponse2 => weaponsResponse2.text());
+                // const weaponsResponse2 = await fetch(
+                //     // 'https://noggin.rea.gent/greasy-toucan-3614',
+                //     'https://noggin.rea.gent/fiscal-ferret-4473',
+                //     {
+                //         method: 'POST',
+                //         headers: {
+                //             'Content-Type': 'application/json',
+                //             // Authorization: 'Bearer rg_v1_qa80x6wh3epy3stg5wnlmghr1zahcc90xx2i_ngk',
+                //             Authorization: 'Bearer rg_v1_6foqxj3g7l311fmi88sposaq589460ww35b4_ngk',
+                //         },
+                //         body: JSON.stringify({
+                //             "attributes": json_response,
+                //             "owned": JSON.stringify(load_json.owned.armament),
+                //         }),
+                //     }
+                // ).then(weaponsResponse2 => weaponsResponse2.text());
 
                 const jsonObject2 = JSON.parse(weaponsResponse2);
                 for (const key in jsonObject2) {
