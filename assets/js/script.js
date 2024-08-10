@@ -162,6 +162,9 @@ function getSaveFileFromUploading() {
       save_json = JSON.stringify(jsonObject, null, 2);
       localStorage.setItem("save_json", save_json);
       localStorage.setItem("character", jsonObject.character);
+      
+      localStorage.setItem("profile_name", jsonObject.character);
+      // console.log("Profile Name:", profile_name);
       // localStorage.setItem("equippedArmor", jsonObject.equippedArmor);
       localStorage.setItem("stats", JSON.stringify(jsonObject.stats));
       localStorage.setItem("armor_json", JSON.stringify(armors_dictionary, null, 2));
