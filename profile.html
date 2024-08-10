@@ -233,23 +233,39 @@
             }
 
             try {
+                // import fetch from 'node-fetch'; // for node.js
+
                 const weaponsResponse = await fetch(
-                    // 'https://noggin.rea.gent/amused-turtle-6511', 4o
-                    // 'https://noggin.rea.gent/cool-alpaca-3332', 3.5
-                    'https://noggin.rea.gent/swift-swift-1790',
-                    {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            // Authorization: 'Bearer rg_v1_hzhpa02lryativbyznfzmhzxbmjaxbkkan3p_ngk', 4o
-                            // Authorization: 'Bearer rg_v1_oqli0bppp9roiu2fgtm7z927o5ds7ei18jvg_ngk', 3.5
-                            Authorization: 'Bearer rg_v1_m83q6ni5hx9hkjqzhayb8hbflnms3zuvbng0_ngk',
-                        },
-                        body: JSON.stringify({
-                            "attributes": json_response,
-                        }),
-                    }
+                'https://noggin.rea.gent/chronic-hornet-7865',
+                {
+                    method: 'POST',
+                    headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer rg_v1_60c3j6t4y3isgz1jpkxcqyargl5thecy178g_ngk',
+                    },
+                    body: JSON.stringify({
+                    // fill variables here.
+                    "attributes": json_response,
+                    }),
+                }
                 ).then(weaponsResponse => weaponsResponse.text());
+                // const weaponsResponse = await fetch(
+                //     // 'https://noggin.rea.gent/amused-turtle-6511', 4o
+                //     // 'https://noggin.rea.gent/cool-alpaca-3332', 3.5
+                //     'https://noggin.rea.gent/swift-swift-1790',
+                //     {
+                //         method: 'POST',
+                //         headers: {
+                //             'Content-Type': 'application/json',
+                //             // Authorization: 'Bearer rg_v1_hzhpa02lryativbyznfzmhzxbmjaxbkkan3p_ngk', 4o
+                //             // Authorization: 'Bearer rg_v1_oqli0bppp9roiu2fgtm7z927o5ds7ei18jvg_ngk', 3.5
+                //             Authorization: 'Bearer rg_v1_m83q6ni5hx9hkjqzhayb8hbflnms3zuvbng0_ngk',
+                //         },
+                //         body: JSON.stringify({
+                //             "attributes": json_response,
+                //         }),
+                //     }
+                // ).then(weaponsResponse => weaponsResponse.text());
 
                 const jsonObject = JSON.parse(weaponsResponse);
                 for (const key in jsonObject) {
