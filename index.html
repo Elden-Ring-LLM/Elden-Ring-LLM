@@ -10,6 +10,7 @@
     <link rel="icon" href="favicon.ico" />
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />
     <link href="assets/css/new_style.css" type="text/css" rel="stylesheet" />
+    <link href="patch.css" type="text/css" rel="stylesheet" />
   </head>
   <style>
     body {
@@ -209,10 +210,15 @@
         <hr style="margin-top: 100px" />
       </div>
     </div>
+    <div style="position: absolute; bottom: 0px; right: 0px; width: 5%; height: 10%;">
+      <div class="icon-btn"id="github-icon">
+        <img src="images/github-icon.png" width="50px">
+      </div>
+    </div>
+
 
     <!-- Vendor JS Files -->
     <script src="assets/js/script.js"></script>
-    <script src="assets/js/button_to_top.js"></script>
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="https://kit.fontawesome.com/652c1efac6.js" crossorigin="anonymous"></script>
@@ -220,6 +226,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.9/jquery.lazy.plugins.min.js"></script>
 
     <script>
+      document.querySelector("#github-icon").addEventListener("click", ()=>{window.open('https://github.com/Elden-Ring-LLM/Elden-Ring-LLM','_blank');});
       if (localStorage.getItem("character")) {
         const quickStartBtn = document.getElementById("quickStart");
         quickStartBtn.textContent = `Welcom Back ${localStorage.getItem("character")}`;
