@@ -24,6 +24,7 @@
         <button onclick="location.href='weapons.html'">Weapons</button>
         <button onclick="location.href='metabuilds.html'">Meta Builds</button>
         <button onclick="location.href='armors.html'">Armors</button>
+        <button onclick="location.href='armaments.html'">Armaments</button>
         <button onclick="location.href='talismans.html'">Talismans</button>
         <button onclick="location.href='incantations.html'">Incantations</button>
         <button onclick="location.href='magics.html'">Sorceries</button>
@@ -263,6 +264,9 @@
             chatWindow.scrollTop = chatWindow.scrollHeight;
 
             let armament_json = null;
+            fetchJson("erdb/json/armaments.json", function (data) {
+                armament_json = { ...data };
+            });
             if (query_response != null) {
                 const queriedMessage = document.createElement('div');
                 queriedMessage.className = 'bot-message';
@@ -277,11 +281,6 @@
                         let armor_json = JSON.parse(localStorage.getItem("armor_json"));
                         ans = queryData(armor_json, query_response);
                     } else if (classifiedGenre == "armament json query") {
-                        if (armament_json == null) {
-                            fetchJson("erdb/json/armaments.json", function (data) {
-                            armament_json = { ...data };
-                        });
-                        }
                         // let armament_json = JSON.parse(localStorage.getItem("armament_json"));
                         // console.log(armament_json);
                         ans = queryData(armament_json, query_response);

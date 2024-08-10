@@ -50,7 +50,7 @@ function loadItems(indicator, owned_items, not_owned_items, item_type, item_db) 
         // too lazy to create a new CSS, just use armor-occupied
         new_div.className = "armor-occupied";
         const cleanItemName = name.replace(':', '');
-        new_div.innerHTML = `<p>${name}</p> <img src="assets/img/${item_type}/${cleanItemName}.webp" alt="${name}">`;
+        new_div.innerHTML = `<p>${name}</p> <img src="/assets/img/${item_type}/${cleanItemName}.webp" alt="${name}">`;
         VanillaTilt.init(new_div, {
             startX: -15,
             // startY: -20,
@@ -79,7 +79,7 @@ async function focus(item_name, indicator, owned_items, not_owned_items, item_ty
     itemDiv.className = 'items-container';
     const cleanItemName = item_name.replace(':', '');
     itemDiv.innerHTML = `<p style="font-weight:bold;">${item_name}</p>
-            <img src="assets/img/${item_type}/${cleanItemName}.webp" height=300px width=300px alt='${item_name}'>
+            <img src="/assets/img/${item_type}/${cleanItemName}.webp" height=300px width=300px alt='${item_name}'>
             <p style="color: #da7d20;">Click to Go Back</p>`;
     itemDiv.addEventListener("click", ()=> {backTo(scrollBackPos, indicator, owned_items, not_owned_items, item_type, item_db)});
     itemDiv.style.width = "12%";

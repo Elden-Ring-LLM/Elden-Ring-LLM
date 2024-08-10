@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Head Armors</title>
+    <title>Armaments</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="patch.css">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
@@ -18,8 +18,8 @@
         <button onclick="location.href='profile.html'">Profile</button>
         <button onclick="location.href='weapons.html'">Weapons</button>
         <button onclick="location.href='metabuilds.html'">Meta Builds</button>
-        <button class="active" onclick="location.href='armors.html'">Armors</button>
-        <button onclick="location.href='armaments.html'">Armaments</button>
+        <button onclick="location.href='armors.html'">Armors</button>
+        <button class="active" onclick="location.href='armaments.html'">Armaments</button>
         <button onclick="location.href='talismans.html'">Talismans</button>
         <button onclick="location.href='incantations.html'">Incantations</button>
         <button onclick="location.href='magics.html'">Sorceries</button>
@@ -28,16 +28,12 @@
     </div>
     <div class="main-content">
         <div class="armor-title-container">
-            <h2 id="title">Player's MISSED HEAD ARMORS</h2>
-            <div style="color:#da7d20;">Click The Sidebar Armors Tab To Go Back</div>
+            <h2 id="title">Armament Types</h2>
+            <div style="color:#da7d20;" id="title-hint">Click Each Type to Go To Corresponding Section</div>
         </div>  
         <div class="container" id="big-container">
             <div class="armor-container" id="armor-set"></div>
         </div>
-    </div>
-    <div style="position: absolute; top: 0px; right: 15px; width: 200px; height: 100px; ">
-        <button class="top-right-btn" id="sort-btn" onclick="sortWrapper()">SORT ALPHABETICALLY</button>
-        <button class="top-right-btn" id="switch-btn" onclick="switchToWrapper()">SWITCH TO OWNED HEAD ARMORS</button>
     </div>
     <script>
         let r = Math.floor(Math.random() * 12);
@@ -50,31 +46,48 @@
     <script src="itemGallary.js"></script>
     <script type="text/javascript">
         const load_json = JSON.parse(localStorage.getItem("save_json"));
-        let not_owned_headArmors = load_json["not-owned"]["armor"]["Head"];
-        let owned_headArmors = load_json["owned"]["armor"]["Head"];
-        const armor_db = JSON.parse(localStorage.getItem("armor_json"));
+        let not_owned_armaments = load_json["not-owned"]["armament"];
+        let owned_armaments = load_json["owned"]["armament"];
         let title = document.querySelector("#title");
-        loadItems("missed", owned_headArmors, not_owned_headArmors, "armor", armor_db);   
-        function sortWrapper() {
-            let current_indicator;
-            if (title.textContent.includes("OWNED")) {
-                current_indicator = "owned";
-            } else {
-                current_indicator = "missed";
+        loadArmaments(owned_armaments, not_owned_armaments);
+
+        function loadArmaments(owned_types, not_owned_types) {    
+            const container = document.querySelector("#armor-set");
+            if (owned_types.length != not_owned_types.length) {
+                alert("Save JSON corrupted!");
+                return;
             }
-            sort(current_indicator, owned_headArmors, not_owned_headArmors, "armor", armor_db);
-        }  
-        function switchToWrapper() {
-            let switchTo_indicator;
-            if (title.textContent.includes("OWNED")) {
-                switchTo_indicator = "missed";
-            } else {
-                switchTo_indicator = "owned";
+            const divTypeMap = new Map();
+            for (const [type_name, lst] of Object.entries(owned_types)) {
+                let repr = null;
+                if (lst.length != 0) {
+                    repr = lst[0];
+                } else {
+                    repr = not_owned_types[type_name][0];
+                }
+                if (repr != null) {
+                    const new_div = document.createElement("div");
+                
+                    // too lazy to create a new CSS, just use armor-occupied
+                    new_div.className = "armor-occupied";
+                    const cleanItemName = repr.replace(':', '');
+                    new_div.innerHTML = `<p>${type_name}</p> <img src="assets/img/armament/${cleanItemName}.webp" alt="${repr}">`;
+                    VanillaTilt.init(new_div, {
+                        startX: -15,
+                        // startY: -20,
+                        scale: "1.2",
+                        reset_to_start: true,
+                        max: 25,
+                        speed: 400
+                    });
+                    divTypeMap.set(new_div, type_name);
+                    new_div.addEventListener("click", ()=>{
+                        localStorage.setItem("weapon type", divTypeMap.get(new_div) + 's');
+                        location.href=`/weaponTemplate.html`;
+                    });
+                    container.appendChild(new_div);
+                }
             }
-            switchTo(switchTo_indicator, owned_headArmors, not_owned_headArmors, "armor", armor_db);
-            const switchBtn = document.querySelector("#switch-btn");
-            switchBtn.textContent = switchBtn.textContent.replace("ARMORS", "HEAD ARMORS");
-            title.textContent = title.textContent.replace("ARMORS", "HEAD ARMORS");
         }
     </script>
 </body>

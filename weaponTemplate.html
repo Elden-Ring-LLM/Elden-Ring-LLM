@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="webtitle"></title>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/patch.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    <script> 
+        document.querySelector("#webtitle").textContent = localStorage.getItem("weapon type");
+        localStorage.removeItem("weapon type");
+    </script>
+</head>
+<!-- <body style="background-image: url(assets/img/bg1.webp); background-size: 110%; filter: drop-shadow(100px);"> -->
+<body>
+    <div class="sidebar">
+        <img onclick="location.href='/index.html'" src="/images/eldenringicon.webp" alt="Sidebar Image" class="sidebar-image">
+        <button onclick="location.href='/llm.html'" class="search-button">
+            <img src="/images/whitesearch.png" alt="Search Icon" class="search-icon">
+        </button>
+        <button onclick="location.href='/profile.html'">Profile</button>
+        <button onclick="location.href='/weapons.html'">Weapons</button>
+        <button onclick="location.href='/metabuilds.html'">Meta Builds</button>
+        <button onclick="location.href='/armors.html'">Armors</button>
+        <button class="active" onclick="location.href='/armaments.html'">Armaments</button>
+        <button onclick="location.href='/talismans.html'">Talismans</button>
+        <button onclick="location.href='/incantations.html'">Incantations</button>
+        <button onclick="location.href='/magics.html'">Sorceries</button>
+        <button onclick="location.href='/spiritAshes.html'">Spirit Ashes</button>
+        <button onclick="location.href='/ashesOfWar.html'">Ashes of War</button>
+    </div>
+    <div class="main-content">
+        <div class="armor-title-container">
+            <h2 id="title">Player's MISSED </h2>
+            <div style="color:#da7d20;">Click The Sidebar Armaments Tab To Go Back</div>
+        </div>  
+        <div class="container" id="big-container">
+            <div class="armor-container" id="armor-set"></div>
+        </div>
+    </div>
+    <div style="position: absolute; top: 0px; right: 15px; width: 200px; height: 100px; ">
+        <button class="top-right-btn" id="sort-btn" onclick="sortWrapper()">SORT ALPHABETICALLY</button>
+        <button class="top-right-btn" id="switch-btn" onclick="switchToWrapper()">SWITCH TO OWNED </button>
+    </div>
+    <script>
+        let r = Math.floor(Math.random() * 12);
+        const body = document.getElementsByTagName("body")[0];
+        body.style.backgroundImage = `url(/assets/img/bg${r}.webp`;
+    </script>
+    <script src="/assets/js/script.js"></script>
+    <script type="text/javascript" src="/vanilla-tilt.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="/itemGallary.js"></script>
+    <script type="text/javascript">
+        const load_json = JSON.parse(localStorage.getItem("save_json"));
+        const webtitle_text = document.querySelector("#webtitle").textContent
+        const webtitle_s = webtitle_text.slice(0, -1);
+        let not_owned = load_json["not-owned"]["armament"][webtitle_s];
+        let owned = load_json["owned"]["armament"][webtitle_s];
+        const armament_DB = requestArmamentDB();
+        let title = document.querySelector("#title");
+        title.textContent = title.textContent + webtitle_text.toUpperCase();
+        let switchBtn = document.querySelector("#switch-btn");
+        switchBtn.textContent = switchBtn.textContent + webtitle_text.toUpperCase();
+        loadItems("missed", owned, not_owned, "armament", armament_DB);   
+        function sortWrapper() {
+            let current_indicator;
+            if (title.textContent.includes("OWNED")) {
+                current_indicator = "owned";
+            } else {
+                current_indicator = "missed";
+            }
+            sort(current_indicator, owned, not_owned, "armament", armament_DB);
+        }  
+        function switchToWrapper() {
+            let switchTo_indicator;
+            if (title.textContent.includes("OWNED")) {
+                switchTo_indicator = "missed";
+            } else {
+                switchTo_indicator = "owned";
+            }
+            switchTo(switchTo_indicator, owned, not_owned, "armament", armament_DB);
+            const switchBtn = document.querySelector("#switch-btn");
+            const webtitle = document.querySelector("#webtitle").textContent.toUpperCase();
+            switchBtn.textContent = switchBtn.textContent.replace("ARMAMENTS", webtitle);
+            title.textContent = title.textContent.replace("ARMAMENTS", webtitle);
+        }
+        function requestArmamentDB() {
+            let armament_db = null;
+            fetchJson("/erdb/json/armaments.json", function (data) {
+                armament_db = { ...data };
+            });
+            return armament_db;
+        }
+    </script>
+</body>
+</html>
