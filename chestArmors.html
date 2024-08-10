@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Incantations</title>
+    <title>Chest Armors</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="patch.css">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
@@ -18,40 +18,42 @@
         <button onclick="location.href='profile.html'">Profile</button>
         <button onclick="location.href='weapons.html'">Weapons</button>
         <button onclick="location.href='metabuilds.html'">Meta Builds</button>
-        <button onclick="location.href='armors.html'">Armors</button>
+        <button class="active" onclick="location.href='armors.html'">Armors</button>
         <button onclick="location.href='talismans.html'">Talismans</button>
-        <button class="active" onclick="location.href='incantations.html'">Incantations</button>
+        <button onclick="location.href='incantations.html'">Incantations</button>
         <button onclick="location.href='magics.html'">Sorceries</button>
         <button onclick="location.href='spiritAshes.html'">Spirit Ashes</button>
         <button onclick="location.href='ashesOfWar.html'">Ashes of War</button>
     </div>
     <div class="main-content">
         <div class="armor-title-container">
-            <h2 id="title">Player's MISSED INCANTATIONS</h2>
-        </div>
+            <h2 id="title">Player's MISSED CHEST ARMORS</h2>
+            <div style="color:#da7d20;">Click The Sidebar Armors Tab To Go Back</div>
+        </div>  
         <div class="container" id="big-container">
             <div class="armor-container" id="armor-set"></div>
         </div>
     </div>
     <div style="position: absolute; top: 0px; right: 15px; width: 200px; height: 100px; ">
         <button class="top-right-btn" id="sort-btn" onclick="sortWrapper()">SORT ALPHABETICALLY</button>
-        <button class="top-right-btn" id="switch-btn" onclick="switchToWrapper()">SWITCH TO OWNED MAGICS</button>
+        <button class="top-right-btn" id="switch-btn" onclick="switchToWrapper()">SWITCH TO OWNED CHEST ARMORS</button>
     </div>
     <script>
-        let r = Math.floor(Math.random() * 21);
-        document.getElementsByTagName("body")[0].style.backgroundImage = `url(assets/img/bg${r}.webp`;
+        let r = Math.floor(Math.random() * 12);
+        const body = document.getElementsByTagName("body")[0];
+        body.style.backgroundImage = `url(assets/img/bg${r}.webp`;
     </script>
     <script src="assets/js/script.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
     <script type="text/javascript" src="vanilla-tilt.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
     <script src="itemGallary.js"></script>
     <script type="text/javascript">
         const load_json = JSON.parse(localStorage.getItem("save_json"));
-        let not_owned_incantations = load_json["not-owned"]["magic"]["Incantation"];
-        let owned_incantations = load_json["owned"]["magic"]["Incantation"];
-        const spell_db = JSON.parse(localStorage.getItem("spell_json"));
+        let not_owned_chestArmors = load_json["not-owned"]["armor"]["Body"];
+        let owned_chestArmors = load_json["owned"]["armor"]["Body"];
+        const armor_db = JSON.parse(localStorage.getItem("armor_json"));
         let title = document.querySelector("#title");
-        loadItems("missed", owned_incantations, not_owned_incantations, "magic", spell_db);   
+        loadItems("missed", owned_chestArmors, not_owned_chestArmors, "armor", armor_db);   
         function sortWrapper() {
             let current_indicator;
             if (title.textContent.includes("OWNED")) {
@@ -59,7 +61,7 @@
             } else {
                 current_indicator = "missed";
             }
-            sort(current_indicator, owned_incantations, not_owned_incantations, "magic", spell_db);
+            sort(current_indicator, owned_chestArmors, not_owned_chestArmors, "armor", armor_db);
         }  
         function switchToWrapper() {
             let switchTo_indicator;
@@ -68,8 +70,10 @@
             } else {
                 switchTo_indicator = "owned";
             }
-            switchTo(switchTo_indicator, owned_incantations, not_owned_incantations, "magic", spell_db);
-            title.textContent = title.textContent.replace('MAGICS', 'INCANTATIONS');
+            switchTo(switchTo_indicator, owned_chestArmors, not_owned_chestArmors, "armor", armor_db);
+            const switchBtn = document.querySelector("#switch-btn");
+            switchBtn.textContent = switchBtn.textContent.replace("ARMORS", "CHEST ARMORS");
+            title.textContent = title.textContent.replace("ARMORS", "CHEST ARMORS");
         }
     </script>
 </body>
