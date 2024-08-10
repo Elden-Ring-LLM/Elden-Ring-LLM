@@ -27,13 +27,16 @@
     </div>
     <div class="main-content">
         <div class="armor-title-container">
-            <h2>Player's Missed Spirit Ashes</h2>
-        </div>
-        <div class="container">
-            <div class="armor-container" style="display: flex; padding-top: 15%; width: 100%; height: 100vh; justify-content: space-evenly; flex-wrap: wrap; overflow-y: auto" id="armor-set"></div>
+            <h2 id="title">Player's MISSED SPIRIT ASHES</h2>
+        </div>  
+        <div class="container" id="big-container">
+            <div class="armor-container" id="armor-set"></div>
         </div>
     </div>
-    <div style="display: flex; height: 10%; width:1%; justify-content: flex-end; padding-right: 10px;"><button class="sort-btn" onclick="sort()">SORT ALPHABETICALLY</button></div>
+    <div style="position: absolute; top: 0px; right: 15px; width: 200px; height: 100px; ">
+        <button class="top-right-btn" id="sort-btn" onclick="sortWrapper()">SORT ALPHABETICALLY</button>
+        <button class="top-right-btn" id="switch-btn" onclick="switchToWrapper()">SWITCH TO OWNED SPIRIT ASHES</button>
+    </div>
     <script>
         let r = Math.floor(Math.random() * 12);
         document.getElementsByTagName("body")[0].style.backgroundImage = `url(assets/img/bg${r}.webp`;
@@ -41,117 +44,34 @@
     <script src="assets/js/script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
     <script type="text/javascript" src="vanilla-tilt.js"></script>
+    <script src="itemGallary.js"></script>
     <script type="text/javascript">
         const load_json = JSON.parse(localStorage.getItem("save_json"));
-        const not_owned_incantations = load_json["not-owned"]["spiritAshes"];
-        console.log(not_owned_incantations);
-        loadIncantions(not_owned_incantations);
-    
-        function loadIncantions(incantation_names) {    
-            const incantation_container = document.querySelector("#armor-set");
-            for (let idx = 0; idx < incantation_names.length; idx++) {
-                const name = incantation_names[idx];
-                const new_div = document.createElement("div");
-                
-                // too lazy to create a new CSS, just use armor-occupied
-                new_div.className = "armor-occupied";
-                new_div.innerHTML = `<p>${name}</p> <img src="assets/img/spiritAshes/${name}.webp" alt="${name}">`;
-                VanillaTilt.init(new_div, {
-                    startX: -15,
-                    // startY: -20,
-                    scale: "1.2",
-                    reset_to_start: true,
-                    max: 25,
-                    speed: 400
-                });
-                new_div.addEventListener("click", ()=>{focus(name);});
-                incantation_container.appendChild(new_div);
+        let not_owned_spiritAshes = load_json["not-owned"]["spiritAshes"];
+        let owned_spiritAshes = load_json["owned"]["spiritAshes"];
+        const spiritAsh_db = JSON.parse(localStorage.getItem("spirit_ash_json"));
+        let title = document.querySelector("#title");
+        loadItems("missed", owned_spiritAshes, not_owned_spiritAshes, "spiritAshes", spiritAsh_db);   
+        function sortWrapper() {
+            let current_indicator;
+            if (title.textContent.includes("OWNED")) {
+                current_indicator = "owned";
+            } else {
+                current_indicator = "missed";
             }
-        }
-        
-        const spirit_db = JSON.parse(localStorage.getItem("spirit_ash_json"));
-        // console.log(spell_db);
-        async function focus(talisman_name) {
-            const containerDiv = document.querySelector(".container");
-            document.querySelector("#armor-set").style.display = "none";
-            const taliDiv = document.createElement("div");
-            taliDiv.className = 'items-container';
-            taliDiv.innerHTML = `<p style="font-weight:bold;">${talisman_name}</p>
-                    <img src="assets/img/spiritAshes/${talisman_name}.webp" height=300px width=300px alt='${talisman_name}'>
-                    <p style="color: #da7d20;">Click to Go Back</p>`;
-            taliDiv.addEventListener("click", ()=> {window.location.href="spiritAshes.html";});
-            taliDiv.style.width = "15%";
-            containerDiv.appendChild(taliDiv);
-    
-            let desc = "Mysterious DLC Armor";
-            if (talisman_name in spirit_db) {
-                desc = spirit_db[talisman_name]["description"].join(" ");
+            sort(current_indicator, owned_spiritAshes, not_owned_spiritAshes, "spiritAshes", spiritAsh_db);
+        }  
+        function switchToWrapper() {
+            let switchTo_indicator;
+            if (title.textContent.includes("OWNED")) {
+                switchTo_indicator = "missed";
+            } else {
+                switchTo_indicator = "owned";
             }
-            
-            async function getLoc() {
-                let llm_loc =  await fetch(
-                'https://noggin.rea.gent/quixotic-hippopotamus-8180',
-                {
-                    method: 'POST',
-                    headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: 'Bearer rg_v1_23875kejtov40kivlcwtsdqa2mmu5iz2y8bt_ngk',
-                    },
-                    body: JSON.stringify({
-                    // fill variables here.
-                    "item": "spirit ash: " + talisman_name,
-                    }),
-                }
-                ).then(response => response.text());
-                return llm_loc;
-            }
-    
-            const descrDiv = document.createElement("div");
-            descrDiv.style.width = "60%";
-            descrDiv.className = "items-container";
-            descrDiv.innerHTML = `<p class="items-title">LLM Spirit Ash</p>`;
-    
-            const sectionDiv = document.createElement("div");
-            sectionDiv.className = "items-section";
-    
-            const attrDiv = document.createElement("div");
-            attrDiv.className = "items";
-            attrDiv.innerHTML = `<p>Spirit Ash Description:</p> <p>LLM Generated Location:</p>`;
-            
-            const loadDiv = document.createElement("div");
-            loadDiv.className = "loaded-items";
-            loadDiv.innerHTML = `<p><span>${desc}</span></p> <p><span>Loading Location</span></p>`;
-            getLoc().then(loc => {
-                const link_start = loc.indexOf('[');
-                const link_end = loc.indexOf(']');
-                const pureDes = loc.slice(0, link_start);
-                const link = loc.slice(link_start + 1, link_end);
-                loadDiv.innerHTML = `<p><span>${desc}</span></p> <p><span>${pureDes}<a href='${link}' target='_blank'>${link}</a></span></p>`;
-            });
-            sectionDiv.appendChild(attrDiv);
-            sectionDiv.appendChild(loadDiv);
-            descrDiv.appendChild(sectionDiv);
-            containerDiv.appendChild(descrDiv);
-        }
-        function sort() {
-            confetti({
-            particleCount: 500,
-            startVelocity:70, 
-            gravity: 0.7, 
-            angle: -135,
-            spread: 90,
-            origin: { y: 0.1, x:0.9 },
-            colors: ['#f5d742'],
-            scalar: 5
-            });
-            const talimsans_container = document.querySelector("#armor-set");
-            if (talimsans_container.childElementCount != 0) {
-                while(talimsans_container.firstChild) { 
-                    talimsans_container.removeChild(talimsans_container.firstChild); 
-                }
-            } 
-            not_owned_incantations.sort();
-            loadIncantions(not_owned_incantations);
+            switchTo(switchTo_indicator, owned_spiritAshes, not_owned_spiritAshes, "spiritAshes", spiritAsh_db);
+            const switchBtn = document.querySelector("#switch-btn");
+            switchBtn.textContent = switchBtn.textContent.replace("SPIRITASHESS", "SPIRIT ASHES");
+            title.textContent = title.textContent.replace("SPIRITASHESS", "SPIRIT ASHES");
         }
     </script>
 </body>
