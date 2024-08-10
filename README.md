@@ -11,6 +11,7 @@ If you are a user who wants to open eldenringllm webapp while playing the game, 
 
 ## Video Overview
 [![Elden Ring LLM Overview](https://img.youtube.com/vi/9BtVaZcW7IQ/0.jpg)](https://youtu.be/9BtVaZcW7IQ)
+
 Click the image above to watch the video overview on YouTube.
 
 ## Special Thanks
