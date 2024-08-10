@@ -27,13 +27,16 @@
     </div>
     <div class="main-content">
         <div class="armor-title-container">
-            <h2>Player's Missed Ashes of War</h2>
-        </div>
-        <div class="container">
-            <div class="armor-container" style="display: flex; padding-top: 15%; width: 100%; height: 100vh; justify-content: space-evenly; flex-wrap: wrap; overflow-y: auto" id="armor-set"></div>
+            <h2 id="title">Player's MISSED ASHES OF WARS</h2>
+        </div>  
+        <div class="container" id="big-container">
+            <div class="armor-container" id="armor-set"></div>
         </div>
     </div>
-    <div style="display: flex; height: 10%; width:1%; justify-content: flex-end; padding-right: 10px;"><button class="sort-btn" onclick="sort()">SORT ALPHABETICALLY</button></div>
+    <div style="position: absolute; top: 0px; right: 15px; width: 200px; height: 100px; ">
+        <button class="top-right-btn" id="sort-btn" onclick="sortWrapper()">SORT ALPHABETICALLY</button>
+        <button class="top-right-btn" id="switch-btn" onclick="switchToWrapper()">SWITCH TO OWNED ASHES OF WAR</button>
+    </div>
     <script>
         let r = Math.floor(Math.random() * 12);
         document.getElementsByTagName("body")[0].style.backgroundImage = `url(assets/img/bg${r}.webp`;
@@ -41,123 +44,44 @@
     <script src="assets/js/script.js"></script>
     <script type="text/javascript" src="vanilla-tilt.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+    <script src="itemGallary.js"></script>
     <script type="text/javascript">
         const load_json = JSON.parse(localStorage.getItem("save_json"));
         const not_owned_dic = load_json["not-owned"]["ashesOfWar"];
+        const owned_dic = load_json["owned"]["ashesOfWar"]
         let not_owned_ashesOfWar = [];
         for (const [key, lst] of Object.entries(not_owned_dic)) {
             not_owned_ashesOfWar = not_owned_ashesOfWar.concat(lst);
         }
-        console.log(not_owned_ashesOfWar);
-        loadAshesOfWar(not_owned_ashesOfWar);
-    
-        function loadAshesOfWar(ash_name) {    
-            const ash_container = document.querySelector("#armor-set");
-            for (let idx = 0; idx < not_owned_ashesOfWar.length; idx++) {
-                const name = not_owned_ashesOfWar[idx];
-                const img_name = name.replace(':', '');
-                const new_div = document.createElement("div");
-                
-                // too lazy to create a new CSS, just use armor-occupied
-                new_div.className = "armor-occupied";
-                new_div.innerHTML = `<p>${name}</p> <img src="assets/img/ashesOfWar/${img_name}.webp" alt="${name}">`;
-                VanillaTilt.init(new_div, {
-                    startX: -15,
-                    // startY: -20,
-                    scale: "1.2",
-                    reset_to_start: true,
-                    max: 25,
-                    speed: 400
-                });
-                new_div.addEventListener("click", ()=>{focus(name);});
-                ash_container.appendChild(new_div);
-            }
+        let owned_ashesOfWar = [];
+        for (const [key, lst] of Object.entries(owned_dic)) {
+            owned_ashesOfWar = owned_ashesOfWar.concat(lst);
         }
-        
         const ash_db = JSON.parse(localStorage.getItem("ash_of_war_json"));
-        async function focus(ash_name) {
-            const containerDiv = document.querySelector(".container");
-            document.querySelector("#armor-set").style.display = "none";
-            const ashDiv = document.createElement("div");
-            ashDiv.className = 'items-container';
-            const img_name = ash_name.replace(':', '');
-            ashDiv.innerHTML = `<p style="font-weight:bold;">${ash_name}</p>
-                    <img src="assets/img/ashesOfWar/${img_name}.webp" height=300px width=300px alt='${ash_name}'>
-                    <p style="color: #da7d20;">Click to Go Back</p>`;
-            ashDiv.addEventListener("click", ()=> {window.location.href="ashesOfWar.html";});
-            ashDiv.style.width = '15%';
-            containerDiv.appendChild(ashDiv);
-    
-            let desc = "Mysterious DLC Armor";
-            if (ash_name in ash_db) {
-                desc = ash_db[ash_name]["description"].join(" ");
+        let title = document.querySelector("#title");
+        loadItems("missed", owned_ashesOfWar, not_owned_ashesOfWar, "ashesOfWar", ash_db);   
+        function sortWrapper() {
+            let current_indicator;
+            if (title.textContent.includes("OWNED")) {
+                current_indicator = "owned";
+            } else {
+                current_indicator = "missed";
             }
-            
-            async function getLoc() {
-                let llm_loc =  await fetch(
-                'https://noggin.rea.gent/quixotic-hippopotamus-8180',
-                {
-                    method: 'POST',
-                    headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: 'Bearer rg_v1_23875kejtov40kivlcwtsdqa2mmu5iz2y8bt_ngk',
-                    },
-                    body: JSON.stringify({
-                    // fill variables here.
-                    "item": "Ash of War: " + ash_name,
-                    }),
-                }
-                ).then(response => response.text());
-                return llm_loc;
+            sort(current_indicator, owned_ashesOfWar, not_owned_ashesOfWar, "ashesOfWar", ash_db);
+        }  
+        function switchToWrapper() {
+            let switchTo_indicator;
+            if (title.textContent.includes("OWNED")) {
+                switchTo_indicator = "missed";
+            } else {
+                switchTo_indicator = "owned";
             }
-    
-            const descrDiv = document.createElement("div");
-            descrDiv.style.width = "60%";
-            descrDiv.className = "items-container";
-            descrDiv.innerHTML = `<p class="items-title">LLM Ash of War</p>`;
-    
-            const sectionDiv = document.createElement("div");
-            sectionDiv.className = "items-section";
-    
-            const attrDiv = document.createElement("div");
-            attrDiv.className = "items";
-            attrDiv.innerHTML = `<p>Ash of War Description:</p> <p>LLM Generated Location:</p>`;
-            
-            const loadDiv = document.createElement("div");
-            loadDiv.className = "loaded-items";
-            loadDiv.innerHTML = `<p><span>${desc}</span></p> <p><span>Loading Location</span></p>`;
-            getLoc().then(loc => {
-                const link_start = loc.indexOf('[');
-                const link_end = loc.indexOf(']');
-                const pureDes = loc.slice(0, link_start);
-                const link = loc.slice(link_start + 1, link_end);
-                loadDiv.innerHTML = `<p><span>${desc}</span></p> <p><span>${pureDes}<a href='${link}' target='_blank'>${link}</a></span></p>`;
-            });
-            sectionDiv.appendChild(attrDiv);
-            sectionDiv.appendChild(loadDiv);
-            descrDiv.appendChild(sectionDiv);
-            containerDiv.appendChild(descrDiv);
+            switchTo(switchTo_indicator, owned_ashesOfWar, not_owned_ashesOfWar, "ashesOfWar", ash_db);
+            const switchBtn = document.querySelector("#switch-btn");
+            switchBtn.textContent = switchBtn.textContent.replace('ASHESOFWAR', 'ASHES OF WAR');
+            title.textContent = title.textContent.replace('ASHESOFWAR', 'ASHES OF WAR');
         }
-        function sort() {
-            confetti({
-            particleCount: 500,
-            startVelocity:70, 
-            gravity: 0.7, 
-            angle: -135,
-            spread: 90,
-            origin: { y: 0.1, x:0.9 },
-            colors: ['#f5d742'],
-            scalar: 5
-            });
-            const talimsans_container = document.querySelector("#armor-set");
-            if (talimsans_container.childElementCount != 0) {
-                while(talimsans_container.firstChild) { 
-                    talimsans_container.removeChild(talimsans_container.firstChild); 
-                }
-            } 
-            not_owned_ashesOfWar.sort();
-            loadAshesOfWar(not_owned_ashesOfWar);
-        }
+
     </script>
 </body>
 </html>

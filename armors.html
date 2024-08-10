@@ -30,7 +30,7 @@
             <h2>Player's Equipped Armors</h2>
         </div>
         <div class="container">
-            <div class="armor-container" style="display: flex; width: 70%; height: 50%; justify-content: center ;flex-wrap: wrap" id="armor-set">
+            <div style="display: flex; width: 70%; height: 50%; justify-content: center ;flex-wrap: wrap" id="armor-set">
                 <div class="armor-occupied" id="head-occupied">
                     <p id="head-name">Head</p>
                     <img src="assets/img/armor/Alberich's Bracers.webp" alt="head" id="head-armor">
@@ -54,6 +54,7 @@
     </div>
     <script src="assets/js/script.js"></script>
     <script type="text/javascript" src="vanilla-tilt.js"></script>
+    <script src="itemGallary.js"></script>
     <script type="text/javascript">
         let r = Math.floor(Math.random() * 21);
         document.getElementsByTagName("body")[0].style.backgroundImage = `url(assets/img/bg${r}.webp`;
@@ -113,25 +114,6 @@
             if (armor_name in armor_db) {
                 desc = armor_db[armor_name]["description"].join(" ");
             }
-
-            async function getPoem() {
-                let llm_desc = await fetch(
-                'https://noggin.rea.gent/sticky-woodpecker-4218',
-                {
-                    method: 'POST',
-                    headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: 'Bearer rg_v1_b7a5rrqswt9tg9qdahg0aynqwo43ynl4284c_ngk',
-                    },
-                    body: JSON.stringify({
-                    // fill variables here.
-                    "name": armor_name,
-                    "desc": desc,
-                    }),
-                }
-                ).then(response => response.text());
-                return llm_desc;
-            }
             const descrDiv = document.createElement("div");
             descrDiv.style.width = "60%";
             descrDiv.className = "items-container";
@@ -152,12 +134,12 @@
             sectionDiv.appendChild(loadDiv);
             descrDiv.appendChild(sectionDiv);
             containerDiv.appendChild(descrDiv);
-            getPoem().then(poem => {
+            getPoem("armor", armor_name, desc).then(poem => {
                 loadDiv.innerHTML = `<p><span>${desc}</span></p> <p><span>${poem}</span></p>`;
             });
             descrDiv.addEventListener("click", ()=> {
                 loadDiv.innerHTML = `<p><span>${desc}</span></p> <p><span>Loading a New Poem...</span></p>`;
-                getPoem().then(poem => {
+                getPoem("armor", armor_name, desc).then(poem => {
                 loadDiv.innerHTML = `<p><span>${desc}</span></p> <p><span>${poem}</span></p>`;
             });
             });
