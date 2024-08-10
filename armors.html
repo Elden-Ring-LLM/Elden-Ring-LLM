@@ -28,36 +28,43 @@
     <div class="main-content">
         <div class="armor-title-container">
             <h2>Player's Equipped Armors</h2>
+            <div style="color:#da7d20;" id="title-hint">Click Each Armor to Go To Corresponding Section</div>
         </div>
         <div class="container">
             <div style="display: flex; width: 70%; height: 50%; justify-content: center ;flex-wrap: wrap" id="armor-set">
                 <div class="armor-occupied" id="head-occupied">
                     <p id="head-name">Head</p>
-                    <img src="assets/img/armor/Alberich's Bracers.webp" alt="head" id="head-armor">
+                    <img src="images/loading.gif" alt="head" id="head-armor">
                 </div>
                 <div class="armor-occupied" id="chest-occupied">
                     <p id="chest-name">Chest</p>
-                    <img src="assets/img/armor/Alberich's Bracers.webp" alt="chest" id="chest-armor">        
+                    <img src="images/loading.gif" alt="chest" id="chest-armor">        
                 </div>
                 <div class="armor-occupied" id="arm-occupied">
                     <p id="arm-name">Arm</p>
-                    <img src="assets/img/armor/Alberich's Bracers.webp" alt="arm" id="arm-armor">
+                    <img src="images/loading.gif" alt="arm" id="arm-armor">
                     
                 </div>
                 <div class="armor-occupied" id="leg-occupied">
                     <p id="leg-name">Leg</p>
-                    <img src="assets/img/armor/Alberich's Bracers.webp" alt="leg" id="leg-armor">
+                    <img src="images/loading.gif" alt="leg" id="leg-armor">
                     
                 </div>
             </div>
         </div>
     </div>
+    <div style="position: absolute; top: 0px; right: 15px; width: 200px; height: 100px;">
+        <button class="top-right-btn" id="jump-btn" style="display: none;"></button>
+    </div>
+    <script>
+        let r = Math.floor(Math.random() * 12);
+        const body = document.getElementsByTagName("body")[0];
+        body.style.backgroundImage = `url(assets/img/bg${r}.webp`;
+    </script>
     <script src="assets/js/script.js"></script>
     <script type="text/javascript" src="vanilla-tilt.js"></script>
     <script src="itemGallary.js"></script>
     <script type="text/javascript">
-        let r = Math.floor(Math.random() * 21);
-        document.getElementsByTagName("body")[0].style.backgroundImage = `url(assets/img/bg${r}.webp`;
         function addTiltAnimation() {
             VanillaTilt.init(document.querySelector("#head-occupied"), {
                 startX: -15,
@@ -97,6 +104,11 @@
         const armor_db = JSON.parse(localStorage.getItem("armor_json"));
         link();
         async function focus(armor) {
+            document.querySelector("#title-hint").style.display = "none";
+            const topRightBtn = document.querySelector("#jump-btn");
+            topRightBtn.style.display = "block";
+            topRightBtn.textContent = `SWITCH TO NOT-OWNED ${armor.toUpperCase()} ARMORS`;
+            topRightBtn.addEventListener("click", ()=>{location.href=`${armor}Armors.html`;});
             const containerDiv = document.querySelector(".container");
             document.querySelector("#armor-set").style.display = "none";
             const armorDiv = document.createElement("div");
