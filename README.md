@@ -13,6 +13,8 @@ Include huamn feedback cycle for LLM
 
 Include Boss Review page
 
+Better websocket and fix getSaveFileFromListening
+
 ~~Better Location LLM Engine~~
 
 ~~Scraped Location Data~~
@@ -30,7 +32,7 @@ Include Boss Review page
 It is https secure even if you intentionally input http://eldenringllm.app
 
 ## localhost version
-If you are a user who wants to open eldenringllm webapp while playing the game, use this version. 404WebSocket.html shows you how to do it.
+If you are a user who wants to open eldenringllm webapp while playing the game, use this version. 404WebSocket.html shows you how to do it. This feature is kind of out of date, and might be buggy on pages.
 
 ## Video Overview
 [![Elden Ring LLM Overview](https://img.youtube.com/vi/9BtVaZcW7IQ/0.jpg)](https://youtu.be/9BtVaZcW7IQ)
