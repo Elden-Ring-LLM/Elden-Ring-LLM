@@ -2,6 +2,27 @@
 
 Pls try using different branches to prevent conflicts
 
+## Action Items
+RLHF on a llama model exclusively for Elden Ring LLM
+
+Include context cycle for LLM
+
+Include LLM history
+
+Include huamn feedback cycle for LLM
+
+~~Better Location LLM Engine~~
+
+~~Scraped Location Data~~
+
+~~Include owned incantations/sorceries~~
+
+~~Include owned incantations/sorceries~~
+
+~~Include All Armors~~
+
+~~Add Sorting Buttons~~
+
 ## Online version Domain Name
 [eldenringllm.app](https://eldenringllm.app/)
 It is https secure even if you intentionally input http://eldenringllm.app
