@@ -1,19 +1,25 @@
 async function getLoc(item_type, name_str) {
-    let llm_loc =  await fetch(
-    'https://noggin.rea.gent/quixotic-hippopotamus-8180',
-    {
+    let locs = JSON.parse(localStorage.getItem("itemLocation_json"));
+    let reference = " ";
+    if (name_str in locs) {
+        reference = locs[name_str]["Location"];
+    }
+    const response = await fetch(
+        'https://noggin.rea.gent/quixotic-hippopotamus-8180',
+        {
         method: 'POST',
         headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer rg_v1_23875kejtov40kivlcwtsdqa2mmu5iz2y8bt_ngk',
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer rg_v1_23875kejtov40kivlcwtsdqa2mmu5iz2y8bt_ngk',
         },
         body: JSON.stringify({
-        // fill variables here.
-        "item": `${item_type}: ` + name_str,
+            // fill variables here.
+            "item": `${item_type}: ` + name_str,
+            "reference": reference,
         }),
-    }
+        }
     ).then(response => response.text());
-    return llm_loc;
+    return response;
 }
 
 async function getPoem(item_type, name_str, desc) {

@@ -49,6 +49,7 @@
         <div>
     </div>
     <script src="/jQuery.js"></script>
+    <script src="/itemGallary.js"></script>
     <script>
         let r = Math.floor(Math.random() * 21);
         document.getElementsByTagName("body")[0].style.backgroundImage = `url(assets/img/bg${r}.webp`;
@@ -243,6 +244,22 @@
                     }),
                 }
                 ).then(response => response.text());
+            } else if (classifiedGenre == "item location query") {
+                query_response = await fetch(
+                'https://noggin.rea.gent/general-stingray-7364',
+                {
+                    method: 'POST',
+                    headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer rg_v1_3t0w00tdjfde6a3gruuogozflvhcar94ok3v_ngk',
+                    },
+                    body: JSON.stringify({
+                    // fill variables here.
+                    "question": userInput,
+                    }),
+                }
+                ).then(response => response.text());
+                AI_response = `I can try to find ${query_response} for you`;
             } else {
                 AI_response = "Feature not enabled yet";
             }
@@ -298,6 +315,15 @@
                     } else if (classifiedGenre == "talisman json query") {
                         let talisman_json = JSON.parse(localStorage.getItem("talisman_json"));
                         ans = queryData(talisman_json, query_response);
+                    } else if (classifiedGenre == "item location query") {
+                        ans = "Loading Location of Acquisition";
+                        getLoc("", query_response).then(loc => {
+                            const link_start = loc.indexOf('[');
+                            const link_end = loc.indexOf(']');
+                            const pureDes = loc.slice(0, link_start);
+                            const link = loc.slice(link_start + 1, link_end);
+                            queriedMessage.innerHTML = `<span class="message-label">🤖:</span> Queried Result: ${pureDes}<a href='${link}' target='_blank'>${link}</a>`;
+                        });
                     }
                     queriedMessage.innerHTML = `<span class="message-label">🤖:</span> Queried Result: ${ans}.`;
                 }
