@@ -149,20 +149,24 @@
             if (profile_name) {
                 document.getElementById('profile-details').innerText = profile_name;
                 document.getElementById('profile-name').innerText = load_json.character;// import fetch from 'node-fetch'; // for node.js
-                const des_response = await fetch(
-                'https://noggin.rea.gent/interim-snake-6461',
-                {
-                    method: 'POST',
-                    headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: 'Bearer rg_v1_drqp15czshygzmospyxgrjdhq71avb51dfw8_ngk',
-                    },
-                    body: JSON.stringify({
-                    // fill variables here.
-                    "attributes": localStorage.getItem("stats"),
-                    }),
+                let des_response = localStorage.getItem('profile description');
+                if (des_response == null) {
+                    des_response = await fetch(
+                    'https://noggin.rea.gent/interim-snake-6461',
+                    {
+                        method: 'POST',
+                        headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: 'Bearer rg_v1_drqp15czshygzmospyxgrjdhq71avb51dfw8_ngk',
+                        },
+                        body: JSON.stringify({
+                        // fill variables here.
+                        "attributes": localStorage.getItem("stats"),
+                        }),
+                    }
+                    ).then(response => response.text());
+                    localStorage.setItem('profile description', des_response);
                 }
-                ).then(response => response.text());
                 const typewriterElement = document.getElementById('profile-description');
                 let index = 0;
                 function typeWriter() {
