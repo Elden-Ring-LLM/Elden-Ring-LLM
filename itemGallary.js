@@ -1,4 +1,4 @@
-async function getLoc(item_type, name_str) {
+async function getLoc(desc, item_type, name_str) {
     let locs = JSON.parse(localStorage.getItem("itemLocation_json"));
     let reference = " ";
     if (name_str in locs) {
@@ -15,7 +15,7 @@ async function getLoc(item_type, name_str) {
         body: JSON.stringify({
             // fill variables here.
             "item": `${item_type}: ` + name_str,
-            "reference": reference,
+            "reference": reference + desc,
         }),
         }
     ).then(response => response.text());
@@ -133,7 +133,7 @@ async function focus(item_name, indicator, owned_items, not_owned_items, item_ty
         });
     } else {
         loadDiv.innerHTML = `<p><span>${desc}</span></p> <p><span>Loading Location</span></p>`;
-        getLoc(item_type, item_name,).then(loc => {
+        getLoc(desc, item_type, item_name,).then(loc => {
         const link_start = loc.indexOf('[');
         const link_end = loc.indexOf(']');
         const pureDes = loc.slice(0, link_start);

@@ -259,7 +259,7 @@
                     }),
                 }
                 ).then(response => response.text());
-                AI_response = `I can try to find ${query_response} for you`;
+                AI_response = `I can try to find ${query_response} for you. Due to lack of context, chatbot's location finder typically works worse than LLM location generators in each tab on the sidebar.`;
             } else {
                 AI_response = "Feature not enabled yet";
             }
@@ -317,7 +317,7 @@
                         ans = queryData(talisman_json, query_response);
                     } else if (classifiedGenre == "item location query") {
                         ans = "Loading Location of Acquisition";
-                        getLoc("", query_response).then(loc => {
+                        getLoc("", "", query_response).then(loc => {
                             const link_start = loc.indexOf('[');
                             const link_end = loc.indexOf(']');
                             const pureDes = loc.slice(0, link_start);
