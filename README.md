@@ -11,13 +11,15 @@ Include LLM history
 
 Include huamn feedback cycle for LLM
 
+Include Boss Review page
+
 ~~Better Location LLM Engine~~
 
 ~~Scraped Location Data~~
 
 ~~Include owned incantations/sorceries~~
 
-~~Include owned incantations/sorceries~~
+~~Include owned Ashes of War/spirit Ashes~~
 
 ~~Include All Armors~~
 
