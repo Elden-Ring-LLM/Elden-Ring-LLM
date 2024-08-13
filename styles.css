@@ -997,13 +997,14 @@ button:hover {
     text-shadow: 0 1px 1px rgba(0, 0, 0, .2);
     max-width: 60%;
     align-self: flex-start;
+    word-wrap: break-word;
     /* color: black;
     padding: 10px;
     border-radius: 8px;
     margin: 5px 0;
     align-self: flex-start;
     max-width: 60%;
-    word-wrap: break-word;
+    
     display: block;
     text-align: left; */
 }
