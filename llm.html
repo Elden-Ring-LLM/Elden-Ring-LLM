@@ -142,6 +142,7 @@
                 }
                 ).then(response => response.json());
                 let reference = "";
+                await sysMessage("Facebook AI Similarity Search Finished. Now generating response...");
                 for (let i = 0; i < retrival_count; i++) {
                     const retrieved_doc = faiss[i].pageContent;
                     reference += retrieved_doc + " ";
@@ -406,7 +407,7 @@
         }
 
         setTimeout(() => {
-            sysMessage("I'm still evolving, please ask something simple. Most of time, I even forget what you said just one second ago, just be more specifc.");
+            sysMessage("I'm still evolving, please ask something simple. Most of time, I even forget what you said just one second ago, just be more specifc. Elden Ring Pre-DLC Lore FAISS module added, and feel free to ask pre-DLC lores.");
         }, 500);
 
         setTimeout(() => {
@@ -418,7 +419,7 @@
         }, 1500);
 
         setTimeout(() => {
-            sysMessage("Sample question: where can I find Messmer?");
+            sysMessage("Sample question: How is the fire giant related to frenzied flame?");
         }, 2000);
         setTimeout(() => {
             sysMessage("Sample question: how many hours have I played the game?");
