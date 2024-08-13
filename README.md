@@ -15,6 +15,8 @@ Include Boss Review page
 
 Better websocket and fix getSaveFileFromListening
 
+~~FAISS on Elden Ring Story, 💪LLM general bot~~ 
+
 ~~Better Location LLM Engine~~
 
 ~~Scraped Location Data~~
