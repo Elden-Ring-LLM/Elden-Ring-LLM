@@ -123,17 +123,42 @@
                 }
                 ).then(response => response.text());
             } else if (classifiedGenre == "general") {
-                // import fetch from 'node-fetch'; // for node.js
+                // Here comes a true wonder
+                // Original general question bot is a piece of shit
+                // Tony scraped reddit discussions on elden ring lore
+                // FAISS(facebook similarity search) deployed on Heroku
+                const retrival_count = 2;
+                const faiss = await fetch(
+                'https://evening-gorge-01907-fa2a07c259fd.herokuapp.com/similarity-search', 
+                {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    query: userInput,
+                    topK: retrival_count
+                })
+                }
+                ).then(response => response.json());
+                let reference = "";
+                for (let i = 0; i < retrival_count; i++) {
+                    const retrieved_doc = faiss[i].pageContent;
+                    reference += retrieved_doc + " ";
+                    console.log(retrieved_doc);
+                }
+                console.log(reference);
                 AI_response = await fetch(
-                'https://noggin.rea.gent/bold-shark-9312',
+                'https://noggin.rea.gent/national-bobcat-8283',
                 {
                     method: 'POST',
                     headers: {
                     'Content-Type': 'application/json',
-                    Authorization: 'Bearer rg_v1_015clmtso5vle9wjfryoercion1lwrg0ue49_ngk',
+                    Authorization: 'Bearer rg_v1_13pitt27dmfpqpjgsi0ql4oz5k71j8dnfuak_ngk',
                     },
                     body: JSON.stringify({
                     // fill variables here.
+                    "reference": reference,
                     "question": userInput,
                     }),
                 }
