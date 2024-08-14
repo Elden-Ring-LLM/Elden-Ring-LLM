@@ -168,7 +168,7 @@
                         }),
                     }
                     ).then(response => response.text());
-                } else if (classifiedGenre == "unrelated") {
+                } else if (classifiedGenre == "unrelated" || userInput == "out of context error") {
                     AI_response = "I don't know how to answer it. Ask something related to Elden Ring";
                 } else if (classifiedGenre == "armor json query") {
                     AI_response = await fetch(
@@ -291,6 +291,8 @@
                     ).then(response => response.text());
                     AI_response = `I can try to find ${query_response} for you. Due to lack of context, chatbot's location finder typically works worse than LLM location generators in each tab on the sidebar.`;
                 } else if (classifiedGenre == "context based query") {
+                    const conversations = conversation_history.join("; ");
+                    console.log(conversations);
                     const userInputRemake = await fetch(
                     'https://noggin.rea.gent/integrated-bear-4209',
                     {
@@ -301,13 +303,12 @@
                         },
                         body: JSON.stringify({
                         // fill variables here.
-                        "context": conversation_history.join(";"),
+                        "context": conversations,
                         }),
                     }
                     ).then(response => response.text());
                     AI_response = `User input is changed to: ${userInputRemake}`;
-                    conversation_history.pop();
-                    console.log(conversation_history);
+                    
                     respond(userInputRemake);
                 } else {
                     AI_response = "Feature not enabled yet";
@@ -449,7 +450,7 @@
         }
 
         setTimeout(() => {
-            sysMessage("I'm still evolving, please ask something simple. Most of time, I even forget what you said just one second ago, just be more specifc. Elden Ring Pre-DLC Lore FAISS module added, and feel free to ask pre-DLC lores.");
+            sysMessage("I'm still evolving, please ask something simple. Most of time, I even forget what you said just one second ago, just be more specifc. Elden Ring Lore FAISS module added. Feel free to ask lores.");
         }, 500);
 
         setTimeout(() => {
