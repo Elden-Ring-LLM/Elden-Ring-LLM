@@ -17,6 +17,8 @@ Include backend Tavily search for online query
 
 Better websocket and fix getSaveFileFromListening
 
+~~Added a contexxt interpreter into the chatbot~~
+
 ~~FAISS on Elden Ring Story, 💪LLM general bot~~ 
 
 ~~Better Location LLM Engine~~
