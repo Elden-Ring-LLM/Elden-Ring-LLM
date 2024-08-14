@@ -53,6 +53,7 @@
     <script>
         let r = Math.floor(Math.random() * 21);
         document.getElementsByTagName("body")[0].style.backgroundImage = `url(assets/img/bg${r}.webp`;
+        let conversation_history = [];
         // Get the input field
         var input = document.getElementById("user-input");
         
@@ -83,281 +84,322 @@
             chatWindow.appendChild(userMessage);
             chatWindow.scrollTop = chatWindow.scrollHeight;
 
-            const classifiedGenre = await userInputGenreClassiifer(userInput);
-            const classifierMessage = document.createElement('div');
-            classifierMessage.className = 'bot-message';
-            classifierMessage.innerHTML = `<span class="message-label">🤖:</span> Question Genre: ${classifiedGenre}.`;
-            classifierMessage.classList.add('bounce-new-bot-msg');
-            chatWindow.appendChild(classifierMessage);
-            chatWindow.scrollTop = chatWindow.scrollHeight;
+            conversation_history.push(`User: ${userInput}`);
+            respond(userInput);
+            async function respond(userInput) {
+                const classifiedGenre = await userInputGenreClassiifer(userInput);
+                const classifierMessage = document.createElement('div');
+                classifierMessage.className = 'bot-message';
+                classifierMessage.innerHTML = `<span class="message-label">🤖:</span> Question Genre: ${classifiedGenre}.`;
+                classifierMessage.classList.add('bounce-new-bot-msg');
+                chatWindow.appendChild(classifierMessage);
+                chatWindow.scrollTop = chatWindow.scrollHeight;
 
-            let AI_response = null;
-            let query_response = null;
-            if (classifiedGenre == "user json query") {
-                AI_response = await fetch(
-                'https://noggin.rea.gent/central-earwig-5504',
-                {
-                    method: 'POST',
-                    headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: 'Bearer rg_v1_qb9zvgjo1rjionk08p5r1nigoas0m38t07mn_ngk',
-                    },
-                    body: JSON.stringify({
-                    // fill variables here.
-                    "question": userInput,
-                    }),
-                }
-                ).then(response => response.text());
-                query_response = await fetch(
-                'https://noggin.rea.gent/rational-hoverfly-1365',
-                {
-                    method: 'POST',
-                    headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: 'Bearer rg_v1_r5wyb05f4eygkrufetdk8qppktn6mj4mcmhk_ngk',
-                    },
-                    body: JSON.stringify({
-                    // fill variables here.
-                    "question": userInput,
-                    }),
-                }
-                ).then(response => response.text());
-            } else if (classifiedGenre == "general") {
-                // Here comes a true wonder
-                // Original general question bot is a piece of shit
-                // Tony scraped reddit discussions on elden ring lore
-                // FAISS(facebook similarity search) deployed on Heroku
-                const retrival_count = 2;
-                const faiss = await fetch(
-                'https://evening-gorge-01907-fa2a07c259fd.herokuapp.com/similarity-search', 
-                {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    query: userInput,
-                    topK: retrival_count
-                })
-                }
-                ).then(response => response.json());
-                let reference = "";
-                await sysMessage("Facebook AI Similarity Search Finished. Now generating response...");
-                for (let i = 0; i < retrival_count; i++) {
-                    const retrieved_doc = faiss[i].pageContent;
-                    reference += retrieved_doc + " ";
-                    console.log(retrieved_doc);
-                }
-                console.log(reference);
-                AI_response = await fetch(
-                'https://noggin.rea.gent/national-bobcat-8283',
-                {
-                    method: 'POST',
-                    headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: 'Bearer rg_v1_13pitt27dmfpqpjgsi0ql4oz5k71j8dnfuak_ngk',
-                    },
-                    body: JSON.stringify({
-                    // fill variables here.
-                    "reference": reference,
-                    "question": userInput,
-                    }),
-                }
-                ).then(response => response.text());
-            } else if (classifiedGenre == "unrelated") {
-                AI_response = "I don't know how to answer it. Ask something related to Elden Ring";
-            } else if (classifiedGenre == "armor json query") {
-                AI_response = await fetch(
-                'https://noggin.rea.gent/overwhelming-cow-6482',
-                {
-                    method: 'POST',
-                    headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: 'Bearer rg_v1_931hvbth5ovtr7wev1qrk63hfq6tkulgyxh7_ngk',
-                    },
-                    body: JSON.stringify({
-                    // fill variables here.
-                    "question": userInput,
-                    }),
-                }
-                ).then(response => response.text());
-
-                query_response = await fetch(
-                'https://noggin.rea.gent/smoggy-hedgehog-7522',
-                {
-                    method: 'POST',
-                    headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: 'Bearer rg_v1_azfkr5y2l7h0ocq228wbqi6olf5xhhcg4v3a_ngk',
-                    },
-                    body: JSON.stringify({
-                    // fill variables here.
-                    "question": userInput,
-                    }),
-                }
-                ).then(response => response.text());
-            } else if (classifiedGenre == "armament json query") {
-                AI_response = await fetch(
-                'https://noggin.rea.gent/alleged-wallaby-4588',
-                {
-                    method: 'POST',
-                    headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: 'Bearer rg_v1_p7pmw95sa0vru4ah3513w6flz1w9umdsl6t9_ngk',
-                    },
-                    body: JSON.stringify({
-                    // fill variables here.
-                    "question": userInput,
-                    }),
-                }
-                ).then(response => response.text());
-                query_response = await fetch(
-                'https://noggin.rea.gent/manual-sloth-3200',
-                {
-                    method: 'POST',
-                    headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: 'Bearer rg_v1_gf5tep3d4ody50g0grid1h3vf25w9gdfl89g_ngk',
-                    },
-                    body: JSON.stringify({
-                    // fill variables here.
-                    "question": userInput,
-                    }),
-                }
-                ).then(response => response.text());
-            } else if (classifiedGenre == "image query") {
-                query_response = await fetch(
-                'https://noggin.rea.gent/acute-impala-4844',
-                {
-                    method: 'POST',
-                    headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: 'Bearer rg_v1_ghhoa8vlw8g5lc8opq611d0e749fg4ifb8cq_ngk',
-                    },
-                    body: JSON.stringify({
-                    // fill variables here.
-                    "question": userInput,
-                    }),
-                }
-                ).then(response => response.text());
-                AI_response = "I'm loading image of " + query_response;
-            } else if (classifiedGenre == "talisman json query") {
-                query_response = await fetch(
-                'https://noggin.rea.gent/powerful-porpoise-5068',
-                {
-                    method: 'POST',
-                    headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: 'Bearer rg_v1_ntvi6hhjctemwew49vo728e6ynskkdpnpk7u_ngk',
-                    },
-                    body: JSON.stringify({
-                    // fill variables here.
-                    "question": userInput,
-                    }),
-                }
-                ).then(response => response.text());
-                AI_response = await fetch(
-                'https://noggin.rea.gent/definite-horse-1060',
-                {
-                    method: 'POST',
-                    headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: 'Bearer rg_v1_87ukppi2eczrin7ytp96t9hl8fptnuk6r0xs_ngk',
-                    },
-                    body: JSON.stringify({
-                    // fill variables here.
-                    "question": userInput,
-                    }),
-                }
-                ).then(response => response.text());
-            } else if (classifiedGenre == "item location query") {
-                query_response = await fetch(
-                'https://noggin.rea.gent/general-stingray-7364',
-                {
-                    method: 'POST',
-                    headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: 'Bearer rg_v1_3t0w00tdjfde6a3gruuogozflvhcar94ok3v_ngk',
-                    },
-                    body: JSON.stringify({
-                    // fill variables here.
-                    "question": userInput,
-                    }),
-                }
-                ).then(response => response.text());
-                AI_response = `I can try to find ${query_response} for you. Due to lack of context, chatbot's location finder typically works worse than LLM location generators in each tab on the sidebar.`;
-            } else {
-                AI_response = "Feature not enabled yet";
-            }
-
-            const botMessage = document.createElement('div');
-            botMessage.className = 'bot-message';
-            if (classifiedGenre != 'general') {
-                botMessage.innerHTML = `<span class="message-label">🤖:</span> ${AI_response}...`;
-            } else {
-                const link_start = AI_response.indexOf('[');
-                const link_end = AI_response.indexOf(']');
-                const pureDes = AI_response.slice(0, link_start);
-                const link = AI_response.slice(link_start + 1, link_end);
-                botMessage.innerHTML = `<span class="message-label">🤖:</span>${pureDes}<a href='${link}' target='_blank'>Click Here to Learn More</a>`;
-            }
-            
-            botMessage.classList.add('bounce-new-bot-msg');
-            chatWindow.appendChild(botMessage);
-            chatWindow.scrollTop = chatWindow.scrollHeight;
-
-            let armament_json = null;
-            fetchJson("erdb/json/armaments.json", function (data) {
-                armament_json = { ...data };
-            });
-            if (query_response != null) {
-                const queriedMessage = document.createElement('div');
-                queriedMessage.className = 'bot-message';
-                if (query_response == "none") {
-                    queriedMessage.innerHTML = `<span class="message-label">🤖:</span> 😥 I Can't retrieve relevant info.`;
-                } else {
-                    let ans = null; 
-                    console.log(query_response);
-                    if (classifiedGenre == "user json query") {
-                        ans = queryData(save_json, query_response);
-                    } else if (classifiedGenre == "armor json query") {
-                        let armor_json = JSON.parse(localStorage.getItem("armor_json"));
-                        ans = queryData(armor_json, query_response);
-                    } else if (classifiedGenre == "armament json query") {
-                        // let armament_json = JSON.parse(localStorage.getItem("armament_json"));
-                        // console.log(armament_json);
-                        ans = queryData(armament_json, query_response);
-                    } else if (classifiedGenre == "image query") {
-                        const img_link = 'assets/img/' + query_response + '.webp';
-                        const imgMessage = document.createElement('div');
-                        imgMessage.className = 'bot-message';
-                        imgMessage.innerHTML = `<span class="message-label">🤖:</span> <img src="${img_link}" width="100" height="100">`;
-                        // console.log(img_link);
-                        imgMessage.classList.add('bounce-new-bot-msg');
-                        document.getElementById('chat-window').appendChild(imgMessage);
-                        chatWindow.scrollTop = chatWindow.scrollHeight;
-                        // document.getElementById("chat-window").style.background = img_link;
-                        ans = "Image Loaded";
-                    } else if (classifiedGenre == "talisman json query") {
-                        let talisman_json = JSON.parse(localStorage.getItem("talisman_json"));
-                        ans = queryData(talisman_json, query_response);
-                    } else if (classifiedGenre == "item location query") {
-                        ans = "Loading Location of Acquisition";
-                        getLoc("", "", query_response).then(loc => {
-                            const link_start = loc.indexOf('[');
-                            const link_end = loc.indexOf(']');
-                            const pureDes = loc.slice(0, link_start);
-                            const link = loc.slice(link_start + 1, link_end);
-                            queriedMessage.innerHTML = `<span class="message-label">🤖:</span> Queried Result: ${pureDes}<a href='${link}' target='_blank'>Click Here to Learn More</a>`;
-                        });
+                let AI_response = null;
+                let query_response = null;
+                if (classifiedGenre == "user json query") {
+                    AI_response = await fetch(
+                    'https://noggin.rea.gent/central-earwig-5504',
+                    {
+                        method: 'POST',
+                        headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: 'Bearer rg_v1_qb9zvgjo1rjionk08p5r1nigoas0m38t07mn_ngk',
+                        },
+                        body: JSON.stringify({
+                        // fill variables here.
+                        "question": userInput,
+                        }),
                     }
-                    queriedMessage.innerHTML = `<span class="message-label">🤖:</span> Queried Result: ${ans}.`;
+                    ).then(response => response.text());
+                    query_response = await fetch(
+                    'https://noggin.rea.gent/rational-hoverfly-1365',
+                    {
+                        method: 'POST',
+                        headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: 'Bearer rg_v1_r5wyb05f4eygkrufetdk8qppktn6mj4mcmhk_ngk',
+                        },
+                        body: JSON.stringify({
+                        // fill variables here.
+                        "question": userInput,
+                        }),
+                    }
+                    ).then(response => response.text());
+                } else if (classifiedGenre == "general") {
+                    // Here comes a true wonder
+                    // Original general question bot is a piece of shit
+                    // Tony scraped reddit discussions on elden ring lore
+                    // FAISS(facebook similarity search) deployed on Heroku
+                    const retrival_count = 2;
+                    const faiss = await fetch(
+                    'https://evening-gorge-01907-fa2a07c259fd.herokuapp.com/similarity-search', 
+                    {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        query: userInput,
+                        topK: retrival_count
+                    })
+                    }
+                    ).then(response => response.json());
+                    let reference = "";
+                    await sysMessage("Facebook AI Similarity Search Finished. Now generating response...");
+                    for (let i = 0; i < retrival_count; i++) {
+                        const retrieved_doc = faiss[i].pageContent;
+                        reference += retrieved_doc + " ";
+                        console.log(retrieved_doc);
+                    }
+                    console.log(reference);
+                    AI_response = await fetch(
+                    'https://noggin.rea.gent/national-bobcat-8283',
+                    {
+                        method: 'POST',
+                        headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: 'Bearer rg_v1_13pitt27dmfpqpjgsi0ql4oz5k71j8dnfuak_ngk',
+                        },
+                        body: JSON.stringify({
+                        // fill variables here.
+                        "reference": reference,
+                        "question": userInput,
+                        }),
+                    }
+                    ).then(response => response.text());
+                } else if (classifiedGenre == "unrelated") {
+                    AI_response = "I don't know how to answer it. Ask something related to Elden Ring";
+                } else if (classifiedGenre == "armor json query") {
+                    AI_response = await fetch(
+                    'https://noggin.rea.gent/overwhelming-cow-6482',
+                    {
+                        method: 'POST',
+                        headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: 'Bearer rg_v1_931hvbth5ovtr7wev1qrk63hfq6tkulgyxh7_ngk',
+                        },
+                        body: JSON.stringify({
+                        // fill variables here.
+                        "question": userInput,
+                        }),
+                    }
+                    ).then(response => response.text());
+
+                    query_response = await fetch(
+                    'https://noggin.rea.gent/smoggy-hedgehog-7522',
+                    {
+                        method: 'POST',
+                        headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: 'Bearer rg_v1_azfkr5y2l7h0ocq228wbqi6olf5xhhcg4v3a_ngk',
+                        },
+                        body: JSON.stringify({
+                        // fill variables here.
+                        "question": userInput,
+                        }),
+                    }
+                    ).then(response => response.text());
+                } else if (classifiedGenre == "armament json query") {
+                    AI_response = await fetch(
+                    'https://noggin.rea.gent/alleged-wallaby-4588',
+                    {
+                        method: 'POST',
+                        headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: 'Bearer rg_v1_p7pmw95sa0vru4ah3513w6flz1w9umdsl6t9_ngk',
+                        },
+                        body: JSON.stringify({
+                        // fill variables here.
+                        "question": userInput,
+                        }),
+                    }
+                    ).then(response => response.text());
+                    query_response = await fetch(
+                    'https://noggin.rea.gent/manual-sloth-3200',
+                    {
+                        method: 'POST',
+                        headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: 'Bearer rg_v1_gf5tep3d4ody50g0grid1h3vf25w9gdfl89g_ngk',
+                        },
+                        body: JSON.stringify({
+                        // fill variables here.
+                        "question": userInput,
+                        }),
+                    }
+                    ).then(response => response.text());
+                } else if (classifiedGenre == "image query") {
+                    query_response = await fetch(
+                    'https://noggin.rea.gent/acute-impala-4844',
+                    {
+                        method: 'POST',
+                        headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: 'Bearer rg_v1_ghhoa8vlw8g5lc8opq611d0e749fg4ifb8cq_ngk',
+                        },
+                        body: JSON.stringify({
+                        // fill variables here.
+                        "question": userInput,
+                        }),
+                    }
+                    ).then(response => response.text());
+                    AI_response = "I'm loading image of " + query_response;
+                } else if (classifiedGenre == "talisman json query") {
+                    query_response = await fetch(
+                    'https://noggin.rea.gent/powerful-porpoise-5068',
+                    {
+                        method: 'POST',
+                        headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: 'Bearer rg_v1_ntvi6hhjctemwew49vo728e6ynskkdpnpk7u_ngk',
+                        },
+                        body: JSON.stringify({
+                        // fill variables here.
+                        "question": userInput,
+                        }),
+                    }
+                    ).then(response => response.text());
+                    AI_response = await fetch(
+                    'https://noggin.rea.gent/definite-horse-1060',
+                    {
+                        method: 'POST',
+                        headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: 'Bearer rg_v1_87ukppi2eczrin7ytp96t9hl8fptnuk6r0xs_ngk',
+                        },
+                        body: JSON.stringify({
+                        // fill variables here.
+                        "question": userInput,
+                        }),
+                    }
+                    ).then(response => response.text());
+                } else if (classifiedGenre == "item location query") {
+                    query_response = await fetch(
+                    'https://noggin.rea.gent/general-stingray-7364',
+                    {
+                        method: 'POST',
+                        headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: 'Bearer rg_v1_3t0w00tdjfde6a3gruuogozflvhcar94ok3v_ngk',
+                        },
+                        body: JSON.stringify({
+                        // fill variables here.
+                        "question": userInput,
+                        }),
+                    }
+                    ).then(response => response.text());
+                    AI_response = `I can try to find ${query_response} for you. Due to lack of context, chatbot's location finder typically works worse than LLM location generators in each tab on the sidebar.`;
+                } else if (classifiedGenre == "context based query") {
+                    const userInputRemake = await fetch(
+                    'https://noggin.rea.gent/integrated-bear-4209',
+                    {
+                        method: 'POST',
+                        headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: 'Bearer rg_v1_qcqeyp14osp8kj0z22sxiy64hwng7rhw5d4o_ngk',
+                        },
+                        body: JSON.stringify({
+                        // fill variables here.
+                        "context": conversation_history.join(";"),
+                        }),
+                    }
+                    ).then(response => response.text());
+                    AI_response = `User input is changed to: ${userInputRemake}`;
+                    conversation_history.pop();
+                    console.log(conversation_history);
+                    respond(userInputRemake);
+                } else {
+                    AI_response = "Feature not enabled yet";
                 }
-                queriedMessage.classList.add('bounce-new-bot-msg');
-                chatWindow.appendChild(queriedMessage);
+
+                const botMessage = document.createElement('div');
+                botMessage.className = 'bot-message';
+                if (classifiedGenre != 'general') {
+                    botMessage.innerHTML = `<span class="message-label">🤖:</span> ${AI_response}...`;
+                    conversation_history.push(`Bot: ${AI_response}`);
+                    if (conversation_history.length >= 10) {
+                        conversation_history.shift()
+                    }
+                } else {
+                    const link_start = AI_response.indexOf('[');
+                    const link_end = AI_response.indexOf(']');
+                    const pureDes = AI_response.slice(0, link_start);
+                    const link = AI_response.slice(link_start + 1, link_end);
+                    botMessage.innerHTML = `<span class="message-label">🤖:</span>${pureDes}<a href='${link}' target='_blank'>Click Here to Learn More</a>`;
+                    conversation_history.push(`Bot: ${pureDes}`);
+                    if (conversation_history.length >= 10) {
+                        conversation_history.shift()
+                    }
+                }
+                
+                botMessage.classList.add('bounce-new-bot-msg');
+                chatWindow.appendChild(botMessage);
+                chatWindow.scrollTop = chatWindow.scrollHeight;
+
+                let armament_json = null;
+                fetchJson("erdb/json/armaments.json", function (data) {
+                    armament_json = { ...data };
+                });
+                if (query_response != null) {
+                    const queriedMessage = document.createElement('div');
+                    queriedMessage.className = 'bot-message';
+                    if (query_response == "none") {
+                        queriedMessage.innerHTML = `<span class="message-label">🤖:</span> 😥 I Can't retrieve relevant info.`;
+                    } else {
+                        let ans = null; 
+                        console.log(query_response);
+                        if (classifiedGenre == "user json query") {
+                            ans = queryData(save_json, query_response);
+                        } else if (classifiedGenre == "armor json query") {
+                            let armor_json = JSON.parse(localStorage.getItem("armor_json"));
+                            ans = queryData(armor_json, query_response);
+                        } else if (classifiedGenre == "armament json query") {
+                            // let armament_json = JSON.parse(localStorage.getItem("armament_json"));
+                            // console.log(armament_json);
+                            ans = queryData(armament_json, query_response);
+                        } else if (classifiedGenre == "image query") {
+                            const img_link = 'assets/img/' + query_response + '.webp';
+                            const imgMessage = document.createElement('div');
+                            imgMessage.className = 'bot-message';
+                            imgMessage.innerHTML = `<span class="message-label">🤖:</span> <img src="${img_link}" width="100" height="100">`;
+                            // console.log(img_link);
+                            imgMessage.classList.add('bounce-new-bot-msg');
+                            document.getElementById('chat-window').appendChild(imgMessage);
+                            chatWindow.scrollTop = chatWindow.scrollHeight;
+                            // document.getElementById("chat-window").style.background = img_link;
+                            ans = "Image Loaded";
+                        } else if (classifiedGenre == "talisman json query") {
+                            let talisman_json = JSON.parse(localStorage.getItem("talisman_json"));
+                            ans = queryData(talisman_json, query_response);
+                        } else if (classifiedGenre == "item location query") {
+                            ans = "Loading Location of Acquisition";
+                            getLoc("", "", query_response).then(loc => {
+                                const link_start = loc.indexOf('[');
+                                const link_end = loc.indexOf(']');
+                                const pureDes = loc.slice(0, link_start);
+                                const link = loc.slice(link_start + 1, link_end);
+                                queriedMessage.innerHTML = `<span class="message-label">🤖:</span> Queried Result: ${pureDes}<a href='${link}' target='_blank'>Click Here to Learn More</a>`;
+                                chatWindow.scrollTop = chatWindow.scrollHeight;
+                                conversation_history.pop();
+                                conversation_history.push(`Queried Result: ${pureDes}`);
+                                if (conversation_history.length >= 10) {
+                                    conversation_history.shift()
+                                }
+                            });
+                        }
+                        queriedMessage.innerHTML = `<span class="message-label">🤖:</span> Queried Result: ${ans}.`;
+                        conversation_history.push(`Queried Result: ${ans}`);
+                        if (conversation_history.length >= 10) {
+                            conversation_history.shift()
+                        }
+                    }
+                    queriedMessage.classList.add('bounce-new-bot-msg');
+                    chatWindow.appendChild(queriedMessage);
+                }
+                document.getElementById('user-input').value = "";
+                chatWindow.scrollTop = chatWindow.scrollHeight;
             }
-            document.getElementById('user-input').value = "";
-            chatWindow.scrollTop = chatWindow.scrollHeight;
         }
         async function userInputGenreClassiifer(user_input) {
             const response = await fetch(
