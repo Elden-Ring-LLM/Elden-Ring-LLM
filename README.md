@@ -5,9 +5,9 @@ Pls try using different branches to prevent conflicts
 ## Tony's Action Items
 RLHF on a llama model exclusively for Elden Ring LLM
 
-Include context cycle for LLM
+~~Include context cycle for LLM~~
 
-Include LLM history
+~~Include LLM history~~
 
 Include huamn feedback cycle for LLM
 
