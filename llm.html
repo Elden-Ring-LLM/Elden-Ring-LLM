@@ -299,7 +299,7 @@
                 const link_end = AI_response.indexOf(']');
                 const pureDes = AI_response.slice(0, link_start);
                 const link = AI_response.slice(link_start + 1, link_end);
-                botMessage.innerHTML = `<span class="message-label">🤖:</span>${pureDes}<a href='${link}' target='_blank'>${link}</a>`;
+                botMessage.innerHTML = `<span class="message-label">🤖:</span>${pureDes}<a href='${link}' target='_blank'>Click Here to Learn More</a>`;
             }
             
             botMessage.classList.add('bounce-new-bot-msg');
@@ -348,7 +348,7 @@
                             const link_end = loc.indexOf(']');
                             const pureDes = loc.slice(0, link_start);
                             const link = loc.slice(link_start + 1, link_end);
-                            queriedMessage.innerHTML = `<span class="message-label">🤖:</span> Queried Result: ${pureDes}<a href='${link}' target='_blank'>${link}</a>`;
+                            queriedMessage.innerHTML = `<span class="message-label">🤖:</span> Queried Result: ${pureDes}<a href='${link}' target='_blank'>Click Here to Learn More</a>`;
                         });
                     }
                     queriedMessage.innerHTML = `<span class="message-label">🤖:</span> Queried Result: ${ans}.`;
