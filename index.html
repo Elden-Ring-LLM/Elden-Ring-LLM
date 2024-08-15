@@ -210,9 +210,11 @@
         <hr style="margin-top: 100px" />
       </div>
     </div>
-    <div style="position: absolute; bottom: 0px; right: 0px; width: 5%; height: 10%;">
-      <div class="icon-btn"id="github-icon">
-        <img src="images/github-icon.png" width="50px">
+    <div style="position: absolute; bottom: 1%; right: 1%; width: 10%">
+      <div class="icon-btn">
+        <div>
+          <a href="https://github.com/Elden-Ring-LLM/Elden-Ring-LLM"><img src="images/github-icon.png" width="60%" id="github-icon"></a>
+        </div>
       </div>
     </div>
 
@@ -226,28 +228,11 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.9/jquery.lazy.plugins.min.js"></script>
 
     <script>
-      document.querySelector("#github-icon").addEventListener("click", ()=>{window.open('https://github.com/Elden-Ring-LLM/Elden-Ring-LLM','_blank');});
       if (localStorage.getItem("character")) {
         const quickStartBtn = document.getElementById("quickStart");
         quickStartBtn.textContent = `Welcom Back ${localStorage.getItem("character")}`;
       } else {
         document.getElementById("restart").style.display = "none";
-      }
-      function getFromRedditApi(id, url, field) {
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", url);
-
-        xhr.setRequestHeader("Accept", "application/json");
-
-        let sub0;
-        xhr.onreadystatechange = function () {
-          if (xhr.readyState === 4) {
-            sub0 = JSON.parse(xhr.response)["data"][field];
-            $(id).text(nFormatter(sub0, 1));
-          }
-        };
-
-        xhr.send();
       }
     </script>
     <script>
@@ -302,8 +287,6 @@
         };
         reader.readAsArrayBuffer(file);
       });
-
-
     </script>
   </body>
 </html>
