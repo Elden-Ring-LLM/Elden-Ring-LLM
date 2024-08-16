@@ -541,13 +541,14 @@ function get_stats(file_read, char_slot) {
       const stamina = get_stats_from_slot(start_ind, 16, 3);
       const fp = get_stats_from_slot(start_ind, 32, 3);
       const attrs = get_stats_from_slot(start_ind, 0, 12);
-      const souls = l_endian(slot1.slice(start_ind + 48, start_ind + 48 + 4))
-      const souls_memory = l_endian(slot1.slice(start_ind + 48 + 4, start_ind + 48 + 8))
+      const souls = l_endian(slot1.slice(start_ind + 48, start_ind + 48 + 4));
+      const souls_memory = l_endian(slot1.slice(start_ind + 48 + 4, start_ind + 48 + 8));
+      const class_idx = l_endian(slot1.slice(start_ind + 48 + 4 + 79, start_ind + 48 + 4 + 80));
       const stats_names = ["HP", "max HP", "base max HP", "Stamina", "max Stamina", "base max Stamina", "FP", "max FP", "base max FP", 
                           "Vigor", "Mind", "Endurance", "Strength", "Dexterity", "Intelligence", "Faith", "Arcane", "Placeholder Addr1", "Placeholder Addr2", 
-                          "Placeholder Addr3", "level", "souls", "souls memory"];
+                          "Placeholder Addr3", "level", "souls", "souls memory", "class_idx"];
       let stats = {};
-      const concat_lst = [...hp, ...stamina, ...fp, ...attrs, souls, souls_memory];
+      const concat_lst = [...hp, ...stamina, ...fp, ...attrs, souls, souls_memory, class_idx];
       // console.log(hp);
       for (let i = 0; i < stats_names.length; i++) {
         let stats_name = stats_names[i];
