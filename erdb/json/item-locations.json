@@ -32,6 +32,9 @@
   "Rotten Winged Sword Insignia": {
     "Location": "Earned after choosing to assist Millicent and successfully defeat her sisters."
   },
+  "Winged Greathorn": {
+    "Location": "Obtained when unlocking the Remembrance of the Regal Ancestor's power by handing it over to Enia at Roundtable Hold."
+  },
   "Shard of Alexander": {
     "Location": "Drops from Iron Fist Alexander after completing his questline."
   },
@@ -812,6 +815,9 @@
   "Borealis's Mist": {
     "Location": "Can be purchased at the Dragon Communion Altar at the Cathedral of Dragon Communion. Players need to defeat Borealis the Freezing Fog in order to unlock this Incantation."
   },
+  "Executioner's Greataxe": {
+    "Location": "Can be dropped by Skeletons using this weapon."
+  },
   "Burn, O Flame!": {
     "Location": "Trade Remembrance of the Fire Giant with Enia at Roundtable Hold."
   },
@@ -1165,6 +1171,9 @@
   },
   "Kick": {
     "Location": "Sold by Knight Bernahl at the Warmaster's Shack for 800 . Elden Ring Map Link.\n Can be purchased from Twin Maiden Husks at the Roundtable Hold after giving them Bernahl's Bell Bearing."
+  },
+  "Rusted Anchor": {
+    "Location": "Drops from the Scaly Misbegotten boss in Morne Tunnel."
   },
   "Lightning Ram": {
     "Location": "It can be found at Altus Plateau, just south of Sainted Hero's Grave. It drops from a Teardrop Scarab in the area. Elden Ring Map Link."

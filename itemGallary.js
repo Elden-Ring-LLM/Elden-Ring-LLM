@@ -1,8 +1,13 @@
 async function getLoc(desc, item_type, name_str) {
     let locs = JSON.parse(localStorage.getItem("itemLocation_json"));
+    let weaponLocs = JSON.parse(localStorage.getItem("weaponLocation_json"));
     let reference = " ";
     if (name_str in locs) {
         reference = locs[name_str]["Location"];
+    } else {
+        if (name_str in weaponLocs) {
+            reference = weaponLocs[name_str]["location"];
+        }
     }
     const response = await fetch(
         'https://noggin.rea.gent/quixotic-hippopotamus-8180',

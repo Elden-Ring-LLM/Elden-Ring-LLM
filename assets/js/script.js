@@ -19,6 +19,7 @@ let spells_dictionary = null;
 let spiritAshes_dictionary = null;
 let ashesOfWar_dictionary = null;
 let locations_dictionary = null;
+let weapon_locations = null;
 
 function pushNotification(txt) {
   const notification = new Notification("Elden Ring LLM", {
@@ -175,6 +176,7 @@ function getSaveFileFromUploading() {
       localStorage.setItem("spirit_ash_json", JSON.stringify(spiritAshes_dictionary, null, 2));
       localStorage.setItem("ash_of_war_json", JSON.stringify(ashesOfWar_dictionary, null, 2));
       localStorage.setItem("itemLocation_json", JSON.stringify(locations_dictionary, null, 2));
+      localStorage.setItem("weaponLocation_json", JSON.stringify(weapon_locations, null, 2));
       window.location.href = 'profile.html';
       pushNotification(`Welcome back ${jsonObject.character}! Your save file is successfully loaded! You can start playing your Elden Ring, and we are actively monitoring your save file.🫡`);
     }
@@ -324,6 +326,10 @@ function getJsonFiles() {
 
   fetchJson("erdb/json/item-locations.json", function (data) {
     locations_dictionary = { ...data };
+  });
+
+  fetchJson("erdb/json/weapon-locations.json", function (data) {
+    weapon_locations = { ...data };
   });
 }
 
