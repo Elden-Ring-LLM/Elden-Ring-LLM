@@ -27,6 +27,14 @@ function pushNotification(txt) {
   });
 }
 
+async function updateLog() {
+  return await fetch(
+    'https://evening-gorge-01907-fa2a07c259fd.herokuapp.com/', 
+    {
+      method: 'POST',
+    }).then(response => response.json());
+}
+
 function isValidJSON(data) {
   try {
       JSON.parse(data);
