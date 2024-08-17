@@ -129,6 +129,12 @@ function getSaveFileFromListening() {
   };
 }
 
+function startDownloadJson() {
+  console.log("Retrieving relevant JSON files");
+  getJsonFiles();
+  console.log("Relevant JSON files retrieved");
+}
+
 function getSaveFileFromUploading() {
   if (window.localStorage.length != 0) {
     localStorage.clear();
@@ -146,7 +152,7 @@ function getSaveFileFromUploading() {
       alert("Is your Save File corrupted?");
       return;
     }
-    getJsonFiles();
+    // getJsonFiles();
     result = getOwnedAndNot(file_read, selected_slot);
     if (result["worked"]) {
       let jsonObject = {
@@ -189,7 +195,7 @@ function calculate() {
   let options = $("#slot_selector option:selected");
   let selected_slot = options[0].value;
   localStorage.setItem("selected_slot", selected_slot);
-  getJsonFiles();
+  // getJsonFiles();
   result = getOwnedAndNot(file_read, selected_slot);
   if (result["worked"]) {
     // $("#owned").load("page_parts.html #owned_section", () => {

@@ -240,6 +240,7 @@
       function connectToServer() {
           getSaveFileFromListening();
       }
+      document.querySelector("#savefile").addEventListener("click", ()=>{startDownloadJson()});
 
       function allowNotifications() {
         if (!("Notification" in window)) {
