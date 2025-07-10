@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Talismans</title>
+    <title>Leg Armors</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="patch.css">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
@@ -18,9 +18,9 @@
         <button onclick="location.href='profile.html'">Profile</button>
         <button onclick="location.href='weapons.html'">Weapons</button>
         <button onclick="location.href='metabuilds.html'">Meta Builds</button>
-        <button onclick="location.href='armors.html'">Armors</button>
+        <button class="active" onclick="location.href='armors.html'">Armors</button>
         <button onclick="location.href='armaments.html'">Armaments</button>
-        <button class="active" onclick="location.href='talismans.html'">Talismans</button>
+        <button onclick="location.href='talismans.html'">Talismans</button>
         <button onclick="location.href='incantations.html'">Incantations</button>
         <button onclick="location.href='magics.html'">Sorceries</button>
         <button onclick="location.href='spiritAshes.html'">Spirit Ashes</button>
@@ -28,7 +28,8 @@
     </div>
     <div class="main-content">
         <div class="armor-title-container">
-            <h2 id="title">Player's MISSED TALISMANS</h2>
+            <h2 id="title">Player's MISSED LEG ARMORS</h2>
+            <div style="color:#da7d20;">Click The Sidebar Armors Tab To Go Back</div>
         </div>  
         <div class="container" id="big-container">
             <div class="armor-container" id="armor-set"></div>
@@ -36,7 +37,7 @@
     </div>
     <div style="position: absolute; top: 0px; right: 15px; width: 200px; height: 100px; ">
         <button class="top-right-btn" id="sort-btn" onclick="sortWrapper()">SORT ALPHABETICALLY</button>
-        <button class="top-right-btn" id="switch-btn" onclick="switchToWrapper()">SWITCH TO OWNED ASHES OF WAR</button>
+        <button class="top-right-btn" id="switch-btn" onclick="switchToWrapper()">SWITCH TO OWNED LEG ARMORS</button>
     </div>
     <script>
         let r = Math.floor(Math.random() * 12);
@@ -49,11 +50,11 @@
     <script src="itemGallary.js"></script>
     <script type="text/javascript">
         const load_json = JSON.parse(localStorage.getItem("save_json"));
-        let not_owned_talismans = load_json["not-owned"]["talisman"];
-        let owned_talismans = load_json["owned"]["talisman"];
-        const talisman_db = JSON.parse(localStorage.getItem("talisman_json"));
+        let not_owned_legArmors = load_json["not-owned"]["armor"]["Legs"];
+        let owned_legArmors = load_json["owned"]["armor"]["Legs"];
+        const armor_db = JSON.parse(localStorage.getItem("armor_json"));
         let title = document.querySelector("#title");
-        loadItems("missed", owned_talismans, not_owned_talismans, "talisman", talisman_db);   
+        loadItems("missed", owned_legArmors, not_owned_legArmors, "armor", armor_db);   
         function sortWrapper() {
             let current_indicator;
             if (title.textContent.includes("OWNED")) {
@@ -61,7 +62,7 @@
             } else {
                 current_indicator = "missed";
             }
-            sort(current_indicator, owned_talismans, not_owned_talismans, "talisman", talisman_db);
+            sort(current_indicator, owned_legArmors, not_owned_legArmors, "armor", armor_db);
         }  
         function switchToWrapper() {
             let switchTo_indicator;
@@ -70,7 +71,10 @@
             } else {
                 switchTo_indicator = "owned";
             }
-            switchTo(switchTo_indicator, owned_talismans, not_owned_talismans, "talisman", talisman_db);
+            switchTo(switchTo_indicator, owned_legArmors, not_owned_legArmors, "armor", armor_db);
+            const switchBtn = document.querySelector("#switch-btn");
+            switchBtn.textContent = switchBtn.textContent.replace("ARMORS", "LEG ARMORS");
+            title.textContent = title.textContent.replace("ARMORS", "LEG ARMORS");
         }
     </script>
 </body>

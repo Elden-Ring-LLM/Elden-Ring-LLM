@@ -18,6 +18,8 @@ let listened_save_file = null;
 let spells_dictionary = null;
 let spiritAshes_dictionary = null;
 let ashesOfWar_dictionary = null;
+let locations_dictionary = null;
+let weapon_locations = null;
 
 function pushNotification(txt) {
   const notification = new Notification("Elden Ring LLM", {
@@ -162,6 +164,9 @@ function getSaveFileFromUploading() {
       save_json = JSON.stringify(jsonObject, null, 2);
       localStorage.setItem("save_json", save_json);
       localStorage.setItem("character", jsonObject.character);
+      
+      localStorage.setItem("profile_name", jsonObject.character);
+      // console.log("Profile Name:", profile_name);
       // localStorage.setItem("equippedArmor", jsonObject.equippedArmor);
       localStorage.setItem("stats", JSON.stringify(jsonObject.stats));
       localStorage.setItem("armor_json", JSON.stringify(armors_dictionary, null, 2));
@@ -170,7 +175,8 @@ function getSaveFileFromUploading() {
       localStorage.setItem("spell_json", JSON.stringify(spells_dictionary, null, 2));
       localStorage.setItem("spirit_ash_json", JSON.stringify(spiritAshes_dictionary, null, 2));
       localStorage.setItem("ash_of_war_json", JSON.stringify(ashesOfWar_dictionary, null, 2));
-      // console.log(localStorage.getItem("spell_json"));
+      localStorage.setItem("itemLocation_json", JSON.stringify(locations_dictionary, null, 2));
+      localStorage.setItem("weaponLocation_json", JSON.stringify(weapon_locations, null, 2));
       window.location.href = 'profile.html';
       pushNotification(`Welcome back ${jsonObject.character}! Your save file is successfully loaded! You can start playing your Elden Ring, and we are actively monitoring your save file.🫡`);
     }
@@ -316,6 +322,14 @@ function getJsonFiles() {
 
   fetchJson("erdb/json/ashes-of-war.json", function (data) {
     ashesOfWar_dictionary = { ...data };
+  });
+
+  fetchJson("erdb/json/item-locations.json", function (data) {
+    locations_dictionary = { ...data };
+  });
+
+  fetchJson("erdb/json/weapon-locations.json", function (data) {
+    weapon_locations = { ...data };
   });
 }
 
@@ -533,13 +547,14 @@ function get_stats(file_read, char_slot) {
       const stamina = get_stats_from_slot(start_ind, 16, 3);
       const fp = get_stats_from_slot(start_ind, 32, 3);
       const attrs = get_stats_from_slot(start_ind, 0, 12);
-      const souls = l_endian(slot1.slice(start_ind + 48, start_ind + 48 + 4))
-      const souls_memory = l_endian(slot1.slice(start_ind + 48 + 4, start_ind + 48 + 8))
+      const souls = l_endian(slot1.slice(start_ind + 48, start_ind + 48 + 4));
+      const souls_memory = l_endian(slot1.slice(start_ind + 48 + 4, start_ind + 48 + 8));
+      const class_idx = l_endian(slot1.slice(start_ind + 48 + 4 + 79, start_ind + 48 + 4 + 80));
       const stats_names = ["HP", "max HP", "base max HP", "Stamina", "max Stamina", "base max Stamina", "FP", "max FP", "base max FP", 
                           "Vigor", "Mind", "Endurance", "Strength", "Dexterity", "Intelligence", "Faith", "Arcane", "Placeholder Addr1", "Placeholder Addr2", 
-                          "Placeholder Addr3", "level", "souls", "souls memory"];
+                          "Placeholder Addr3", "level", "souls", "souls memory", "class_idx"];
       let stats = {};
-      const concat_lst = [...hp, ...stamina, ...fp, ...attrs, souls, souls_memory];
+      const concat_lst = [...hp, ...stamina, ...fp, ...attrs, souls, souls_memory, class_idx];
       // console.log(hp);
       for (let i = 0; i < stats_names.length; i++) {
         let stats_name = stats_names[i];
