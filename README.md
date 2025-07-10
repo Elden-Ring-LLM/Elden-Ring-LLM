@@ -7,7 +7,7 @@ You can find your own savefile here:
 C:\Users\{USERNAME}\AppData\Roaming\EldenRing\{YOUR_STEAM_ID}\ER0000.sl2
 
 Or you can use our provided savefile to play around:
-
+[📥 Download Provided Savefile](https://github.com/Elden-Ring-LLM/Elden-Ring-LLM/raw/main/ER0000.sl2)
 
 ## Online version Domain Name
 [https://elden-ring-llm.github.io/Elden-Ring-LLM/](https://elden-ring-llm.github.io/Elden-Ring-LLM/)
